@@ -3,6 +3,7 @@
 namespace ChurchCRM\Slim\Middleware\Api;
 
 use ChurchCRM\model\ChurchCRM\FamilyQuery;
+use ChurchCRM\Service\UserGroupScopeService;
 
 class FamilyMiddleware extends AbstractEntityMiddleware
 {
@@ -18,7 +19,18 @@ class FamilyMiddleware extends AbstractEntityMiddleware
 
     protected function loadEntity(string $id): mixed
     {
-        return FamilyQuery::create()->findPk((int) $id);
+        $familyId = (int) $id;
+        $family = FamilyQuery::create()->findPk($familyId);
+        if ($family === null) {
+            return null;
+        }
+
+        $scopeService = new UserGroupScopeService();
+        if (!$scopeService->canAccessFamilyId($familyId)) {
+            return null;
+        }
+
+        return $family;
     }
 
     protected function getNotFoundMessage(): string

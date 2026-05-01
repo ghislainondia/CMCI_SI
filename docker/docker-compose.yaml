@@ -3,11 +3,14 @@ services:
     profiles: [dev, test, ci]
     image: mariadb:10.11
     ports:
-      - ${DATABASE_PORT:-3306}:3306
+      - ${DATABASE_PORT:-3307}:3306
     env_file:
       - .env
+      - .env.local
     volumes:
       - ../cypress/data:/docker-entrypoint-initdb.d
+      - mariadb_data:/var/lib/mysql
+      - ./migrations:/docker-entrypoint-initdb.d/99-migrations
     hostname: crm-database
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -18,8 +21,8 @@ services:
     profiles: [dev, test]
     image: axllent/mailpit:latest
     ports:
-      - ${MAILSERVER_PORT:-1025}:1025
-      - ${MAILSERVER_GUI_PORT:-8025}:8025
+      - ${MAILSERVER_PORT:-1026}:1025
+      - ${MAILSERVER_GUI_PORT:-8026}:8025
     hostname: crm-mailserver
 
   webserver-dev:
@@ -30,7 +33,7 @@ services:
       target: dev
     image: churchcrm/crm:php8-debian-dev
     ports:
-      - ${WEBSERVER_PORT:-80}:80
+      - ${WEBSERVER_PORT:-8080}:80
     volumes:
       - ../src:/var/www/html
       - ..:/home/ChurchCRM
@@ -39,6 +42,7 @@ services:
     hostname: crm-webserver
     env_file:
       - .env
+      - .env.local
     extra_hosts:
       - host.docker.internal:host-gateway
     depends_on:
@@ -72,5 +76,10 @@ services:
     environment:
       - ADMINER_DEFAULT_SERVER=database
     ports:
-      - ${ADMINER_PORT:-8088}:8080
+      - ${ADMINER_PORT:-8089}:8080
     hostname: crm-adminer
+
+volumes:
+  mariadb_data:
+    driver: local
+

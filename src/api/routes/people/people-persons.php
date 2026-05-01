@@ -5,6 +5,7 @@ use ChurchCRM\model\ChurchCRM\FamilyQuery;
 use ChurchCRM\model\ChurchCRM\ListOptionQuery;
 use ChurchCRM\model\ChurchCRM\Person;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
+use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Slim\SlimUtils;
 use ChurchCRM\Utils\DateTimeUtils;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -34,15 +35,16 @@ $app->group('/persons', function (RouteCollectorProxy $group): void {
      * )
      */
     $group->get('/email/without', function (Request $request, Response $response, array $args): Response {
+        $groupScopeService = new UserGroupScopeService();
         // Pre-load list options to avoid N+1 queries
         $roleOptions = ListOptionQuery::create()->filterById(2)->find()->toKeyValue('OptionId', 'OptionName');
         $classificationOptions = ListOptionQuery::create()->filterById(1)->find()->toKeyValue('OptionId', 'OptionName');
 
-        $persons = PersonQuery::create()
+        $personsQuery = PersonQuery::create()
             ->leftJoinWithFamily()
             ->where('(per_Email IS NULL OR per_Email = "") AND (per_WorkEmail IS NULL OR per_WorkEmail = "")')
-            ->where('Family.DateDeactivated IS NULL')
-            ->find();
+            ->where('Family.DateDeactivated IS NULL');
+        $persons = $groupScopeService->applyPersonQueryScope($personsQuery)->find();
 
         $result = [];
         foreach ($persons as $person) {
@@ -94,15 +96,17 @@ $app->group('/persons', function (RouteCollectorProxy $group): void {
      */
     // search person by Name
     $group->get('/search/{query}', function (Request $request, Response $response, array $args): Response {
+        $groupScopeService = new UserGroupScopeService();
         $query = $args['query'];
 
         $searchLikeString = '%' . $query . '%';
-        $people = PersonQuery::create()->
+        $peopleQuery = PersonQuery::create()->
         filterByFirstName($searchLikeString, Criteria::LIKE)->
         _or()->filterByMiddleName($searchLikeString, Criteria::LIKE)->
         _or()->filterByLastName($searchLikeString, Criteria::LIKE)->
         _or()->filterByEmail($searchLikeString, Criteria::LIKE)->
-        limit(15)->find();
+        limit(15);
+        $people = $groupScopeService->applyPersonQueryScope($peopleQuery)->find();
 
         $id = 1;
 
@@ -136,11 +140,12 @@ $app->group('/persons', function (RouteCollectorProxy $group): void {
      * )
      */
     $group->get('/self-register', function (Request $request, Response $response, array $args): Response {
-        $people = PersonQuery::create()
+        $groupScopeService = new UserGroupScopeService();
+        $peopleQuery = PersonQuery::create()
             ->filterByEnteredBy(Person::SELF_REGISTER)
             ->orderByDateEntered(Criteria::DESC)
-            ->limit(100)
-            ->find();
+            ->limit(100);
+        $people = $groupScopeService->applyPersonQueryScope($peopleQuery)->find();
 
         return SlimUtils::renderJSON($response, ['people' => $people->toArray()]);
     });
@@ -200,6 +205,7 @@ function getAllRolesAPI(Request $request, Response $response, array $args): Resp
  */
 function getEmailDupesAPI(Request $request, Response $response, array $args): Response
 {
+    $groupScopeService = new UserGroupScopeService();
     $connection = Propel::getConnection();
     $dupEmailsSQL = "select email, total from ( SELECT email, COUNT(*) AS total FROM ( SELECT fam_Email AS email, 'family' AS type, fam_id AS id FROM family_fam WHERE fam_email IS NOT NULL AND fam_email != '' UNION SELECT per_email AS email, 'person_home' AS type, per_id AS id FROM person_per WHERE per_email IS NOT NULL AND per_email != '' UNION SELECT per_WorkEmail AS email, 'person_work' AS type, per_id AS id FROM person_per WHERE per_WorkEmail IS NOT NULL AND per_WorkEmail != '') as allEmails group by email) as dupEmails where total > 1";
     $statement = $connection->prepare($dupEmailsSQL);
@@ -209,7 +215,8 @@ function getEmailDupesAPI(Request $request, Response $response, array $args): Re
     $emails = [];
     foreach ($dupEmails as $dbEmail) {
         $email = $dbEmail['email'];
-        $dbPeople = PersonQuery::create()->filterByEmail($email)->_or()->filterByWorkEmail($email)->find();
+        $dbPeopleQuery = PersonQuery::create()->filterByEmail($email)->_or()->filterByWorkEmail($email);
+        $dbPeople = $groupScopeService->applyPersonQueryScope($dbPeopleQuery)->find();
         $people = [];
         foreach ($dbPeople as $person) {
             $people[] = ['id' => $person->getId(), 'name' => $person->getFullName()];
@@ -253,11 +260,11 @@ function getEmailDupesAPI(Request $request, Response $response, array $args): Re
  */
 function getLatestPersons(Request $request, Response $response, array $args): Response
 {
-    $people = PersonQuery::create()
+    $peopleQuery = PersonQuery::create()
         ->leftJoinWithFamily()
         ->orderByDateEntered('DESC')
-        ->limit(10)
-        ->find();
+        ->limit(10);
+    $people = (new UserGroupScopeService())->applyPersonQueryScope($peopleQuery)->find();
 
     return SlimUtils::renderJSON($response, buildFormattedPersonList($people));
 }
@@ -284,11 +291,11 @@ function getLatestPersons(Request $request, Response $response, array $args): Re
  */
 function getUpdatedPersons(Request $request, Response $response, array $args): Response
 {
-    $people = PersonQuery::create()
+    $peopleQuery = PersonQuery::create()
         ->leftJoinWithFamily()
         ->orderByDateLastEdited('DESC')
-        ->limit(10)
-        ->find();
+        ->limit(10);
+    $people = (new UserGroupScopeService())->applyPersonQueryScope($peopleQuery)->find();
 
     return SlimUtils::renderJSON($response, buildFormattedPersonList($people));
 }
@@ -317,6 +324,7 @@ function getUpdatedPersons(Request $request, Response $response, array $args): R
  */
 function getPersonsWithBirthdays(Request $request, Response $response, array $args): Response
 {
+    $groupScopeService = new UserGroupScopeService();
     // Get birthdays for 14-day range: 7 days before to 7 days after today
     // Use start of today (midnight) to ensure day-boundary comparisons are accurate
     $today = DateTimeUtils::getStartOfToday();
@@ -337,6 +345,7 @@ function getPersonsWithBirthdays(Request $request, Response $response, array $ar
         ->where('Family.DateDeactivated is null')
         ->filterByBirthDay(null, Criteria::NOT_EQUAL)
         ->filterByBirthMonth(null, Criteria::NOT_EQUAL);
+    $groupScopeService->applyPersonQueryScope($people);
     
     // Add conditions for each day in range
     $conditions = [];

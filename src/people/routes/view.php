@@ -12,6 +12,7 @@ use ChurchCRM\model\ChurchCRM\VolunteerOpportunityQuery;
 use ChurchCRM\Service\PersonService;
 use ChurchCRM\Service\PropertyService;
 use ChurchCRM\Service\TimelineService;
+use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Slim\SlimUtils;
 use ChurchCRM\Utils\InputUtils;
 use ChurchCRM\view\PageHeader;
@@ -23,10 +24,15 @@ use Slim\Views\PhpRenderer;
 $app->post('/view/{personID:[0-9]+}', function (Request $request, Response $response, array $args): Response {
     $iPersonID = (int) $args['personID'];
     $currentUser = AuthenticationManager::getCurrentUser();
+    $groupScopeService = new UserGroupScopeService();
 
     $person = PersonQuery::create()->findPk($iPersonID);
     if (empty($person)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/people/person/not-found?id=' . $iPersonID);
+    }
+
+    if (!$groupScopeService->canAccessPersonId($iPersonID)) {
+        return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/v2/access-denied?role=PersonView');
     }
 
     if (!$currentUser->canEditPerson($iPersonID, $person->getFamId())) {
@@ -51,10 +57,15 @@ $app->post('/view/{personID:[0-9]+}', function (Request $request, Response $resp
 $app->get('/view/{personID:[0-9]+}', function (Request $request, Response $response, array $args): Response {
     $iPersonID   = (int) $args['personID'];
     $currentUser = AuthenticationManager::getCurrentUser();
+    $groupScopeService = new UserGroupScopeService();
 
     $person = PersonQuery::create()->findPk($iPersonID);
     if (empty($person)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/people/person/not-found?id=' . $iPersonID);
+    }
+
+    if (!$groupScopeService->canAccessPersonId($iPersonID)) {
+        return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/v2/access-denied?role=PersonView');
     }
 
     // GHSA-fcw7-mmfh-7vjm: Prevent IDOR - verify user has permission to view this person

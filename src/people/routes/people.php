@@ -5,6 +5,7 @@ use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\model\ChurchCRM\ListOptionQuery;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
+use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Utils\InputUtils;
 use ChurchCRM\Utils\LoggerUtils;
 use ChurchCRM\view\PageHeader;
@@ -51,8 +52,10 @@ function viewPeopleVerify(Request $request, Response $response, array $args): Re
 function listPeople(Request $request, Response $response, array $args): Response
 {
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
+    $groupScopeService = new UserGroupScopeService();
     // Filter received user input as needed
     $members = PersonQuery::create();
+    $groupScopeService->applyPersonQueryScope($members);
     $sMode = 'Person';
     $familyActiveStatus = 'active';
     if (($_GET['familyActiveStatus'] ?? '') === 'inactive') {
@@ -152,6 +155,7 @@ function listPeople(Request $request, Response $response, array $args): Response
 function viewPeoplePhotoGallery(Request $request, Response $response, array $args): Response
 {
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
+    $groupScopeService = new UserGroupScopeService();
 
     $queryParams = $request->getQueryParams();
     $showOnlyWithPhotos = !array_key_exists('photosOnly', $queryParams) || $queryParams['photosOnly'] !== '0';
@@ -179,6 +183,7 @@ function viewPeoplePhotoGallery(Request $request, Response $response, array $arg
     $peopleQuery = PersonQuery::create()
         ->orderByLastName()
         ->orderByFirstName();
+    $groupScopeService->applyPersonQueryScope($peopleQuery);
 
     if (!empty($aInactiveClasses)) {
         $peopleQuery->filterByClsId($aInactiveClasses, Criteria::NOT_IN);

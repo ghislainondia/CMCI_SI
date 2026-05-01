@@ -1,0 +1,84 @@
+# syntax=docker/dockerfile:1.7
+
+ARG PHP_VERSION=8.4
+
+FROM php:${PHP_VERSION}-apache AS runtime-base
+LABEL maintainer="ChurchCRM"
+
+WORKDIR /var/www/html
+EXPOSE 80
+
+# Install system packages required for ChurchCRM PHP extensions and runtime tooling.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        curl \
+        gettext \
+        git \
+        locales \
+        locales-all \
+        libcurl4-openssl-dev \
+        libfreetype6-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libonig-dev \
+        libpng-dev \
+        libxml2-dev \
+        libzip-dev \
+        unzip \
+        zip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install required PHP extensions for ChurchCRM.
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j"$(nproc)" \
+        bcmath \
+        curl \
+        exif \
+        gd \
+        gettext \
+        iconv \
+        intl \
+        mbstring \
+        mysqli \
+        opcache \
+        pdo_mysql \
+        xml \
+        zip
+
+# Configure Apache and PHP defaults.
+COPY docker/apache/default.conf /etc/apache2/apache2.conf
+RUN a2enmod rewrite
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
+    sed -i 's/^upload_max_filesize.*$/upload_max_filesize = 16M/g' "$PHP_INI_DIR/php.ini" && \
+    sed -i 's/^post_max_size.*$/post_max_size = 32M/g' "$PHP_INI_DIR/php.ini" && \
+    sed -i 's/^memory_limit.*$/memory_limit = 512M/g' "$PHP_INI_DIR/php.ini" && \
+    sed -i 's/^max_execution_time.*$/max_execution_time = 120/g' "$PHP_INI_DIR/php.ini"
+
+FROM composer:2 AS composer-bin
+
+FROM runtime-base AS prod
+
+# Use Composer binary from the official image to avoid curl installer in production stage.
+COPY --from=composer-bin /usr/bin/composer /usr/local/bin/composer
+
+# Copy full application source and install production PHP dependencies.
+COPY src/ /var/www/html/
+
+RUN composer install \
+      --working-dir=/var/www/html \
+      --no-dev \
+      --no-interaction \
+      --prefer-dist \
+      --optimize-autoloader \
+      --classmap-authoritative \
+      --no-scripts && \
+    composer clear-cache && \
+    rm -f /usr/local/bin/composer
+
+# Ensure runtime directories exist and are writable by Apache user.
+RUN mkdir -p /var/www/html/logs /var/www/html/tmp_attach && \
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 0775 /var/www/html/logs
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD curl -fsS http://127.0.0.1/ || exit 1

@@ -9,6 +9,7 @@ use ChurchCRM\model\ChurchCRM\FamilyQuery;
 use ChurchCRM\model\ChurchCRM\PropertyQuery;
 use ChurchCRM\Service\FinancialService;
 use ChurchCRM\Service\TimelineService;
+use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Slim\SlimUtils;
 use ChurchCRM\Utils\FiscalYearUtils;
 use ChurchCRM\Utils\InputUtils;
@@ -29,6 +30,7 @@ $app->group('/family', function (RouteCollectorProxy $group): void {
 function listFamilies(Request $request, Response $response, array $args): Response
 {
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
+    $groupScopeService = new UserGroupScopeService();
     $sMode = 'Active';
 
     $queryParams = $request->getQueryParams();
@@ -66,6 +68,7 @@ function listFamilies(Request $request, Response $response, array $args): Respon
     }
 
     $familiesQuery = FamilyQuery::create()->orderByName();
+    $groupScopeService->applyFamilyQueryScope($familiesQuery);
 
     if ($familyActiveStatus === 'active') {
         $familiesQuery->filterByDateDeactivated(null);
@@ -129,12 +132,17 @@ function viewFamilyNotFound(Request $request, Response $response, array $args): 
 function viewFamily(Request $request, Response $response, array $args): Response
 {
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
+    $groupScopeService = new UserGroupScopeService();
 
     $familyId = (int)$args['id'];
     $family = FamilyQuery::create()->findPk($familyId);
 
     if (empty($family)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/people/family/not-found?id=' . $familyId);
+    }
+
+    if (!$groupScopeService->canAccessFamilyId($familyId)) {
+        return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/v2/access-denied?role=FamilyView');
     }
 
     $timelineService = new TimelineService();

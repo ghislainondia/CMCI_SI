@@ -17,12 +17,13 @@ class PersonService
     public function search(string $searchTerm, bool $includeFamilyRole = true): array
     {
         $searchLikeString = '%' . $searchTerm . '%';
-        $people = PersonQuery::create()
+        $peopleQuery = PersonQuery::create()
             ->filterByFirstName($searchLikeString, Criteria::LIKE)
             ->_or()->filterByMiddleName($searchLikeString, Criteria::LIKE)
             ->_or()->filterByLastName($searchLikeString, Criteria::LIKE)
             ->_or()->filterByEmail($searchLikeString, Criteria::LIKE)
-            ->limit(15)->find();
+            ->limit(15);
+        $people = (new UserGroupScopeService())->applyPersonQueryScope($peopleQuery)->find();
         $return = [];
         foreach ($people as $person) {
             $values['id'] = $person->getId();
@@ -62,10 +63,10 @@ class PersonService
     public function getPeopleEmailsAndGroups(): array
     {
         // Get people with emails
-        $people = PersonQuery::create()
+        $peopleQuery = PersonQuery::create()
             ->filterByEmail('', Criteria::NOT_EQUAL)
-            ->orderById()
-            ->find();
+            ->orderById();
+        $people = (new UserGroupScopeService())->applyPersonQueryScope($peopleQuery)->find();
 
         $result = [];
         foreach ($people as $person) {

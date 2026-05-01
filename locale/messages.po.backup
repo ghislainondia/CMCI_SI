@@ -405,7 +405,7 @@ msgid "Add Event Type"
 msgstr ""
 
 msgid "Add Family"
-msgstr "Ajouter une assemblée de maison"
+msgstr ""
 
 msgid "Add Family Member"
 msgstr ""
@@ -2963,7 +2963,7 @@ msgid "Delete Event Type"
 msgstr ""
 
 msgid "Delete Family"
-msgstr "Supprimer l'assemblée de maison"
+msgstr ""
 
 msgid "Delete Family Record AND Family Members"
 msgstr ""
@@ -3410,7 +3410,7 @@ msgid "Edit Event Type"
 msgstr ""
 
 msgid "Edit Family"
-msgstr "Modifier l'assemblée de maison"
+msgstr ""
 
 msgid "Edit Form"
 msgstr ""
@@ -4386,7 +4386,7 @@ msgid "Families share an address and phone number."
 msgstr ""
 
 msgid "Family"
-msgstr "Assemblées de maison"
+msgstr ""
 
 msgid "Family Cell Phone"
 msgstr ""
@@ -4419,10 +4419,10 @@ msgid "Family Home Phone"
 msgstr ""
 
 msgid "Family Info"
-msgstr "Informations de l'assemblée de maison"
+msgstr ""
 
 msgid "Family List"
-msgstr "Liste des assemblées de maison"
+msgstr ""
 
 msgid "Family Listing"
 msgstr ""
@@ -4431,13 +4431,13 @@ msgid "Family Map"
 msgstr ""
 
 msgid "Family Members"
-msgstr "Membres de l'assemblée de maison"
+msgstr ""
 
 msgid "Family Members:"
 msgstr ""
 
 msgid "Family Name"
-msgstr "Nom de l'assemblée de maison"
+msgstr ""
 
 msgid "Family Navigation"
 msgstr ""
@@ -4462,7 +4462,7 @@ msgstr ""
 
 #. Context: queryparameters_qrp
 msgid "Family Role"
-msgstr "Rôle dans l'assemblée de maison"
+msgstr ""
 
 msgid "Family Roles"
 msgstr ""

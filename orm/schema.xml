@@ -60,11 +60,18 @@
         <column name="per_Facebook" phpName="Facebook" type="VARCHAR" size="50" Description="Facebook username" />
         <column name="per_Twitter" phpName="Twitter" type="VARCHAR" size="50" Description="Twitter username" />
         <column name="per_LinkedIn" phpName="LinkedIn" type="VARCHAR" size="50" Description="LinkedIn name" />
+        <column name="per_DiscipleMakerID" phpName="DiscipleMakerId" type="SMALLINT" size="9" sqlType="mediumint(9) unsigned" Description="Disciple Maker (Faiseur de disciple) - Self-referencing foreign key" />
         <index name="per_ID">
             <index-column name="per_ID"/>
         </index>
+        <index name="idx_disciple_maker">
+            <index-column name="per_DiscipleMakerID"/>
+        </index>
         <foreign-key foreignTable="family_fam">
             <reference local="per_fam_ID" foreign="fam_ID"/>
+        </foreign-key>
+        <foreign-key foreignTable="person_per" name="fk_disciple_maker" skipSql="true">
+            <reference local="per_DiscipleMakerID" foreign="per_ID"/>
         </foreign-key>
         <vendor type="mysql">
             <parameter name="Engine" value="InnoDB"/>
@@ -541,6 +548,7 @@
         <column name="usr_UserName" phpName="UserName" type="VARCHAR" size="32" required="true"/>
         <column name="usr_Style" phpName="UserStyle" type="VARCHAR" size="50" />
         <column name="usr_ApiKey" phpName="ApiKey" type="VARCHAR" size="255" />
+        <column name="group_id" phpName="GroupId" type="SMALLINT" size="8" sqlType="mediumint(8) unsigned"/>
         <column name="usr_TwoFactorAuthSecret" phpName="TwoFactorAuthSecret" type="VARCHAR" size="255" />
         <column name="usr_TwoFactorAuthLastKeyTimestamp" phpName="TwoFactorAuthLastKeyTimestamp" type="SMALLINT" size="9" />
         <column name="usr_TwoFactorAuthRecoveryCodes" phpName="TwoFactorAuthRecoveryCodes" type="LONGVARCHAR"/>

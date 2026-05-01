@@ -4,6 +4,7 @@ namespace ChurchCRM\Search;
 
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
+use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Utils\LoggerUtils;
 use Propel\Runtime\ActiveQuery\Criteria;
 
@@ -33,7 +34,7 @@ class PersonSearchResultProvider extends BaseSearchResultProvider
 
         try {
             $searchLikeString = '%' . $SearchQuery . '%';
-            $people = PersonQuery::create()->
+            $peopleQuery = PersonQuery::create()->
                 filterByFirstName($searchLikeString, Criteria::LIKE)->
                 _or()->filterByMiddleName($searchLikeString, Criteria::LIKE)->
                 _or()->filterByLastName($searchLikeString, Criteria::LIKE)->
@@ -42,7 +43,8 @@ class PersonSearchResultProvider extends BaseSearchResultProvider
                 _or()->filterByHomePhone($searchLikeString, Criteria::LIKE)->
                 _or()->filterByCellPhone($searchLikeString, Criteria::LIKE)->
                 _or()->filterByWorkPhone($searchLikeString, Criteria::LIKE)->
-                limit(SystemConfig::getIntValue('bSearchIncludePersonsMax'))->find();
+                limit(SystemConfig::getIntValue('bSearchIncludePersonsMax'));
+            $people = (new UserGroupScopeService())->applyPersonQueryScope($peopleQuery)->find();
 
             if ($people->count() > 0) {
                 $id++;

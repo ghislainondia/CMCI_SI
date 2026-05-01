@@ -1,0 +1,21 @@
+services:
+  database:
+    ports:
+      - ${DATABASE_PORT:-3307}:3306
+
+  webserver-dev:
+    ports:
+      - ${WEBSERVER_PORT:-8080}:80
+
+  webserver-test:
+    ports:
+      - ${WEBSERVER_PORT:-8080}:80
+
+  mailserver:
+    ports:
+      - ${MAILSERVER_PORT:-1026}:1025
+      - ${MAILSERVER_GUI_PORT:-8026}:8025
+
+  adminer:
+    ports:
+      - ${ADMINER_PORT:-8089}:8080

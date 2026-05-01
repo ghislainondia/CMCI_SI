@@ -22,7 +22,7 @@ $hasSelfReg = SystemConfig::getBooleanValue('bEnableSelfRegistration');
         <!-- Header with Logo and Church Name -->
         <div class="login-form-header">
           <div class="login-header-logo">
-            <img src="<?= SystemURLs::getRootPath() ?>/Images/logo-churchcrm-350.jpg" alt="ChurchCRM" />
+            <img src="<?= SystemURLs::getRootPath() ?>/Images/images.jpeg" alt="ChurchCRM" />
           </div>
           <h2 class="login-header-church-name"><?= ChurchMetaData::getChurchName() ?></h2>
           <p class="login-header-tagline"><?= gettext('Community Management Platform') ?></p>
