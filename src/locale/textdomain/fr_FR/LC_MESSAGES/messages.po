@@ -16124,3 +16124,4 @@ msgstr "Les horaires utilisent l'heure de la paroisse ({{church}}), et non celle
 msgid "Welcome — sign in to manage your community"
 msgstr "Bienvenue — connectez-vous pour gérer votre communauté"
 
+

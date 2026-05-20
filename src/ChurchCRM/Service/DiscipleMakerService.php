@@ -4,8 +4,8 @@ namespace ChurchCRM\Service;
 
 use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
-use Propel\Runtime\ActiveQuery\Criteria;
 use ChurchCRM\Utils\LoggerUtils;
+use Propel\Runtime\Propel;
 
 class DiscipleMakerService
 {
@@ -32,7 +32,6 @@ class DiscipleMakerService
                 return false;
             }
 
-            // Vérifier que le faiseur de disciple existe si spécifié
             if ($discipleMakerId !== null) {
                 $discipleMaker = PersonQuery::create()->findPk($discipleMakerId);
                 if ($discipleMaker === null) {
@@ -40,19 +39,13 @@ class DiscipleMakerService
                     return false;
                 }
 
-                // Empêcher qu'une personne soit son propre faiseur de disciple
                 if ($personId === $discipleMakerId) {
                     $this->logger->error("Person cannot be their own disciple maker: $personId");
                     return false;
                 }
             }
 
-            $person->setDiscipleMakerId($discipleMakerId);
-            $person->save();
-
-            $currentUser = AuthenticationManager::getCurrentUser();
-            $person->setEditedBy($currentUser->getId());
-            $person->save();
+            $this->persistDiscipleMakerId($personId, $discipleMakerId);
 
             $action = $discipleMakerId !== null ? "assigned to disciple maker $discipleMakerId" : "removed from disciple maker";
             $this->logger->info("Person $personId $action");
@@ -73,12 +66,7 @@ class DiscipleMakerService
     public function getDiscipleMaker(int $personId): ?array
     {
         try {
-            $person = PersonQuery::create()->findPk($personId);
-            if ($person === null) {
-                return null;
-            }
-
-            $discipleMakerId = $person->getDiscipleMakerId();
+            $discipleMakerId = $this->getStoredDiscipleMakerId($personId);
             if ($discipleMakerId === null) {
                 return null;
             }
@@ -94,7 +82,7 @@ class DiscipleMakerService
                 'lastName' => $discipleMaker->getLastName(),
                 'fullName' => $discipleMaker->getFullName(),
                 'email' => $discipleMaker->getEmail(),
-                'photo' => $discipleMaker->getPhoto()->hasUploadedPhoto()
+                'photo' => $discipleMaker->getPhoto()->hasUploadedPhoto(),
             ];
         } catch (\Exception $e) {
             $this->logger->error("Error getting disciple maker: " . $e->getMessage());
@@ -125,7 +113,7 @@ class DiscipleMakerService
                     'email' => $disciple->getEmail(),
                     'phone' => $disciple->getCellPhone(),
                     'photo' => $disciple->getPhoto()->hasUploadedPhoto(),
-                    'familyId' => $disciple->getFamId()
+                    'familyId' => $disciple->getFamId(),
                 ];
             }
 
@@ -145,21 +133,21 @@ class DiscipleMakerService
     public function getDisciplesStats(int $discipleMakerId): array
     {
         try {
-            $disciples = PersonQuery::create()
+            $total = PersonQuery::create()
                 ->filterByDiscipleMakerId($discipleMakerId)
-                ->find();
+                ->count();
 
             return [
-                'totalDisciples' => count($disciples),
-                'activeDisciples' => count($disciples), // Tous sont considérés actifs pour l'instant
-                'lastUpdated' => date('Y-m-d H:i:s')
+                'totalDisciples' => $total,
+                'activeDisciples' => $total,
+                'lastUpdated' => date('Y-m-d H:i:s'),
             ];
         } catch (\Exception $e) {
             $this->logger->error("Error getting disciples stats: " . $e->getMessage());
             return [
                 'totalDisciples' => 0,
                 'activeDisciples' => 0,
-                'lastUpdated' => null
+                'lastUpdated' => null,
             ];
         }
     }
@@ -188,7 +176,7 @@ class DiscipleMakerService
                     'photo' => $person->getPhoto()->hasUploadedPhoto(),
                     'disciplesCount' => PersonQuery::create()
                         ->filterByDiscipleMakerId($person->getId())
-                        ->count()
+                        ->count(),
                 ];
             }
 
@@ -209,7 +197,6 @@ class DiscipleMakerService
     public function transferDisciples(int $fromDiscipleMakerId, int $toDiscipleMakerId): int
     {
         try {
-            // Vérifier que les deux personnes existent
             $fromMaker = PersonQuery::create()->findPk($fromDiscipleMakerId);
             $toMaker = PersonQuery::create()->findPk($toDiscipleMakerId);
 
@@ -218,23 +205,22 @@ class DiscipleMakerService
                 return 0;
             }
 
-            // Empêcher le transfert vers soi-même
             if ($fromDiscipleMakerId === $toDiscipleMakerId) {
                 $this->logger->error("Cannot transfer disciples to same person");
                 return 0;
             }
 
-            // Mettre à jour tous les disciples
-            $disciples = PersonQuery::create()
-                ->filterByDiscipleMakerId($fromDiscipleMakerId)
-                ->find();
-
-            $count = 0;
-            foreach ($disciples as $disciple) {
-                $disciple->setDiscipleMakerId($toDiscipleMakerId);
-                $disciple->save();
-                $count++;
-            }
+            $connection = Propel::getConnection();
+            $stmt = $connection->prepare(
+                'UPDATE person_per SET per_DiscipleMakerID = :toId, per_EditedBy = :editedBy
+                 WHERE per_DiscipleMakerID = :fromId'
+            );
+            $stmt->execute([
+                'toId' => $toDiscipleMakerId,
+                'fromId' => $fromDiscipleMakerId,
+                'editedBy' => AuthenticationManager::getCurrentUser()->getId(),
+            ]);
+            $count = $stmt->rowCount();
 
             $this->logger->info("Transferred $count disciples from $fromDiscipleMakerId to $toDiscipleMakerId");
 
@@ -254,5 +240,42 @@ class DiscipleMakerService
     public function removeDiscipleMaker(int $personId): bool
     {
         return $this->setDiscipleMaker($personId, null);
+    }
+
+    private function getStoredDiscipleMakerId(int $personId): ?int
+    {
+        $connection = Propel::getConnection();
+        $stmt = $connection->prepare('SELECT per_DiscipleMakerID FROM person_per WHERE per_ID = :personId');
+        $stmt->execute(['personId' => $personId]);
+        $value = $stmt->fetchColumn();
+
+        if ($value === false || $value === null || $value === '') {
+            return null;
+        }
+
+        return (int) $value;
+    }
+
+    private function persistDiscipleMakerId(int $personId, ?int $discipleMakerId): void
+    {
+        $connection = Propel::getConnection();
+        $editedBy = AuthenticationManager::getCurrentUser()->getId();
+
+        if ($discipleMakerId === null) {
+            $stmt = $connection->prepare(
+                'UPDATE person_per SET per_DiscipleMakerID = NULL, per_EditedBy = :editedBy WHERE per_ID = :personId'
+            );
+            $stmt->execute(['editedBy' => $editedBy, 'personId' => $personId]);
+            return;
+        }
+
+        $stmt = $connection->prepare(
+            'UPDATE person_per SET per_DiscipleMakerID = :makerId, per_EditedBy = :editedBy WHERE per_ID = :personId'
+        );
+        $stmt->execute([
+            'makerId' => $discipleMakerId,
+            'editedBy' => $editedBy,
+            'personId' => $personId,
+        ]);
     }
 }

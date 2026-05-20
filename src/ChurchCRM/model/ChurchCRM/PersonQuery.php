@@ -3,6 +3,7 @@
 namespace ChurchCRM\model\ChurchCRM;
 
 use ChurchCRM\model\ChurchCRM\Base\PersonQuery as BasePersonQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
 
 /**
  * Skeleton subclass for performing query and update operations on the 'person_per' table.
@@ -15,4 +16,20 @@ use ChurchCRM\model\ChurchCRM\Base\PersonQuery as BasePersonQuery;
  */
 class PersonQuery extends BasePersonQuery
 {
+  /**
+   * Filter by disciple maker (per_DiscipleMakerID).
+   * Custom until ORM models are regenerated from schema.xml.
+   *
+   * @param int|int[]|null $discipleMakerId
+   */
+  public function filterByDiscipleMakerId($discipleMakerId = null, ?string $comparison = null): self
+  {
+    $comparison = $comparison ?? Criteria::EQUAL;
+
+    if ($discipleMakerId === null) {
+      return $this->addUsingAlias('per_DiscipleMakerID', null, Criteria::ISNULL);
+    }
+
+    return $this->addUsingAlias('per_DiscipleMakerID', $discipleMakerId, $comparison);
+  }
 }

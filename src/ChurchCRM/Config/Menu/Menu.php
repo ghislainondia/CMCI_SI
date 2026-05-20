@@ -42,6 +42,7 @@ class Menu
             'SundaySchool' => self::getSundaySchoolMenu($isAdmin),
             'Communication' => self::getCommunicationMenu(),
             'Events'       => self::getEventsMenu($currentUser->isAddEventEnabled(), $canViewEvents),
+            'Meetings'     => self::getMeetingsMenu($currentUser->isEditRecordsEnabled()),
             'Deposits'     => self::getDepositsMenu($isAdmin, $currentUser->isFinanceEnabled()),
             'Fundraiser'   => self::getFundraisersMenu($isAdmin),
             'Reports'      => self::getReportsMenu(),
@@ -257,6 +258,16 @@ class Menu
         }
 
         return $eventsMenu;
+    }
+
+    private static function getMeetingsMenu(bool $canEdit): MenuItem
+    {
+        $meetingsMenu = new MenuItem(gettext('Meetings'), '', true, 'fa-handshake');
+        $meetingsMenu->addSubMenu(new MenuItem(gettext('Dashboard'), 'meetings/dashboard', true, 'fa-gauge'));
+        $meetingsMenu->addSubMenu(new MenuItem(gettext('Meeting List'), 'meetings/list', true, 'fa-list'));
+        $meetingsMenu->addSubMenu(new MenuItem(gettext('New Meeting'), 'meetings/editor', $canEdit, 'fa-circle-plus'));
+
+        return $meetingsMenu;
     }
 
     private static function getDepositsMenu(bool $isAdmin, bool $isFinanceEnabled): MenuItem

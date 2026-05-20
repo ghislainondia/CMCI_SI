@@ -15,6 +15,7 @@ use ChurchCRM\Utils\CustomFieldUtils;
 use ChurchCRM\Utils\DateTimeUtils;
 use ChurchCRM\Utils\InputUtils;
 use ChurchCRM\Utils\MiscUtils;
+use ChurchCRM\Service\DiscipleMakerService;
 use ChurchCRM\Utils\RedirectUtils;
 use ChurchCRM\view\PageHeader;
 
@@ -132,6 +133,7 @@ $sPhoneCountry = '';
 $sFacebook = '';
 $sTwitter = '';
 $sLinkedIn = '';
+$iDiscipleMakerID = 0;
 
 $sHomePhone = '';
 $sWorkPhone = '';
@@ -225,6 +227,10 @@ if (isset($_POST['PersonSubmit']) || isset($_POST['PersonSubmitAndAdd'])) {
     $sFacebook = InputUtils::sanitizeText($_POST['Facebook']);
     $sTwitter = InputUtils::sanitizeText($_POST['Twitter']);
     $sLinkedIn = InputUtils::sanitizeText($_POST['LinkedIn']);
+    $iDiscipleMakerID = 0;
+    if (array_key_exists('DiscipleMaker', $_POST)) {
+        $iDiscipleMakerID = (int) InputUtils::legacyFilterInput($_POST['DiscipleMaker'], 'int');
+    }
 
     $bNoFormat_HomePhone = isset($_POST['NoFormat_HomePhone']);
     $bNoFormat_WorkPhone = isset($_POST['NoFormat_WorkPhone']);
@@ -413,6 +419,10 @@ if (isset($_POST['PersonSubmit']) || isset($_POST['PersonSubmitAndAdd'])) {
         $person->save();
         $person->reload();
 
+        $discipleMakerService = new DiscipleMakerService();
+        $discipleMakerIdToSave = $iDiscipleMakerID > 0 ? $iDiscipleMakerID : null;
+        $discipleMakerService->setDiscipleMaker($person->getId(), $discipleMakerIdToSave);
+
         if (!$personAlreadyExist) {
             $iPersonID = $person->getId();
 
@@ -507,6 +517,7 @@ if (isset($_POST['PersonSubmit']) || isset($_POST['PersonSubmitAndAdd'])) {
         $sFacebook = $per_Facebook;
         $sTwitter = $per_Twitter;
         $sLinkedIn = $per_LinkedIn;
+        $iDiscipleMakerID = isset($per_DiscipleMakerID) ? (int) $per_DiscipleMakerID : 0;
 
         $sPhoneCountry = $sCountry;
 
@@ -556,6 +567,10 @@ $rsFamilies = RunQuery($sSQL);
 //Get Family Roles for the drop-down
 $sSQL = 'SELECT * FROM list_lst WHERE lst_ID = 2 ORDER BY lst_OptionSequence';
 $rsFamilyRoles = RunQuery($sSQL);
+
+// People list for disciple maker selector
+$sSQL = 'SELECT per_ID, per_FirstName, per_LastName FROM person_per ORDER BY per_LastName, per_FirstName';
+$rsDiscipleMakers = RunQuery($sSQL);
 
 $aBreadcrumbs = PageHeader::breadcrumbs([
     [gettext('People'), '/people/dashboard'],
@@ -1008,6 +1023,24 @@ require_once __DIR__ . '/Include/Header.php';
                     <?php if ($sMembershipDateError) { ?>
                         <span class="text-danger small"><?= $sMembershipDateError ?></span>
                     <?php } ?>
+                </div>
+                <div class="mb-3 col-12 col-sm-6 col-md-3">
+                    <label for="DiscipleMaker"><?= gettext('Disciple Maker') ?>:</label>
+                    <select id="DiscipleMaker" name="DiscipleMaker" class="form-select">
+                        <option value="0"><?= gettext('Unassigned') ?></option>
+                        <option value="" disabled>-----------------------</option>
+                        <?php while ($aRow = mysqli_fetch_array($rsDiscipleMakers)) {
+                            $makerId = (int) $aRow['per_ID'];
+                            if ($makerId === $iPersonID) {
+                                continue;
+                            }
+                            echo '<option value="' . $makerId . '"';
+                            if ($iDiscipleMakerID === $makerId) {
+                                echo ' selected';
+                            }
+                            echo '>' . InputUtils::escapeHTML($aRow['per_LastName'] . ', ' . $aRow['per_FirstName']) . '</option>';
+                        } ?>
+                    </select>
                 </div>
                 <?php if (!SystemConfig::getBooleanValue('bHideFriendDate')) { ?>
                 <div class="mb-3 col-12 col-sm-6 col-md-3">

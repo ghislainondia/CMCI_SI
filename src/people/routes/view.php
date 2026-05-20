@@ -9,6 +9,7 @@ use ChurchCRM\model\ChurchCRM\PersonCustomMasterQuery;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
 use ChurchCRM\model\ChurchCRM\PersonVolunteerOpportunityQuery;
 use ChurchCRM\model\ChurchCRM\VolunteerOpportunityQuery;
+use ChurchCRM\Service\DiscipleMakerService;
 use ChurchCRM\Service\PersonService;
 use ChurchCRM\Service\PropertyService;
 use ChurchCRM\Service\TimelineService;
@@ -219,6 +220,11 @@ $app->get('/view/{personID:[0-9]+}', function (Request $request, Response $respo
     $timelineService = new TimelineService();
     $personTimeline  = $timelineService->getForPerson($iPersonID);
 
+    // ── Disciple maker ───────────────────────────────────────────────────────
+    $discipleMakerService = new DiscipleMakerService();
+    $discipleMaker        = $discipleMakerService->getDiscipleMaker($iPersonID);
+    $disciples            = $discipleMakerService->getDisciples($iPersonID);
+
     // ── Render ───────────────────────────────────────────────────────────────
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
 
@@ -264,6 +270,8 @@ $app->get('/view/{personID:[0-9]+}', function (Request $request, Response $respo
         'personMapConfig'        => $personMapConfig,
         'familyHasCoords'        => $familyHasCoords,
         'personTimeline'         => $personTimeline,
+        'discipleMaker'          => $discipleMaker,
+        'disciples'              => $disciples,
     ];
 
     return $renderer->render($response, 'person-view.php', $pageArgs);
