@@ -52,7 +52,7 @@ services:
       retries: 3
     networks:
       - churchcrm-network
-      - traefik-public
+      - n8n_default
     labels:
       # Configuration Traefik
       - "traefik.enable=true"
@@ -84,6 +84,6 @@ volumes:
 networks:
   churchcrm-network:
     driver: bridge
-  traefik-public:
+  n8n_default:
     external: true
-    name: traefik-public
+    name: n8n_default

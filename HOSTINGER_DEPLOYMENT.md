@@ -4,9 +4,9 @@ Ce guide explique comment déployer ChurchCRM avec un reverse proxy Traefik exis
 
 ## Prérequis
 
-- **Traefik déjà configuré** sur votre serveur Docker
+- **Traefik déjà configuré** sur votre serveur Docker (via n8n ou autre)
 - **DNS configuré** : `crm.cmcisn.com` pointe vers l'IP de votre serveur
-- **Réseau Traefik** : `traefik-public` (ou modifiez le nom dans docker-compose)
+- **Réseau Traefik** : `n8n_default` (le réseau où Traefik est connecté)
 
 ## Configuration Traefik requise
 
@@ -108,13 +108,17 @@ Remplacez `crm.cmcisn.com` par votre domaine dans `docker-compose.hostinger.yaml
 
 ### Changer le réseau Traefik
 
-Si votre réseau Traefik a un autre nom :
+Si votre réseau Traefik a un autre nom (ex: `traefik-public`, `proxy`, etc.) :
 
 ```yaml
 networks:
-  traefik-public:
+  votre-reseau-traefik:
     external: true
     name: votre-reseau-traefik
+
+# Et dans le service webserver:
+#  networks:
+#    - votre-reseau-traefik
 ```
 
 ### Changer le certResolver

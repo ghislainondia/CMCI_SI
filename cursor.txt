@@ -1,0 +1,46 @@
+Bilan de l'exploration
+Aucun module « Réunion » n'existait. Le module Événements (events_event + event_attend) gère le check-in/out, pas les réunions avec organisateur et présences présent/absent.
+
+Organisations : ChurchCRM n'a pas de table dédiée. Le sélecteur d'organisateur propose :
+
+Familles (family_fam)
+Groupes (group_grp)
+Organisations : nom de l'église (sChurchName) + groupes dont le type contient « org », « organisation », « ministry », etc.
+Ce qui a été créé
+Base de données
+Migration src/mysql/upgrade/7.3.4.sql (+ copie Docker)
+Tables : meeting_mtg, meeting_attendance_mat
+Schéma ORM dans orm/schema.xml
+Service
+MeetingService.php — CRUD, présences, listes d'organisateurs, chargement des membres
+Module MVC /meetings/
+Route	Description
+/meetings/dashboard
+Tableau de bord
+/meetings/list
+Liste avec compteurs présents/absents
+/meetings/editor
+Création
+/meetings/editor/{id}
+Édition
+/meetings/view/{id}
+Fiche détaillée
+/meetings/members?organizer=family:5
+API JSON pour charger les membres
+Menu
+Nouvelle entrée Réunions dans la barre latérale (Dashboard, Liste, Nouvelle réunion).
+
+Traductions FR
+Entrées ajoutées dans messages.po.
+
+Déploiement
+Appliquer la migration 7.3.4.sql (via l'upgrade ChurchCRM ou manuellement).
+Accès : menu Réunions ou /meetings/dashboard.
+Droits : édition réservée aux utilisateurs avec permission Edit Records ; consultation pour tous les utilisateurs connectés.
+Fonctionnalités du formulaire
+Nom, date/heure (datetime-local)
+Organisateur (famille / groupe / organisation)
+Bouton Charger les membres de l'organisateur
+Liste de présences avec statut Présent / Absent
+Ajout manuel de membres
+Remarques (texte libre)

@@ -30,15 +30,17 @@ fi
 
 echo -e "${GREEN}✓ Docker et Docker Compose sont installés${NC}"
 
-# Vérifier le réseau Traefik
+# Vérifier le réseau Traefik (n8n_default)
 echo -e "${YELLOW}[2/8] Vérification du réseau Traefik...${NC}"
 
-if ! docker network ls | grep -q traefik-public; then
-    echo -e "${YELLOW}Création du réseau traefik-public...${NC}"
-    docker network create traefik-public --driver=bridge
+if ! docker network ls | grep -q n8n_default; then
+    echo -e "${RED}Erreur: Le réseau n8n_default n'existe pas${NC}"
+    echo "Assurez-vous que Traefik/n8n est démarré et que le réseau existe:"
+    echo "  docker network ls"
+    exit 1
 fi
 
-echo -e "${GREEN}✓ Réseau traefik-public prêt${NC}"
+echo -e "${GREEN}✓ Réseau n8n_default trouvé (Traefik accessible)${NC}"
 
 # Configuration de l'environnement
 echo -e "${YELLOW}[3/8] Configuration de l'environnement...${NC}"
