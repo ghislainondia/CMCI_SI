@@ -1,187 +1,140 @@
-# Guide de déploiement ChurchCRM sur Hostinger VPS
+# Guide de déploiement ChurchCRM avec Traefik
 
-Ce guide explique comment déployer ChurchCRM avec les nouvelles fonctionnalités (Faiseur de disciple + Module Réunions) sur un VPS Hostinger.
+Ce guide explique comment déployer ChurchCRM avec un reverse proxy Traefik existant, rendant l'application disponible sur `https://crm.cmcisn.com`.
 
 ## Prérequis
 
-### 1. Type d'hébergement Hostinger
+- **Traefik déjà configuré** sur votre serveur Docker
+- **DNS configuré** : `crm.cmcisn.com` pointe vers l'IP de votre serveur
+- **Réseau Traefik** : `traefik-public` (ou modifiez le nom dans docker-compose)
 
-**Ce déploiement nécessite un VPS Hostinger** (pas d'hébergement partagé) :
-- **VPS Plans** : KVM 1, KVM 2, KVM 4, ou supérieur
-- **OS** : Ubuntu 20.04/22.04 ou Debian 11/12 recommandé
-- **RAM** : Minimum 2GB (4GB recommandé)
+## Configuration Traefik requise
 
-L'hébergement partagé ne supporte pas Docker.
+Votre Traefik doit avoir :
 
-### 2. Accéder au VPS
+1. **Entrypoints** configurés :
+   - `web` (port 80)
+   - `websecure` (port 443)
 
-```bash
-# Via SSH avec les identifiants Hostinger
-ssh root@votre-ip-vps
+2. **CertResolver Let's Encrypt** nommé `letsencrypt` :
+   ```yaml
+   # Dans traefik.yml ou docker-compose de Traefik
+   certificatesResolvers:
+     letsencrypt:
+       acme:
+         email: your-email@example.com
+         storage: /letsencrypt/acme.json
+         httpChallenge:
+           entryPoint: web
+   ```
 
-# Ou via le terminal Hostinger
-```
+## Déploiement rapide
 
-## Étapes de déploiement
-
-### Étape 1: Préparer le VPS
-
-```bash
-# Mise à jour du système
-apt update && apt upgrade -y
-
-# Installer Docker
-curl -sSL https://get.docker.com | sh
-
-# Vérifier l'installation
-docker --version
-docker compose version
-```
-
-### Étape 2: Télécharger ChurchCRM
+### 1. Cloner le dépôt
 
 ```bash
-# Cloner le dépôt (ou uploader votre version modifiée)
 cd /var/www
-git clone https://github.com/ChurchCRM/CRM.git churchcrm
+git clone https://github.com/ghislainondia/churchcrm-assemblees.git churchcrm
 cd churchcrm
-
-# Si vous avez les modifications locales:
-# - Uploadez les fichiers via SFTP
-# - Ou créez un Git repository avec vos modifications
 ```
 
-### Étape 3: Configurer l'environnement
+### 2. Configurer les mots de passe
 
 ```bash
-# Modifier le fichier d'environnement
 nano docker/.env.hostinger
 ```
 
-**Modifiez OBLIGATOIREMENT ces valeurs :**
-
+Modifiez OBLIGATOIREMENT :
 ```env
-MYSQL_ROOT_PASSWORD=votre_mot_de_passe_root_ici
-MYSQL_DATABASE=churchcrm
-MYSQL_USER=churchcrm
-MYSQL_PASSWORD=votre_mot_de_passe_ici
+MYSQL_ROOT_PASSWORD=votre_mot_de_passe_root
+MYSQL_PASSWORD=votre_mot_de_passe
 ```
 
-Générez des mots de passe forts :
-```bash
-# Générer un mot de passe sécurisé
-openssl rand -base64 32
-```
-
-### Étape 4: Lancer le déploiement
+### 3. Lancer le déploiement
 
 ```bash
-# Lancer le script de déploiement
 ./deploy-hostinger.sh
 ```
 
-Ou manuellement :
+### 4. Accéder à l'application
 
-```bash
-# Build et démarrage
-docker compose -f docker-compose.hostinger.yaml up -d --build
+Ouvrez : **https://crm.cmcisn.com/setup**
 
-# Vérifier les containers
-docker ps
+Suivez le wizard avec :
+- **Host** : `database` (nom du container Docker)
+- **Database** : `churchcrm`
+- **User** : `churchcrm`
+- **Password** : (celui configuré dans .env.hostinger)
+
+## Fichiers modifiés pour Traefik
+
+| Fichier | Changement |
+|---------|-----------|
+| `docker-compose.hostinger.yaml` | Ports exposés supprimés, labels Traefik ajoutés |
+| `deploy-hostinger.sh` | Vérification réseau Traefik ajoutée |
+
+## Labels Traefik utilisés
+
+```yaml
+labels:
+  # Activer Traefik pour ce container
+  - "traefik.enable=true"
+
+  # Router HTTP → redirection HTTPS
+  - "traefik.http.routers.churchcrm.rule=Host(`crm.cmcisn.com`)"
+  - "traefik.http.routers.churchcrm.entrypoints=web"
+  - "traefik.http.routers.churchcrm.middlewares=redirect-to-https"
+
+  # Router HTTPS avec certificat Let's Encrypt
+  - "traefik.http.routers.churchcrm-secure.rule=Host(`crm.cmcisn.com`)"
+  - "traefik.http.routers.churchcrm-secure.entrypoints=websecure"
+  - "traefik.http.routers.churchcrm-secure.tls=true"
+  - "traefik.http.routers.churchcrm-secure.tls.certresolver=letsencrypt"
+
+  # Service backend
+  - "traefik.http.services.churchcrm.loadbalancer.server.port=80"
 ```
 
-### Étape 5: Finaliser l'installation
+## Personnalisation
 
-1. **Ouvrir le setup wizard** : `http://votre-ip-vps/setup`
+### Changer le domaine
 
-2. **Suivre les étapes** :
-   - Sélectionner la langue (Français)
-   - Configuration de la base de données :
-     - Host: `database`
-     - Database: `churchcrm`
-     - User: `churchcrm`
-     - Password: (celui dans .env.hostinger)
+Remplacez `crm.cmcisn.com` par votre domaine dans `docker-compose.hostinger.yaml` :
 
-3. **Créer l'administrateur**
-
-4. **Appliquer la migration pour les nouvelles fonctionnalités** :
-
-```bash
-# Accéder au container
-docker exec -it churchcrm-web bash
-
-# Appliquer la migration
-mysql -h database -u churchcrm -p churchcrm < /var/www/html/src/mysql/upgrade/7.3.3.sql
-
-# Puis la migration des réunions
-mysql -h database -u churchcrm -p churchcrm < /var/www/html/src/mysql/upgrade/7.3.4.sql
+```yaml
+- "traefik.http.routers.churchcrm.rule=Host(`votre-domaine.com`)"
+- "traefik.http.routers.churchcrm-secure.rule=Host(`votre-domaine.com`)"
 ```
 
-## Migrations SQL requises
+### Changer le réseau Traefik
 
-Les nouvelles fonctionnalités nécessitent ces migrations :
+Si votre réseau Traefik a un autre nom :
 
-### 1. Faiseur de disciple (7.3.3.sql)
-
-Crée la colonne `per_DiscipleMakerID` dans la table person_per.
-
-### 2. Module Réunions (7.3.4.sql)
-
-Crée les tables :
-- `meeting_mtg` - Réunions
-- `meeting_attendance_mat` - Présences
-
-Pour les appliquer après le déploiement :
-
-```bash
-# Depuis l'hôte
-cat docker/migrations/7.3.4.sql | docker exec -i churchcrm-db mysql -u churchcrm -pchurchcrm churchcrm
+```yaml
+networks:
+  traefik-public:
+    external: true
+    name: votre-reseau-traefik
 ```
 
-## Configuration du domaine (optionnel)
+### Changer le certResolver
 
-### Avec un domaine Hostinger
+Si votre certresolver Let's Encrypt a un autre nom :
 
-1. **DNS** : Ajoutez un enregistrement A dans Hostinger DNS
-   - Type: A
-   - Name: @ (ou sous-domaine)
-   - Value: IP de votre VPS
-
-2. **Reverse Proxy** (recommandé) :
-
-```bash
-# Installer nginx sur le VPS
-apt install nginx -y
-
-# Configurer le reverse proxy
-nano /etc/nginx/sites-available/churchcrm
+```yaml
+- "traefik.http.routers.churchcrm-secure.tls.certresolver=votre-certresolver"
 ```
 
-```nginx
-server {
-    listen 80;
-    server_name votre-domaine.com;
+## Migrations SQL
 
-    location / {
-        proxy_pass http://localhost:80;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
+Après le premier déploiement, appliquez les migrations :
 
 ```bash
-# Activer le site
-ln -s /etc/nginx/sites-available/churchcrm /etc/nginx/sites-enabled/
-nginx -t
-systemctl restart nginx
-```
+# Migration Faiseur de disciple
+cat src/mysql/upgrade/7.3.3.sql | docker exec -i churchcrm-db mysql -u churchcrm -p churchcrm
 
-3. **SSL avec Certbot** :
-
-```bash
-apt install certbot python3-certbot-nginx -y
-certbot --nginx -d votre-domaine.com
+# Migration Réunions
+cat src/mysql/upgrade/7.3.4.sql | docker exec -i churchcrm-db mysql -u churchcrm -p churchcrm
 ```
 
 ## Maintenance
@@ -195,117 +148,75 @@ docker compose -f docker-compose.hostinger.yaml logs -f
 # Logs web uniquement
 docker compose -f docker-compose.hostinger.yaml logs -f webserver
 
-# Logs base de données
-docker compose -f docker-compose.hostinger.yaml logs -f database
+# Logs Traefik (si dans un container séparé)
+docker logs traefik
 ```
 
-### Sauvegardes
+### Redémarrer
 
 ```bash
-# Sauvegarde de la base de données
-docker exec churchcrm-db mysqldump -u churchcrm -pchurchcrm churchcrm > backup_$(date +%Y%m%d).sql
-
-# Sauvegarde des fichiers
-tar -czf uploads_$(date +%Y%m%d).tar.gz src/Images/
-```
-
-### Mise à jour
-
-```bash
-# Arrêter les containers
-docker compose -f docker-compose.hostinger.yaml down
-
-# Mettre à jour le code
-git pull origin master
-
-# Relancer
-./deploy-hostinger.sh
-```
-
-### Redémarrage
-
-```bash
-# Redémarrer tous les services
 docker compose -f docker-compose.hostinger.yaml restart
-
-# Redémarrer uniquement le web
-docker compose -f docker-compose.hostinger.yaml restart webserver
 ```
 
-## Nouvelles fonctionnalités
-
-Après le déploiement et les migrations, vous aurez accès à :
-
-### 1. Faiseur de disciple
-- Dans **Membres → Modifier un membre**, champ "Faiseur de disciple"
-- Sur la **fiche membre**, affichage du discipulat
-- API REST `/api/disciples/...`
-
-### 2. Module Réunions
-- Menu **Réunions** dans la barre latérale
-- Tableau de bord des réunions
-- Création avec organisateur (famille/groupe/organisation)
-- Gestion des présences
-- Chargement automatique des membres par organisateur
-
-## Sécurité
-
-### Firewall
+### Mettre à jour
 
 ```bash
-# Configurer le firewall
-ufw allow 22/tcp    # SSH
-ufw allow 80/tcp    # HTTP
-ufw allow 443/tcp   # HTTPS
-ufw enable
+git pull origin master
+docker compose -f docker-compose.hostinger.yaml up -d --build
 ```
-
-### Base de données
-
-- La base de données n'est accessible que depuis le réseau Docker interne
-- Le port 3306 n'est pas exposé publiquement
-
-### Mots de passe
-
-- Changez TOUJOURS les mots de passe par défaut
-- Utilisez des mots de passe forts (16+ caractères)
-- Ne committez JAMAIS `.env` dans Git
 
 ## Dépannage
 
-### Le site ne répond pas
+### Le site n'est pas accessible
+
+1. **Vérifiez le DNS** :
+   ```bash
+   dig crm.cmcisn.com
+   # Doit retourner l'IP de votre serveur
+   ```
+
+2. **Vérifiez Traefik** :
+   ```bash
+   docker logs traefik
+   # Cherchez des erreurs liées à churchcrm
+   ```
+
+3. **Vérifiez le container** :
+   ```bash
+   docker ps | grep churchcrm
+   docker logs churchcrm-web
+   ```
+
+### Erreur de certificat SSL
+
+Vérifiez que Traefik a le certresolver `letsencrypt` configuré :
 
 ```bash
-# Vérifier les containers
-docker ps
-
-# Vérifier les logs
-docker compose -f docker-compose.hostinger.yaml logs
-
-# Redémarrer
-docker compose -f docker-compose.hostinger.yaml restart
+# Dans les logs Traefik, cherchez
+grep "letsencrypt" <(docker logs traefik)
 ```
 
-### Erreur de connexion à la base de données
+### Port already allocated
 
-```bash
-# Vérifier que la base de données est prête
-docker exec churchcrm-db mysqladmin ping -h localhost
+Plusieurs possibilités :
+1. Un autre container utilise le port 80/443 → Normal avec Traefik, utilisez la config Traefik
+2. Vous utilisez l'ancienne config → Supprimez les ports mappés
+3. Redémarrez Traefik après avoir créé le réseau
 
-# Entrer dans la base de données
-docker exec -it churchcrm-db mysql -u churchcrm -p
+## Architecture
+
+```
+Internet (80/443)
+    ↓
+Traefik (SSL termination, routing)
+    ↓
+churchcrm-web (port 80 interne)
+    ↓
+churchcrm-db (réseau privé)
 ```
 
-### Permissions denied
-
-```bash
-# Corriger les permissions
-docker exec churchcrm-web chown -R www-data:www-data /var/www/html/logs
-docker exec churchcrm-web chmod -R 0775 /var/www/html/logs
-```
-
-## Support
-
-- **Documentation ChurchCRM** : https://docs.churchcrm.io
-- **Issues GitHub** : https://github.com/ChurchCRM/CRM/issues
-- **Community Slack** : https://churchcrm.slack.com
+Avantages :
+- ✅ Gestion centralisée des certificats SSL
+- ✅ Un seul point d'entrée
+- ✅ Pas de ports exposés inutilement
+- ✅ Facile d'ajouter d'autres services

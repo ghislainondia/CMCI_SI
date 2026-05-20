@@ -1,4 +1,4 @@
-# ChurchCRM Production Docker Compose for Hostinger VPS
+# ChurchCRM Production Docker Compose with Traefik
 # Usage: docker compose -f docker-compose.hostinger.yaml up -d
 
 services:
@@ -29,9 +29,7 @@ services:
       dockerfile: docker/Dockerfile.production
     container_name: churchcrm-web
     restart: always
-    ports:
-      - "80:80"
-      - "443:443"
+    # Pas de ports exposés - Traefik gère le routage
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DB_HOST: database
@@ -39,6 +37,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       CHURCHCRM_LOCK_DASHBOARD: ${CHURCHCRM_LOCK_DASHBOARD:-false}
+      # Traefik détecte automatiquement le port 80
     volumes:
       - churchcrm_uploads:/var/www/html/Images
       - churchcrm_logs:/var/www/html/logs
@@ -53,6 +52,24 @@ services:
       retries: 3
     networks:
       - churchcrm-network
+      - traefik-public
+    labels:
+      # Configuration Traefik
+      - "traefik.enable=true"
+      # Router HTTP
+      - "traefik.http.routers.churchcrm.rule=Host(`crm.cmcisn.com`)"
+      - "traefik.http.routers.churchcrm.entrypoints=web"
+      - "traefik.http.routers.churchcrm.middlewares=redirect-to-https"
+      # Router HTTPS
+      - "traefik.http.routers.churchcrm-secure.rule=Host(`crm.cmcisn.com`)"
+      - "traefik.http.routers.churchcrm-secure.entrypoints=websecure"
+      - "traefik.http.routers.churchcrm-secure.tls=true"
+      - "traefik.http.routers.churchcrm-secure.tls.certresolver=letsencrypt"
+      # Service
+      - "traefik.http.services.churchcrm.loadbalancer.server.port=80"
+      # Middleware HTTPS redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
 
 volumes:
   mariadb_data:
@@ -67,3 +84,6 @@ volumes:
 networks:
   churchcrm-network:
     driver: bridge
+  traefik-public:
+    external: true
+    name: traefik-public
