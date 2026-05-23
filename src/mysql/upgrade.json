@@ -269,7 +269,7 @@
     "dbVersion": "7.3.1"
   },
   "pre-7.3.5": {
-    "versions": ["7.3.2"],
+    "versions": ["7.3.2", "7.3.3", "7.3.4"],
     "scripts": ["/mysql/upgrade/7.3.5.sql"],
     "dbVersion": "7.3.5"
   },

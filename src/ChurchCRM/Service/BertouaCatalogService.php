@@ -11,6 +11,8 @@ class BertouaCatalogService
      */
     public function listModules(): array
     {
+        BertouaSchemaService::ensureSchema();
+
         $connection = Propel::getConnection();
         $stmt = $connection->query(
             'SELECT * FROM bertoua_btm_module ORDER BY btm_SortOrder ASC, btm_Title ASC'

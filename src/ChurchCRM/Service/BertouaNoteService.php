@@ -25,6 +25,7 @@ class BertouaNoteService
      */
     public function getNotesForLesson(int $lessonId, int $groupId): array
     {
+        BertouaSchemaService::ensureSchema();
         $this->assertLessonContext($lessonId, $groupId);
 
         $memberIds = array_column($this->accessService->getAssemblyMembers($groupId), 'id');
@@ -54,6 +55,7 @@ class BertouaNoteService
      */
     public function saveNotes(int $lessonId, int $groupId, array $notesByPersonId): int
     {
+        BertouaSchemaService::ensureSchema();
         $this->assertLessonContext($lessonId, $groupId);
 
         $members = $this->accessService->getAssemblyMembers($groupId);
