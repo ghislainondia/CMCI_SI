@@ -16362,4 +16362,47 @@ msgstr "Données de notes invalides."
 msgid "Failed to load data."
 msgstr "Échec du chargement des données."
 
+#: Bertoua CSV import
+msgid "Import modules and lessons (CSV)"
+msgstr "Importer modules et leçons (CSV)"
+
+msgid "Download template"
+msgstr "Télécharger le modèle"
+
+msgid "One row per lesson. Columns: module, module_order (optional), lesson, lesson_order (optional). Separator ; or , (Excel FR)."
+msgstr "Une ligne par leçon. Colonnes : module, module_order (optionnel), lesson, lesson_order (optionnel). Séparateur ; ou , (Excel FR)."
+
+msgid "CSV file"
+msgstr "Fichier CSV"
+
+msgid "Replace existing catalog (deletes all modules, lessons, and notes)"
+msgstr "Remplacer le catalogue existant (supprime tous les modules, leçons et notes)"
+
+msgid "Import"
+msgstr "Importer"
+
+msgid "Import complete: %1$d module(s) created, %2$d lesson(s) created (%3$d lesson(s) skipped as duplicates)."
+msgstr "Import terminé : %1$d module(s) créé(s), %2$d leçon(s) créée(s) (%3$d leçon(s) ignorée(s) comme doublons)."
+
+msgid "Please choose a CSV file to import."
+msgstr "Veuillez choisir un fichier CSV à importer."
+
+msgid "File upload failed."
+msgstr "Échec du téléversement du fichier."
+
+msgid "Only .csv files are accepted."
+msgstr "Seuls les fichiers .csv sont acceptés."
+
+msgid "Unable to read the CSV file."
+msgstr "Impossible de lire le fichier CSV."
+
+msgid "The CSV file is empty or has no data rows."
+msgstr "Le fichier CSV est vide ou ne contient aucune ligne de données."
+
+msgid "Line %d: module title is required."
+msgstr "Ligne %d : le titre du module est obligatoire."
+
+msgid "This will delete all existing modules, lessons, and notes. Continue?"
+msgstr "Cela supprimera tous les modules, leçons et notes existants. Continuer ?"
+
 

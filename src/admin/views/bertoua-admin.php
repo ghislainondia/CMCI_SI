@@ -14,6 +14,40 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <?php endif; ?>
 
 <div class="card mb-3">
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h3 class="card-title mb-0"><?= gettext('Import modules and lessons (CSV)') ?></h3>
+        <a href="<?= $sRootPath ?>/admin/system/bertoua/import-template.csv" class="btn btn-sm btn-outline-secondary">
+            <i class="fa-solid fa-download me-1"></i><?= gettext('Download template') ?>
+        </a>
+    </div>
+    <div class="card-body">
+        <p class="text-body-secondary small mb-3">
+            <?= gettext('One row per lesson. Columns: module, module_order (optional), lesson, lesson_order (optional). Separator ; or , (Excel FR).') ?>
+        </p>
+        <form method="post" action="<?= $sRootPath ?>/admin/system/bertoua/import-csv" enctype="multipart/form-data" class="row g-3 align-items-end"
+              onsubmit="return confirmReplaceIfChecked();">
+            <div class="col-md-6">
+                <label for="csvFile" class="form-label"><?= gettext('CSV file') ?></label>
+                <input type="file" class="form-control" id="csvFile" name="csvFile" accept=".csv,text/csv" required>
+            </div>
+            <div class="col-md-4">
+                <div class="form-check mt-4">
+                    <input class="form-check-input" type="checkbox" name="replaceExisting" id="replaceExisting" value="1">
+                    <label class="form-check-label" for="replaceExisting">
+                        <?= gettext('Replace existing catalog (deletes all modules, lessons, and notes)') ?>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fa-solid fa-file-import me-1"></i><?= gettext('Import') ?>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-3">
     <div class="card-header">
         <h3 class="card-title mb-0"><?= gettext('Add Module') ?></h3>
     </div>
@@ -145,6 +179,19 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
     </div>
 </div>
 <?php endif; ?>
+
+<script nonce="<?= SystemURLs::getCSPNonce() ?>">
+function confirmReplaceIfChecked() {
+    var replaceBox = document.getElementById('replaceExisting');
+    if (replaceBox && replaceBox.checked) {
+        return confirm(<?= json_encode(
+            gettext('This will delete all existing modules, lessons, and notes. Continue?'),
+            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>);
+    }
+    return true;
+}
+</script>
 
 <?php
 require SystemURLs::getDocumentRoot() . '/Include/Footer.php';

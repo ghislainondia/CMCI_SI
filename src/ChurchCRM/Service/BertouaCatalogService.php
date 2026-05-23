@@ -87,6 +87,16 @@ class BertouaCatalogService
     }
 
     /**
+     * Remove all modules, lessons, and notes (notes cascade from lessons).
+     */
+    public function deleteAllCatalog(): void
+    {
+        BertouaSchemaService::ensureSchema();
+        $connection = Propel::getConnection();
+        $connection->exec('DELETE FROM bertoua_btm_module');
+    }
+
+    /**
      * @param array<int, int> $orderedModuleIds module id => sort order (1-based)
      */
     public function reorderModules(array $orderedModuleIds): void
