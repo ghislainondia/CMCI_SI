@@ -1,6 +1,7 @@
 <?php
 
 use ChurchCRM\Authentication\AuthenticationManager;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\PeopleCustomField;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\model\ChurchCRM\FamilyCustomMasterQuery;
@@ -100,11 +101,11 @@ function listFamilies(Request $request, Response $response, array $args): Respon
     $pageArgs = [
         'sMode' => $sMode,
         'sRootPath' => SystemURLs::getRootPath(),
-        'sPageTitle' => gettext('Families'),
-        'sPageSubtitle' => gettext('Browse and search all families in your congregation'),
+        'sPageTitle' => ChurchVocabulary::houseAssemblies(),
+        'sPageSubtitle' => ChurchVocabulary::browseAllHouseAssemblies(),
         'aBreadcrumbs' => PageHeader::breadcrumbs([
             [gettext('People'), '/people/dashboard'],
-            [gettext('Families')],
+            [ChurchVocabulary::houseAssemblies()],
         ]),
         'families' => $families,
         'filterCity' => $filterCity,
@@ -172,11 +173,11 @@ function viewFamily(Request $request, Response $response, array $args): Response
 
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
-        'sPageTitle' => gettext('Family') . ': ' . InputUtils::escapeHTML($family->getName()),
+        'sPageTitle' => ChurchVocabulary::houseAssembly() . ': ' . InputUtils::escapeHTML($family->getName()),
         'sPageSubtitle' => gettext('View family details, members, and timeline'),
         'aBreadcrumbs' => PageHeader::breadcrumbs([
             [gettext('People'), '/people/dashboard'],
-            [gettext('Families'), '/people/family'],
+            [ChurchVocabulary::houseAssemblies(), '/people/family'],
             [InputUtils::escapeHTML($family->getName())],
         ]),
         'family' => $family,

@@ -1,5 +1,6 @@
 <?php
 
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Utils\DateTimeUtils;
 use ChurchCRM\Utils\InputUtils;
@@ -20,7 +21,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         </div>
                         <div class="col">
                             <div class="fw-medium text-body"><?= (int) $totalCount ?></div>
-                            <div class="text-body-secondary"><?= gettext('Meetings') ?></div>
+                            <div class="text-body-secondary"><?= ChurchVocabulary::meetings() ?></div>
                         </div>
                     </div>
                 </div>

@@ -1,9 +1,10 @@
 <?php
 
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Utils\InputUtils;
 
-$sPageTitle = gettext('Family Listing');
+$sPageTitle = ChurchVocabulary::familyListing();
 require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 /* @var $families ObjectCollection */
 ?>
@@ -56,7 +57,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <div class="card">
     <div class="card-header d-flex align-items-center">
-        <h3 class="card-title"><i class="fa-solid fa-home"></i> <?= gettext('Families') ?></h3>
+        <h3 class="card-title"><i class="fa-solid fa-home"></i> <?= ChurchVocabulary::houseAssemblies() ?></h3>
     </div>
     <div style="overflow: visible;">
         <table class="table table-vcenter table-hover card-table" id="families">

@@ -3,23 +3,27 @@
 namespace ChurchCRM\Service;
 
 use ChurchCRM\Authentication\AuthenticationManager;
-use ChurchCRM\model\ChurchCRM\GroupQuery;
-use ChurchCRM\model\ChurchCRM\Person2group2roleP2g2rQuery;
+use ChurchCRM\model\ChurchCRM\Family;
+use ChurchCRM\model\ChurchCRM\FamilyQuery;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Slim\Exception\HttpForbiddenException;
 
 class BertouaAccessService
 {
     private UserGroupScopeService $groupScope;
+    private UserFamilyScopeService $familyScope;
 
     private HouseAssemblyLeaderService $leaderService;
 
     public function __construct(
         ?UserGroupScopeService $groupScope = null,
+        ?UserFamilyScopeService $familyScope = null,
         ?HouseAssemblyLeaderService $leaderService = null
     ) {
         $this->groupScope = $groupScope ?? new UserGroupScopeService();
-        $this->leaderService = $leaderService ?? new HouseAssemblyLeaderService($this->groupScope);
+        $this->familyScope = $familyScope ?? new UserFamilyScopeService();
+        $this->leaderService = $leaderService ?? new HouseAssemblyLeaderService($this->familyScope);
     }
 
     public function isAdmin(): bool
@@ -33,58 +37,97 @@ class BertouaAccessService
     }
 
     /**
-     * House assemblies (groups) the current user may select for note entry.
+     * House assemblies (ChurchCRM families) the current user may select for note entry.
      *
      * @return array<int, array{id: int, name: string}>
      */
     public function getAccessibleAssemblies(): array
     {
-        if ($this->isAdmin()) {
-            $assemblies = [];
-            foreach (GroupQuery::create()->orderByName()->find() as $group) {
-                $assemblies[] = [
-                    'id' => (int) $group->getId(),
-                    'name' => (string) $group->getName(),
-                ];
-            }
+        $familiesQuery = FamilyQuery::create()
+            ->filterByDateDeactivated(null)
+            ->orderByName();
 
+        if (!$this->isAdmin()) {
+            $this->familyScope->applyFamilyQueryScope($familiesQuery);
+        }
+
+        $assemblies = [];
+        foreach ($familiesQuery->find() as $family) {
+            $assemblies[] = [
+                'id' => (int) $family->getId(),
+                'name' => (string) $family->getName(),
+            ];
+        }
+
+        if (!$this->isAdmin()) {
+            $assemblies = $this->appendLeaderOwnFamilyIfMissing($assemblies);
+        }
+
+        return $assemblies;
+    }
+
+    /**
+     * @param array<int, array{id: int, name: string}> $assemblies
+     * @return array<int, array{id: int, name: string}>
+     */
+    private function appendLeaderOwnFamilyIfMissing(array $assemblies): array
+    {
+        $person = PersonQuery::create()->findPk((int) AuthenticationManager::getCurrentUser()->getId());
+        if ($person === null) {
             return $assemblies;
         }
 
-        $groupId = $this->groupScope->getCurrentUserGroupId();
-        if ($groupId === null) {
-            return [];
+        $familyId = (int) $person->getFamId();
+        if ($familyId <= 0) {
+            return $assemblies;
         }
 
-        $group = GroupQuery::create()->findPk($groupId);
-        if ($group === null) {
-            return [];
+        foreach ($assemblies as $assembly) {
+            if ((int) $assembly['id'] === $familyId) {
+                return $assemblies;
+            }
         }
 
-        return [[
-            'id' => (int) $group->getId(),
-            'name' => (string) $group->getName(),
-        ]];
+        $family = FamilyQuery::create()
+            ->filterById($familyId)
+            ->filterByDateDeactivated(null)
+            ->findOne();
+
+        if ($family instanceof Family) {
+            $assemblies[] = [
+                'id' => (int) $family->getId(),
+                'name' => (string) $family->getName(),
+            ];
+        }
+
+        return $assemblies;
     }
 
-    public function canAccessAssemblyGroup(int $groupId): bool
+    public function canAccessAssemblyFamily(int $familyId): bool
     {
-        if ($groupId <= 0) {
+        if ($familyId <= 0) {
             return false;
         }
 
         if ($this->isAdmin()) {
-            return GroupQuery::create()->filterById($groupId)->count() > 0;
+            return FamilyQuery::create()
+                ->filterById($familyId)
+                ->filterByDateDeactivated(null)
+                ->count() > 0;
         }
 
-        $scopedGroupId = $this->groupScope->getCurrentUserGroupId();
+        if ($this->familyScope->canAccessFamilyId($familyId)) {
+            return true;
+        }
 
-        return $scopedGroupId !== null && $scopedGroupId === $groupId;
+        $person = PersonQuery::create()->findPk((int) AuthenticationManager::getCurrentUser()->getId());
+
+        return $person !== null && (int) $person->getFamId() === $familyId;
     }
 
-    public function assertCanAccessAssemblyGroup(int $groupId): void
+    public function assertCanAccessAssemblyFamily(int $familyId): void
     {
-        if (!$this->canAccessAssemblyGroup($groupId)) {
+        if (!$this->canAccessAssemblyFamily($familyId)) {
             throw new HttpForbiddenException(
                 null,
                 gettext('You do not have access to this house assembly.')
@@ -92,35 +135,28 @@ class BertouaAccessService
         }
     }
 
-    public function isPersonInAssemblyGroup(int $personId, int $groupId): bool
-    {
-        if ($personId <= 0 || $groupId <= 0) {
-            return false;
-        }
-
-        return Person2group2roleP2g2rQuery::create()
-            ->filterByPersonId($personId)
-            ->filterByGroupId($groupId)
-            ->count() > 0;
-    }
-
     /**
+     * Members of the selected house assembly (family record).
+     *
      * @return array<int, array{id: int, name: string, famId: int}>
      */
-    public function getAssemblyMembers(int $groupId): array
+    public function getAssemblyMembers(int $familyId): array
     {
-        $this->assertCanAccessAssemblyGroup($groupId);
+        $this->assertCanAccessAssemblyFamily($familyId);
 
         $query = PersonQuery::create()
-            ->usePerson2group2roleP2g2rQuery()
-                ->filterByGroupId($groupId)
-            ->endUse()
-            ->groupById()
+            ->filterByFamId($familyId)
+            ->filterByFamId(0, Criteria::NOT_EQUAL)
             ->orderByLastName()
             ->orderByFirstName();
 
         if (!$this->isAdmin()) {
-            $this->groupScope->applyPersonQueryScope($query);
+            $person = PersonQuery::create()->findPk((int) AuthenticationManager::getCurrentUser()->getId());
+            $leaderOwnFamily = $person !== null && (int) $person->getFamId() === $familyId;
+
+            if (!$leaderOwnFamily) {
+                $this->familyScope->applyPersonQueryScope($query);
+            }
         }
 
         $members = [];
@@ -133,5 +169,21 @@ class BertouaAccessService
         }
 
         return $members;
+    }
+
+    /**
+     * @deprecated Use canAccessAssemblyFamily()
+     */
+    public function canAccessAssemblyGroup(int $familyId): bool
+    {
+        return $this->canAccessAssemblyFamily($familyId);
+    }
+
+    /**
+     * @deprecated Use assertCanAccessAssemblyFamily()
+     */
+    public function assertCanAccessAssemblyGroup(int $familyId): void
+    {
+        $this->assertCanAccessAssemblyFamily($familyId);
     }
 }

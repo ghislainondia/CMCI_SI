@@ -1,6 +1,7 @@
 <?php
 
 use ChurchCRM\Authentication\AuthenticationManager;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\MeetingService;
 use ChurchCRM\Utils\DateTimeUtils;
@@ -38,7 +39,7 @@ $app->get('/list', function (Request $request, Response $response): Response {
         'sPageTitle' => gettext('Meeting List'),
         'sPageSubtitle' => gettext('All scheduled and past meetings'),
         'aBreadcrumbs' => PageHeader::breadcrumbs([
-            [gettext('Meetings'), '/meetings/dashboard'],
+            [ChurchVocabulary::meetings(), '/meetings/dashboard'],
             [gettext('Meeting List')],
         ]),
         'meetings' => $meetings,

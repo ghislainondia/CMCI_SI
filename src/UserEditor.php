@@ -4,7 +4,11 @@ require_once __DIR__ . '/Include/Config.php';
 require_once __DIR__ . '/Include/PageInit.php';
 
 use ChurchCRM\Authentication\AuthenticationManager;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemConfig;
+use ChurchCRM\model\ChurchCRM\FamilyQuery;
+use ChurchCRM\model\ChurchCRM\GroupQuery;
+use Propel\Runtime\Propel;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Emails\users\NewAccountEmail;
 use ChurchCRM\view\PageHeader;
@@ -26,6 +30,73 @@ AuthenticationManager::redirectHomeIfNotAdmin();
 $iPersonID = -1;
 $vNewUser = false;
 $bShowPersonSelect = false;
+$usr_group_id = 0;
+
+/**
+ * @return int|null group_id from user_usr, or null if unset
+ */
+function loadUserHouseAssemblyGroupId(int $personId): ?int
+{
+    $connection = Propel::getConnection();
+    $statement = $connection->prepare('SELECT group_id FROM user_usr WHERE usr_per_ID = :personId LIMIT 1');
+    $statement->bindValue(':personId', $personId, \PDO::PARAM_INT);
+    $statement->execute();
+    $value = $statement->fetchColumn();
+    if ($value === false || $value === null) {
+        return null;
+    }
+    $groupId = (int) $value;
+
+    return $groupId > 0 ? $groupId : null;
+}
+
+function saveUserHouseAssemblyGroupId(int $personId, int $groupId): void
+{
+    $connection = Propel::getConnection();
+    $statement = $connection->prepare(
+        'UPDATE user_usr SET group_id = :groupId WHERE usr_per_ID = :personId'
+    );
+    $statement->bindValue(':personId', $personId, \PDO::PARAM_INT);
+    if ($groupId > 0) {
+        $statement->bindValue(':groupId', $groupId, \PDO::PARAM_INT);
+    } else {
+        $statement->bindValue(':groupId', null, \PDO::PARAM_NULL);
+    }
+    $statement->execute();
+}
+
+/**
+ * @return int|null fam_id from user_usr, or null if unset
+ */
+function loadUserHouseAssemblyFamilyId(int $personId): ?int
+{
+    $connection = Propel::getConnection();
+    $statement = $connection->prepare('SELECT fam_id FROM user_usr WHERE usr_per_ID = :personId LIMIT 1');
+    $statement->bindValue(':personId', $personId, \PDO::PARAM_INT);
+    $statement->execute();
+    $value = $statement->fetchColumn();
+    if ($value === false || $value === null) {
+        return null;
+    }
+    $familyId = (int) $value;
+
+    return $familyId > 0 ? $familyId : null;
+}
+
+function saveUserHouseAssemblyFamilyId(int $personId, ?int $familyId): void
+{
+    $connection = Propel::getConnection();
+    $statement = $connection->prepare(
+        'UPDATE user_usr SET fam_id = :familyId WHERE usr_per_ID = :personId'
+    );
+    $statement->bindValue(':personId', $personId, \PDO::PARAM_INT);
+    if ($familyId !== null && $familyId > 0) {
+        $statement->bindValue(':familyId', $familyId, \PDO::PARAM_INT);
+    } else {
+        $statement->bindValue(':familyId', null, \PDO::PARAM_NULL);
+    }
+    $statement->execute();
+}
 
 // Get the PersonID out of either querystring or the form, depending and what we're doing
 if (isset($_GET['PersonID'])) {
@@ -152,6 +223,16 @@ if (isset($_POST['save']) && $iPersonID > 0) {
                     $newUser->updatePassword($rawPassword);
                     $newUser->save();
 
+                    $houseAssemblyGroupId = isset($_POST['HouseAssemblyGroupId'])
+                        ? (int) InputUtils::legacyFilterInput($_POST['HouseAssemblyGroupId'], 'int')
+                        : 0;
+                    saveUserHouseAssemblyGroupId((int) $iPersonID, $houseAssemblyGroupId);
+
+                    $houseAssemblyFamilyId = isset($_POST['HouseAssemblyFamilyId'])
+                        ? (int) InputUtils::legacyFilterInput($_POST['HouseAssemblyFamilyId'], 'int')
+                        : null;
+                    saveUserHouseAssemblyFamilyId((int) $iPersonID, $houseAssemblyFamilyId);
+
                     $newUser->createTimeLineNote("created");
                     if (SystemConfig::isEmailEnabled()) {
                         $email = new NewAccountEmail($newUser, $rawPassword);
@@ -179,6 +260,16 @@ if (isset($_POST['save']) && $iPersonID > 0) {
                         ->setEditSelf($EditSelf);
                     $user->save();
                     $user->reload();
+
+                    $houseAssemblyGroupId = isset($_POST['HouseAssemblyGroupId'])
+                        ? (int) InputUtils::legacyFilterInput($_POST['HouseAssemblyGroupId'], 'int')
+                        : 0;
+                    saveUserHouseAssemblyGroupId((int) $iPersonID, $houseAssemblyGroupId);
+
+                    $houseAssemblyFamilyId = isset($_POST['HouseAssemblyFamilyId'])
+                        ? (int) InputUtils::legacyFilterInput($_POST['HouseAssemblyFamilyId'], 'int')
+                        : null;
+                    saveUserHouseAssemblyFamilyId((int) $iPersonID, $houseAssemblyFamilyId);
 
                     $user->createTimeLineNote("updated");
                 } else {
@@ -209,6 +300,10 @@ if (isset($_POST['save']) && $iPersonID > 0) {
                 $usr_Notes = $user->getNotes();
                 $usr_Admin = $user->getAdmin();
                 $usr_EditSelf = $user->getEditSelf();
+                $loadedGroupId = loadUserHouseAssemblyGroupId((int) $iPersonID);
+                $usr_group_id = $loadedGroupId ?? 0;
+                $loadedFamilyId = loadUserHouseAssemblyFamilyId((int) $iPersonID);
+                $usr_fam_id = $loadedFamilyId ?? null;
                 $sAction = 'edit';
             }
         } else {
@@ -406,6 +501,46 @@ require_once __DIR__ . '/Include/Header.php';
     <div class="card-body">
         <div class="alert alert-info mb-3">
             <i class="ti ti-info-circle me-2"></i><?= gettext('Changes will not take effect until next logon.') ?>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-5 col-form-label" for="HouseAssemblyGroupId"><?= ChurchVocabulary::scopedHouseAssemblyGroup() ?></label>
+            <div class="col-sm-7">
+                <select class="form-select" name="HouseAssemblyGroupId" id="HouseAssemblyGroupId">
+                    <option value="0"><?= gettext('None (full access per permissions)') ?></option>
+                    <?php foreach (GroupQuery::create()->orderByName()->find() as $group) : ?>
+                    <option value="<?= (int) $group->getId() ?>"<?= (int) $usr_group_id === (int) $group->getId() ? ' selected' : '' ?>>
+                        <?= InputUtils::escapeHTML($group->getName()) ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+                <div class="form-text">
+                    <?= sprintf(
+                        gettext('When set, this user is a %1$s and only sees members of the selected group after login.'),
+                        ChurchVocabulary::houseAssemblyLeader()
+                    ) ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-5 col-form-label" for="HouseAssemblyFamilyId"><?= ChurchVocabulary::scopedHouseAssemblyFamily() ?></label>
+            <div class="col-sm-7">
+                <select class="form-select" name="HouseAssemblyFamilyId" id="HouseAssemblyFamilyId">
+                    <option value=""><?= gettext('None (full access per permissions)') ?></option>
+                    <?php foreach (FamilyQuery::create()->orderByName()->find() as $family) : ?>
+                    <option value="<?= (int) $family->getId() ?>"<?= (int) $usr_fam_id === (int) $family->getId() ? ' selected' : '' ?>>
+                        <?= InputUtils::escapeHTML($family->getName()) ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+                <div class="form-text">
+                    <?= sprintf(
+                        gettext('When set, this user is a %1$s and only sees members of the selected family after login.'),
+                        ChurchVocabulary::houseAssemblyLeader()
+                    ) ?>
+                </div>
+            </div>
         </div>
 
         <div class="row mb-3">

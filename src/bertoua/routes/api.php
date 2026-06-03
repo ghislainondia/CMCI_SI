@@ -17,6 +17,17 @@ $requireBertouaAccess = static function (): void {
     }
 };
 
+/**
+ * Resolve house assembly id from request (family record, not group).
+ */
+$resolveFamilyId = static function (array $params): int {
+    if (!empty($params['familyId'])) {
+        return (int) $params['familyId'];
+    }
+
+    return (int) ($params['groupId'] ?? 0);
+};
+
 $app->get('/api/lessons', function (Request $request, Response $response) use ($requireBertouaAccess): Response {
     $requireBertouaAccess();
 
@@ -35,14 +46,14 @@ $app->get('/api/lessons', function (Request $request, Response $response) use ($
     ]);
 });
 
-$app->get('/api/members', function (Request $request, Response $response) use ($requireBertouaAccess): Response {
+$app->get('/api/members', function (Request $request, Response $response) use ($requireBertouaAccess, $resolveFamilyId): Response {
     $requireBertouaAccess();
 
-    $groupId = (int) ($request->getQueryParams()['groupId'] ?? 0);
+    $familyId = $resolveFamilyId($request->getQueryParams());
     $access = new BertouaAccessService();
 
     try {
-        $members = $access->getAssemblyMembers($groupId);
+        $members = $access->getAssemblyMembers($familyId);
     } catch (\Slim\Exception\HttpForbiddenException $e) {
         return SlimUtils::renderErrorJSON($response, $e->getMessage(), [], 403);
     }
@@ -50,15 +61,16 @@ $app->get('/api/members', function (Request $request, Response $response) use ($
     return SlimUtils::renderJSON($response, ['members' => $members]);
 });
 
-$app->get('/api/notes', function (Request $request, Response $response) use ($requireBertouaAccess): Response {
+$app->get('/api/notes', function (Request $request, Response $response) use ($requireBertouaAccess, $resolveFamilyId): Response {
     $requireBertouaAccess();
 
-    $groupId = (int) ($request->getQueryParams()['groupId'] ?? 0);
-    $lessonId = (int) ($request->getQueryParams()['lessonId'] ?? 0);
+    $params = $request->getQueryParams();
+    $familyId = $resolveFamilyId($params);
+    $lessonId = (int) ($params['lessonId'] ?? 0);
     $noteService = new BertouaNoteService();
 
     try {
-        $notes = $noteService->getNotesForLesson($lessonId, $groupId);
+        $notes = $noteService->getNotesForLesson($lessonId, $familyId);
     } catch (\Slim\Exception\HttpForbiddenException $e) {
         return SlimUtils::renderErrorJSON($response, $e->getMessage(), [], 403);
     }
@@ -66,7 +78,7 @@ $app->get('/api/notes', function (Request $request, Response $response) use ($re
     return SlimUtils::renderJSON($response, ['notes' => $notes]);
 });
 
-$app->post('/api/notes', function (Request $request, Response $response) use ($requireBertouaAccess): Response {
+$app->post('/api/notes', function (Request $request, Response $response) use ($requireBertouaAccess, $resolveFamilyId): Response {
     $requireBertouaAccess();
 
     $body = $request->getParsedBody();
@@ -74,7 +86,7 @@ $app->post('/api/notes', function (Request $request, Response $response) use ($r
         $body = json_decode((string) $request->getBody(), true) ?? [];
     }
 
-    $groupId = (int) ($body['groupId'] ?? 0);
+    $familyId = $resolveFamilyId($body);
     $lessonId = (int) ($body['lessonId'] ?? 0);
     $notes = $body['notes'] ?? [];
     if (!is_array($notes)) {
@@ -84,7 +96,7 @@ $app->post('/api/notes', function (Request $request, Response $response) use ($r
     $noteService = new BertouaNoteService();
 
     try {
-        $saved = $noteService->saveNotes($lessonId, $groupId, $notes);
+        $saved = $noteService->saveNotes($lessonId, $familyId, $notes);
     } catch (\Slim\Exception\HttpForbiddenException $e) {
         return SlimUtils::renderErrorJSON($response, $e->getMessage(), [], 403);
     }

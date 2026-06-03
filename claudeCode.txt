@@ -1,0 +1,264 @@
+# Résumé des travaux ChurchCRM — pour poursuite (Claude Code)
+Projet : /Users/mac/ChurchCRM copie/churchcrm-local
+Date : mai 2026
+Version app : 7.3.2 (migrations ajoutées 7.3.3 et 7.3.4)
+
+================================================================================
+CONTEXTE GÉNÉRAL
+================================================================================
+
+Fork/localisation ChurchCRM (PHP/MySQL, Slim 4 MVC pour modules récents).
+Règle impérative du projet : explorer l'existant avant toute modification.
+
+PHP n'était PAS disponible dans l'environnement Cursor lors des travaux :
+→ `npm run build:orm` (Propel) n'a pas pu être exécuté.
+→ Contournement : requêtes PDO dans les services + méthodes custom sur PersonQuery.
+
+================================================================================
+TÂCHE 1 — FAISEUR DE DISCIPLE (DISCIPLE MAKER)
+================================================================================
+
+## Objectif
+Champ « Faiseur de disciple » sur création/édition membre + affichage fiche membre.
+
+## Déjà existant (partiellement, avant intégration UI)
+- Colonne BDD : person_per.per_DiscipleMakerID
+- Migration : src/mysql/upgrade/7.3.3.sql (+ docker/migrations/7.3.3.sql)
+- Schéma ORM : orm/schema.xml (colonne + index idx_disciple_maker + FK)
+- Service : src/ChurchCRM/Service/DiscipleMakerService.php
+- API REST : src/api/routes/people/people-disciples.php (monté dans src/api/index.php)
+  Préfixe : /api/disciples/*
+- Vue helper : src/ChurchCRM/view/DiscipleMakerView.php (namespace ChurchCRM\View)
+- JS AJAX : src/js/DiscipleMakerManager.js (section #discipleMakerSection — NON branchée aux pages principales)
+- Docs/tests docker : docker/DISCIPLE_MAKER_*.md, scripts SQL de test
+
+## Manquait (implémenté)
+- Intégration PersonEditor.php (formulaire)
+- Intégration fiche membre people/views/person-view.php + people/routes/view.php
+- Modèles Propel régénérés (getDiscipleMakerId / filterByDiscipleMakerId absents du Base/Person généré)
+
+## Implémentation réalisée
+
+### PersonQuery.php (custom, jusqu'à propel build)
+src/ChurchCRM/model/ChurchCRM/PersonQuery.php
+→ filterByDiscipleMakerId() via addUsingAlias('per_DiscipleMakerID', ...)
+
+### DiscipleMakerService.php (refactoré)
+- persistDiscipleMakerId() / getStoredDiscipleMakerId() via Propel::getConnection() + PDO
+- Ne dépend plus de setDiscipleMakerId() sur le modèle Person (non généré)
+- getDisciples / getPotentialDiscipleMakers utilisent PersonQuery::filterByDiscipleMakerId()
+
+### PersonEditor.php
+- Import DiscipleMakerService
+- Variable $iDiscipleMakerID
+- POST : lecture DiscipleMaker, sauvegarde après $person->save() via setDiscipleMaker()
+- GET édition : $iDiscipleMakerID depuis $per_DiscipleMakerID (extract SQL)
+- Liste déroulante membres (familles pattern) dans carte « Church Membership »
+- Exclut la personne en cours d'édition de la liste
+
+### Fiche membre
+- people/routes/view.php : DiscipleMakerService → discipleMaker, disciples passés à la vue
+- people/views/person-view.php :
+  - Sidebar : lien faiseur + compte disciples
+  - Section « Discipulat » : faiseur + liste disciples cliquables
+
+### Traductions FR (messages.po)
+Disciple Maker → Faiseur de disciple, Disciples, Discipleship → Discipulat
+
+## Déploiement Tâche 1
+1. Appliquer migration 7.3.3.sql si pas fait
+2. npm run build:orm (quand PHP dispo) puis éventuellement simplifier DiscipleMakerService
+3. Recompiler traductions si locale build configuré
+
+================================================================================
+TÂCHE 2 — MODULE RÉUNIONS (MEETINGS)
+================================================================================
+
+## Objectif
+Module complet : nom, date/heure, organisateur (famille/groupe/organisation), présences
+présent/absent, remarques, menu navigation.
+
+## N'existait pas
+Aucun module meeting ; le module Events (events_event) est différent (check-in calendrier).
+
+## Organisateur — modèle de données
+Table meeting_mtg :
+- mtg_Name, mtg_DateTime, mtg_OrganizerType, mtg_OrganizerId, mtg_Remarks
+- mtg_DateEntered, mtg_DateLastEdited, mtg_EnteredBy, mtg_EditedBy
+
+Types organisateur (MeetingService) :
+- family:{fam_ID}  → membres via PersonQuery::filterByFamId()
+- group:{grp_ID}   → membres via Person2group2roleP2g2rQuery::filterByGroupId()
+- church:0         → église (sChurchName), pas de liste membres fixe
+
+« Organisations » dans le sélecteur :
+- church:0 (nom église depuis SystemConfig sChurchName)
+- + groupes dont le type (list_lst id=3) contient org/organisation/organization/ministr
+
+Pas de table organization dédiée dans ChurchCRM core.
+
+Table meeting_attendance_mat :
+- mat_MeetingId, mat_PersonId, mat_IsPresent (1=présent, 0=absent)
+- UNIQUE (meeting, person), FK CASCADE
+
+## Fichiers créés
+
+### SQL / schéma
+- src/mysql/upgrade/7.3.4.sql
+- docker/migrations/7.3.4.sql
+- orm/schema.xml : tables meeting_mtg, meeting_attendance_mat
+
+### Service
+- src/ChurchCRM/Service/MeetingService.php
+  CRUD, getOrganizerOptions(), getSuggestedMembers(), parseOrganizerValue(),
+  normalizeAttendanceInput(), resolveOrganizerLabel()
+
+### Module MVC /meetings/
+- src/meetings/index.php (MvcAppFactory)
+- src/meetings/.htaccess
+- src/meetings/routes/dashboard.php
+- src/meetings/routes/list.php
+- src/meetings/routes/editor.php (GET/POST editor, POST delete, GET /members JSON)
+- src/meetings/routes/view.php
+- src/meetings/views/dashboard.php
+- src/meetings/views/list.php
+- src/meetings/views/editor.php
+- src/meetings/views/view.php
+
+### Menu
+src/ChurchCRM/Config/Menu/Menu.php
+→ getMeetingsMenu() : Dashboard, Meeting List, New Meeting
+→ Visible si utilisateur connecté ; édition si isEditRecordsEnabled()
+
+### Nginx (docker)
+docker/nginx/default.conf
+→ location ^~ /meetings (+ people, event, groups ajoutés aussi)
+Apache : .htaccess dans src/meetings/ suffit.
+
+### Traductions FR meetings (messages.po)
+Meetings, Meeting, Organizer, Present, Absent, etc.
+
+## Permissions
+- Lecture : tout utilisateur authentifié
+- Création/édition/suppression : isEditRecordsEnabled()
+
+## Routes principales
+GET  /meetings/dashboard
+GET  /meetings/list
+GET  /meetings/editor
+GET  /meetings/editor/{id}
+POST /meetings/editor
+POST /meetings/editor/{id}
+GET  /meetings/view/{id}
+POST /meetings/delete/{id}
+GET  /meetings/members?organizer=family:5|group:12|church:0  (JSON)
+
+================================================================================
+CORRECTIFS POST-IMPLÉMENTATION
+================================================================================
+
+## Bug 500 — Nouvelle réunion
+Erreur : « Nom de configuration invalide demandé: sDateTimePickerFormat »
+Cause : clé inexistante passée depuis meetings/routes/editor.php
+Fix : suppression des appels SystemConfig::getValue('sDateTimePickerFormat')
+      (inutilisés ; le formulaire utilise <input type="datetime-local">)
+
+Fichier : src/meetings/routes/editor.php
+
+## UX — Liste présence selon organisateur
+Demande : assemblées de maison (groupes) → seuls les membres du groupe dans la liste.
+
+Fix dans src/meetings/views/editor.php (JavaScript) :
+- Au changement du sélecteur Organizer → loadMembersFromOrganizer() automatique
+- Remplace le tableau présences par les membres du groupe/famille (API /meetings/members)
+- Sélecteur « Ajouter une personne » limité aux membres de l'organisateur
+- Bouton « Charger les membres de l'organisateur » supprimé
+- church:0 → message explicatif, pas de liste globale
+- Édition réunion existante : conserve les présences chargées ; filtre le picker add
+
+Prérequis données : le groupe (ex. « Assemblée chez Ghislain ») doit avoir des
+membres assignés dans ChurchCRM (Groupes → fiche groupe). Valeur organisateur = group:{grp_ID}
+même si affiché dans optgroup « Organizations ».
+
+================================================================================
+FICHIERS MODIFIÉS — LISTE RAPIDE
+================================================================================
+
+Tâche 1 :
+  orm/schema.xml (colonne disciple maker — déjà présente)
+  src/mysql/upgrade/7.3.3.sql
+  src/ChurchCRM/model/ChurchCRM/PersonQuery.php
+  src/ChurchCRM/Service/DiscipleMakerService.php
+  src/PersonEditor.php
+  src/people/routes/view.php
+  src/people/views/person-view.php
+  src/locale/textdomain/fr_FR/LC_MESSAGES/messages.po
+
+Tâche 2 + fixes :
+  orm/schema.xml (tables meeting)
+  src/mysql/upgrade/7.3.4.sql
+  docker/migrations/7.3.4.sql
+  src/ChurchCRM/Service/MeetingService.php
+  src/ChurchCRM/Config/Menu/Menu.php
+  src/meetings/** (module entier)
+  docker/nginx/default.conf
+  src/locale/textdomain/fr_FR/LC_MESSAGES/messages.po
+
+Non modifié / existant utilisé :
+  src/api/routes/people/people-disciples.php
+  src/js/DiscipleMakerManager.js (orphelin UI principale)
+
+================================================================================
+DÉPLOIEMENT — CHECKLIST
+================================================================================
+
+1. Migrations SQL (ordre) :
+   - 7.3.3.sql → per_DiscipleMakerID sur person_per
+   - 7.3.4.sql → meeting_mtg + meeting_attendance_mat
+   Via upgrade ChurchCRM admin ou exécution manuelle.
+
+2. Régénérer ORM (recommandé) :
+   cd churchcrm-local && npm run build:orm
+   Puis revoir si DiscipleMakerService / PersonQuery custom peuvent utiliser
+   les getters Propel natifs.
+
+3. Traductions :
+   Recompiler .po → .mo si le projet a une commande locale (ex. npm run locale:build).
+
+4. Serveur :
+   Apache : modules people/event/groups/meetings via .htaccess OK.
+   Nginx Docker : utiliser docker/nginx/default.conf mis à jour.
+
+5. Tests manuels suggérés :
+   - PersonEditor : assigner un faiseur de disciple, sauver, vérifier fiche /people/view/{id}
+   - /meetings/editor : créer réunion, groupe avec membres, vérifier auto-liste présences
+   - /meetings/view/{id} : présents/absents, remarques
+   - API : GET /api/disciples/makers (optionnel)
+
+================================================================================
+PISTES POUR LA SUITE (non fait)
+================================================================================
+
+- Tâches utilisateur non spécifiées dans ce fil (autres fonctionnalités du cahier des charges ?)
+- Brancher DiscipleMakerManager.js sur person-view si édition AJAX souhaitée (doublon avec PHP actuel)
+- Tests Cypress pour meetings / disciple maker
+- Validation serveur : présences limitées aux membres de l'organisateur (sécurité)
+- Regrouper assemblées de maison : élargir getOrganizationGroupTypeIds() pour « assembl » / « maison »
+- Version package.json toujours 7.3.2 ; migrations nommées 7.3.3 / 7.3.4
+- Fichiers cursor-resume.md / PERSISTANCE.md / docker docs : documentation parallèle, pas source de vérité
+
+================================================================================
+CONVENTIONS CODEBASE (rappel)
+================================================================================
+
+- MVC modules : src/{module}/index.php + routes/ + views/ + .htaccess
+- Menu : src/ChurchCRM/Config/Menu/Menu.php
+- Services : src/ChurchCRM/Service/
+- Migrations : src/mysql/upgrade/{version}.sql
+- gettext() pour chaînes UI ; traductions fr_FR dans messages.po
+- Permissions édition membres : AuthenticationManager::getCurrentUser()->isEditRecordsEnabled()
+- Éviter RunQuery dans nouveau code (skill database-operations) ; legacy PersonEditor utilise encore RunQuery
+
+================================================================================
+FIN DU RÉSUMÉ
+================================================================================

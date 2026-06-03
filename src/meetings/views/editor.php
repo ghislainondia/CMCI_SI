@@ -1,5 +1,6 @@
 <?php
 
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Utils\InputUtils;
 
@@ -57,7 +58,7 @@ foreach ($attendanceRows as $row) {
                         <select class="form-select" id="Organizer" name="Organizer" required>
                             <option value=""><?= gettext('Select an organizer...') ?></option>
                             <?php if (!empty($organizerOptions['families'])) : ?>
-                            <optgroup label="<?= gettext('Families') ?>">
+                            <optgroup label="<?= ChurchVocabulary::houseAssemblies() ?>">
                                 <?php foreach ($organizerOptions['families'] as $opt) : ?>
                                 <option value="<?= InputUtils::escapeAttribute($opt['value']) ?>"
                                     <?= $organizerValue === $opt['value'] ? 'selected' : '' ?>>
@@ -102,7 +103,10 @@ foreach ($attendanceRows as $row) {
             </div>
             <div class="card-body">
                 <p class="text-body-secondary small mb-3">
-                    <?= gettext('The attendance list is filled with members of the selected organizer (family or group).') ?>
+                    <?= sprintf(
+                        gettext('The attendance list is filled with members of the selected organizer (%1$s or group).'),
+                        ChurchVocabulary::houseAssembly()
+                    ) ?>
                 </p>
                 <div class="row mb-3" id="addPersonRow">
                     <div class="col-md-8">
@@ -186,7 +190,13 @@ foreach ($attendanceRows as $row) {
         selectOrganizer: <?= json_encode(gettext('Select an organizer first...'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) ?>,
         selectPerson: <?= json_encode(gettext('Select a person...'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) ?>,
         noMembers: <?= json_encode(gettext('No members found for this organizer.'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) ?>,
-        churchOrganizer: <?= json_encode(gettext('Select a family or group to list members. The church organization has no fixed member list.'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) ?>,
+        churchOrganizer: <?= json_encode(
+            sprintf(
+                gettext('Select a %1$s or group to list members. The church organization has no fixed member list.'),
+                ChurchVocabulary::houseAssembly()
+            ),
+            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>,
         emptyHint: <?= json_encode(gettext('Select an organizer to display its members.'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) ?>,
         loadFailed: <?= json_encode(gettext('Failed to load members.'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) ?>,
     };

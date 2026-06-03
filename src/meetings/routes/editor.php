@@ -2,6 +2,7 @@
 
 use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\MeetingService;
 use ChurchCRM\Slim\SlimUtils;
@@ -66,7 +67,7 @@ $app->get('/editor[/{meetingId:[0-9]+}]', function (Request $request, Response $
         'sPageTitle' => $meeting ? gettext('Edit Meeting') : gettext('New Meeting'),
         'sPageSubtitle' => $meeting ? InputUtils::escapeHTML($meeting['name']) : gettext('Schedule a meeting and record attendance'),
         'aBreadcrumbs' => PageHeader::breadcrumbs([
-            [gettext('Meetings'), '/meetings/dashboard'],
+            [ChurchVocabulary::meetings(), '/meetings/dashboard'],
             [$meeting ? gettext('Edit Meeting') : gettext('New Meeting')],
         ]),
         'meeting' => $meeting,
@@ -145,7 +146,7 @@ $app->post('/editor[/{meetingId:[0-9]+}]', function (Request $request, Response 
             'sPageTitle' => $meetingId > 0 ? gettext('Edit Meeting') : gettext('New Meeting'),
             'sPageSubtitle' => gettext('Please correct the errors below'),
             'aBreadcrumbs' => PageHeader::breadcrumbs([
-                [gettext('Meetings'), '/meetings/dashboard'],
+                [ChurchVocabulary::meetings(), '/meetings/dashboard'],
                 [$meetingId > 0 ? gettext('Edit Meeting') : gettext('New Meeting')],
             ]),
             'meeting' => [

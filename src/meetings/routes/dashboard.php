@@ -1,6 +1,7 @@
 <?php
 
 use ChurchCRM\Authentication\AuthenticationManager;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\MeetingService;
 use ChurchCRM\view\PageHeader;
@@ -36,10 +37,10 @@ $app->get('/dashboard', function (Request $request, Response $response): Respons
 
     return $renderer->render($response, 'dashboard.php', [
         'sRootPath' => SystemURLs::getRootPath(),
-        'sPageTitle' => gettext('Meetings'),
+        'sPageTitle' => ChurchVocabulary::meetings(),
         'sPageSubtitle' => gettext('Manage church meetings and attendance'),
         'aBreadcrumbs' => PageHeader::breadcrumbs([
-            [gettext('Meetings')],
+            [ChurchVocabulary::meetings()],
         ]),
         'upcomingMeetings' => $upcoming,
         'pastMeetings' => array_slice($past, 0, 10),

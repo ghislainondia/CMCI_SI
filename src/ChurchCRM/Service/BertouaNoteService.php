@@ -23,12 +23,12 @@ class BertouaNoteService
     /**
      * @return array<int, array{id: int, personId: int, famId: int, note: string, saisiePar: int, dateSaisie: string}>
      */
-    public function getNotesForLesson(int $lessonId, int $groupId): array
+    public function getNotesForLesson(int $lessonId, int $familyId): array
     {
         BertouaSchemaService::ensureSchema();
-        $this->assertLessonContext($lessonId, $groupId);
+        $this->assertLessonContext($lessonId, $familyId);
 
-        $memberIds = array_column($this->accessService->getAssemblyMembers($groupId), 'id');
+        $memberIds = array_column($this->accessService->getAssemblyMembers($familyId), 'id');
         if ($memberIds === []) {
             return [];
         }
@@ -53,12 +53,12 @@ class BertouaNoteService
     /**
      * @param array<int, string> $notesByPersonId personId => note text
      */
-    public function saveNotes(int $lessonId, int $groupId, array $notesByPersonId): int
+    public function saveNotes(int $lessonId, int $familyId, array $notesByPersonId): int
     {
         BertouaSchemaService::ensureSchema();
-        $this->assertLessonContext($lessonId, $groupId);
+        $this->assertLessonContext($lessonId, $familyId);
 
-        $members = $this->accessService->getAssemblyMembers($groupId);
+        $members = $this->accessService->getAssemblyMembers($familyId);
         $memberMap = [];
         foreach ($members as $member) {
             $memberMap[(int) $member['id']] = (int) $member['famId'];
@@ -109,9 +109,9 @@ class BertouaNoteService
         return $saved;
     }
 
-    private function assertLessonContext(int $lessonId, int $groupId): void
+    private function assertLessonContext(int $lessonId, int $familyId): void
     {
-        $this->accessService->assertCanAccessAssemblyGroup($groupId);
+        $this->accessService->assertCanAccessAssemblyFamily($familyId);
 
         $lesson = $this->catalogService->getLessonById($lessonId);
         if ($lesson === null) {

@@ -2,6 +2,7 @@
 
 use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\dto\SystemConfig;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\MeetingService;
 use ChurchCRM\Slim\SlimUtils;
@@ -38,8 +39,8 @@ $app->get('/view/{meetingId:[0-9]+}', function (Request $request, Response $resp
         'sPageTitle' => InputUtils::escapeHTML($meeting['name']),
         'sPageSubtitle' => DateTimeUtils::formatDate($meeting['meetingDateTime'], true),
         'aBreadcrumbs' => PageHeader::breadcrumbs([
-            [gettext('Meetings'), '/meetings/dashboard'],
-            [gettext('Meeting')],
+            [ChurchVocabulary::meetings(), '/meetings/dashboard'],
+            [ChurchVocabulary::meeting()],
         ]),
         'meeting' => $meeting,
         'presentAttendees' => $present,

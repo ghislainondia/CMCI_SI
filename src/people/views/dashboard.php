@@ -1,5 +1,6 @@
 <?php
 
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Utils\InputUtils;
@@ -23,7 +24,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         </div>
                         <div class="col">
                             <div class="fw-medium text-body"><?= $familyCount['familyCount'] ?></div>
-                            <div class="text-body-secondary"><?= gettext('Families') ?></div>
+                            <div class="text-body-secondary"><?= ChurchVocabulary::houseAssemblies() ?></div>
                         </div>
                     </div>
                 </div>
@@ -95,13 +96,13 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <i class="fa-solid fa-user-plus me-1"></i><?= gettext('Add Person') ?>
                 </a>
                 <a href="<?= $sRootPath ?>/FamilyEditor.php" class="btn btn-secondary">
-                    <i class="fa-solid fa-house-user me-1"></i><?= gettext('Add Family') ?>
+                    <i class="fa-solid fa-house-user me-1"></i><?= gettext('Add New') . ' ' . ChurchVocabulary::houseAssembly() ?>
                 </a>
                 <a href="<?= $sRootPath ?>/people/list" class="btn btn-outline-secondary">
                     <i class="fa-solid fa-list me-1"></i><?= gettext('People List') ?>
                 </a>
                 <a href="<?= $sRootPath ?>/people/family" class="btn btn-outline-secondary">
-                    <i class="fa-solid fa-home me-1"></i><?= gettext('Family List') ?>
+                    <i class="fa-solid fa-home me-1"></i><?= ChurchVocabulary::familyListing() ?>
                 </a>
                 <a href="<?= $sRootPath ?>/people/verify" class="btn btn-outline-info">
                     <i class="fa-solid fa-clipboard-check me-1"></i><?= gettext('Verify People') ?>
@@ -202,7 +203,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
             <!-- Family Roles -->
             <div class="card mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fa-solid fa-people-group me-2"></i><?= gettext('Family Roles') ?></h3>
+                    <h3 class="card-title"><i class="fa-solid fa-people-group me-2"></i><?= ChurchVocabulary::familyRoles() ?></h3>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-sm table-hover table-vcenter card-table">

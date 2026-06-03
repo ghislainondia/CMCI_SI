@@ -7,6 +7,7 @@ use ChurchCRM\Exceptions\PhotoSizeException;
 use ChurchCRM\model\ChurchCRM\ListOptionQuery;
 use ChurchCRM\Plugin\Hook\HookManager;
 use ChurchCRM\Plugin\Hooks;
+use ChurchCRM\Service\UserFamilyScopeService;
 use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Service\SystemService;
 use ChurchCRM\Slim\Middleware\Request\Auth\DeleteRecordRoleAuthMiddleware;
@@ -100,7 +101,10 @@ $app->group('/person/{personId:[0-9]+}', function (RouteCollectorProxy $group): 
     // Photo endpoints - returns uploaded photo only (404 if no photo exists)
     $group->get('/photo', function (Request $request, Response $response, array $args): Response {
         $personId = (int)$args['personId'];
-        if (!(new UserGroupScopeService())->canAccessPersonId($personId)) {
+        $groupScope = new UserGroupScopeService();
+        $familyScope = new UserFamilyScopeService();
+        // Allow access if either group scope OR family scope permits it
+        if (!$groupScope->canAccessPersonId($personId) && !$familyScope->canAccessPersonId($personId)) {
             return SlimUtils::renderErrorJSON($response, gettext('Person not found'), [], 404);
         }
         $photo = new Photo('Person', $personId);
@@ -116,7 +120,10 @@ $app->group('/person/{personId:[0-9]+}', function (RouteCollectorProxy $group): 
     // Returns fallback data even for invalid person IDs (no PersonMiddleware needed)
     $group->get('/avatar', function (Request $request, Response $response, array $args): Response {
         $personId = (int) $args['personId'];
-        if (!(new UserGroupScopeService())->canAccessPersonId($personId)) {
+        $groupScope = new UserGroupScopeService();
+        $familyScope = new UserFamilyScopeService();
+        // Allow access if either group scope OR family scope permits it
+        if (!$groupScope->canAccessPersonId($personId) && !$familyScope->canAccessPersonId($personId)) {
             return SlimUtils::renderErrorJSON($response, gettext('Person not found'), [], 404);
         }
         $avatarInfo = Photo::getAvatarInfo('Person', $personId);

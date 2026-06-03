@@ -19,7 +19,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     </div>
                     <div class="col">
                         <div class="fw-medium text-body" id="familyCountDashboard"><?= $dashboardCounts["families"] ?></div>
-                        <div class="text-body-secondary"><?= gettext('Families') ?></div>
+                        <div class="text-body-secondary"><?= \ChurchCRM\dto\ChurchVocabulary::houseAssemblies() ?></div>
                     </div>
                 </div>
             </div>

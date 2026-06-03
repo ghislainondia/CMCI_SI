@@ -20,7 +20,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <?php endif; ?>
                     <?php foreach ($assemblies as $assembly) : ?>
                     <option value="<?= (int) $assembly['id'] ?>"
-                        <?= $selectedGroupId === (int) $assembly['id'] ? 'selected' : '' ?>>
+                        <?= $selectedFamilyId === (int) $assembly['id'] ? 'selected' : '' ?>>
                         <?= InputUtils::escapeHTML($assembly['name']) ?>
                     </option>
                     <?php endforeach; ?>
@@ -104,7 +104,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
     function getContext() {
         return {
-            groupId: parseInt(assemblySelect.value, 10) || 0,
+            familyId: parseInt(assemblySelect.value, 10) || 0,
             moduleId: parseInt(moduleSelect.value, 10) || 0,
             lessonId: parseInt(lessonSelect.value, 10) || 0,
         };
@@ -112,7 +112,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
     function contextReady() {
         const ctx = getContext();
-        return ctx.groupId > 0 && ctx.moduleId > 0 && ctx.lessonId > 0;
+        return ctx.familyId > 0 && ctx.moduleId > 0 && ctx.lessonId > 0;
     }
 
     function showAlert(message, type) {
@@ -165,9 +165,9 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
         const ctx = getContext();
         try {
-            const membersData = await fetchJson(rootPath + '/bertoua/api/members?groupId=' + ctx.groupId);
+            const membersData = await fetchJson(rootPath + '/bertoua/api/members?familyId=' + ctx.familyId);
             const notesData = await fetchJson(
-                rootPath + '/bertoua/api/notes?groupId=' + ctx.groupId + '&lessonId=' + ctx.lessonId
+                rootPath + '/bertoua/api/notes?familyId=' + ctx.familyId + '&lessonId=' + ctx.lessonId
             );
 
             notesLoading.classList.add('d-none');
@@ -234,7 +234,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 credentials: 'same-origin',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 body: JSON.stringify({
-                    groupId: ctx.groupId,
+                    familyId: ctx.familyId,
                     lessonId: ctx.lessonId,
                     notes: notes,
                 }),

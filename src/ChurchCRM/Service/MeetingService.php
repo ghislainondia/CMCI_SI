@@ -4,6 +4,7 @@ namespace ChurchCRM\Service;
 
 use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\dto\SystemConfig;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\model\ChurchCRM\FamilyQuery;
 use ChurchCRM\model\ChurchCRM\GroupQuery;
 use ChurchCRM\model\ChurchCRM\ListOptionQuery;
@@ -239,7 +240,7 @@ class MeetingService
         switch ($type) {
             case self::ORGANIZER_FAMILY:
                 $family = FamilyQuery::create()->findPk($id);
-                return $family ? gettext('Family') . ': ' . $family->getName() : gettext('Unknown');
+                return $family ? ChurchVocabulary::houseAssembly() . ': ' . $family->getName() : gettext('Unknown');
             case self::ORGANIZER_GROUP:
                 $group = GroupQuery::create()->findPk($id);
                 return $group ? gettext('Group') . ': ' . $group->getName() : gettext('Unknown');

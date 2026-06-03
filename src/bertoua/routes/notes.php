@@ -28,17 +28,17 @@ $app->get('/notes', function (Request $request, Response $response): Response {
     $modules = $catalog->listModules();
 
     $query = $request->getQueryParams();
-    $selectedGroupId = (int) ($query['groupId'] ?? 0);
+    $selectedFamilyId = (int) ($query['familyId'] ?? $query['groupId'] ?? 0);
     $selectedModuleId = (int) ($query['moduleId'] ?? 0);
     $selectedLessonId = (int) ($query['lessonId'] ?? 0);
 
-    if ($selectedGroupId > 0 && !$access->canAccessAssemblyGroup($selectedGroupId)) {
-        $selectedGroupId = 0;
+    if ($selectedFamilyId > 0 && !$access->canAccessAssemblyFamily($selectedFamilyId)) {
+        $selectedFamilyId = 0;
         $selectedLessonId = 0;
     }
 
-    if (count($assemblies) === 1 && $selectedGroupId <= 0) {
-        $selectedGroupId = (int) $assemblies[0]['id'];
+    if (count($assemblies) === 1 && $selectedFamilyId <= 0) {
+        $selectedFamilyId = (int) $assemblies[0]['id'];
     }
 
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
@@ -52,7 +52,7 @@ $app->get('/notes', function (Request $request, Response $response): Response {
         ]),
         'assemblies' => $assemblies,
         'modules' => $modules,
-        'selectedGroupId' => $selectedGroupId,
+        'selectedFamilyId' => $selectedFamilyId,
         'selectedModuleId' => $selectedModuleId,
         'selectedLessonId' => $selectedLessonId,
         'houseAssemblyLabel' => ChurchVocabulary::houseAssembly(),

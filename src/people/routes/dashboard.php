@@ -4,6 +4,7 @@ use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\DashboardService;
+use ChurchCRM\Service\HouseAssemblyLeaderService;
 use ChurchCRM\view\PageHeader;
 use ChurchCRM\model\ChurchCRM\Base\ListOptionQuery;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
@@ -12,15 +13,27 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\PhpRenderer;
 
-// Redirect /people root to /people/dashboard
+// Redirect /people root to house-assembly dashboard for leaders, else people dashboard
 $app->get('/', function (Request $request, Response $response): Response {
+    $leaderService = new HouseAssemblyLeaderService();
+    $target = $leaderService->isHouseAssemblyLeader()
+        ? HouseAssemblyLeaderService::DEFAULT_HOME_PATH
+        : '/people/dashboard';
+
     return $response
-        ->withHeader('Location', SystemURLs::getRootPath() . '/people/dashboard')
+        ->withHeader('Location', SystemURLs::getRootPath() . '/' . ltrim($target, '/'))
         ->withStatus(302);
 });
 
 // People Dashboard (replaces PeopleDashboard.php)
 $app->get('/dashboard', function (Request $request, Response $response): Response {
+    $leaderService = new HouseAssemblyLeaderService();
+    if ($leaderService->isHouseAssemblyLeader()) {
+        return $response
+            ->withHeader('Location', SystemURLs::getRootPath() . '/' . HouseAssemblyLeaderService::DEFAULT_HOME_PATH)
+            ->withStatus(302);
+    }
+
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
 
     $dashboardService = new DashboardService();
