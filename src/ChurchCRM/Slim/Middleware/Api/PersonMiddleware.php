@@ -3,6 +3,7 @@
 namespace ChurchCRM\Slim\Middleware\Api;
 
 use ChurchCRM\model\ChurchCRM\PersonQuery;
+use ChurchCRM\Service\UserFamilyScopeService;
 use ChurchCRM\Service\UserGroupScopeService;
 
 class PersonMiddleware extends AbstractEntityMiddleware
@@ -27,8 +28,10 @@ class PersonMiddleware extends AbstractEntityMiddleware
             return null;
         }
 
-        $scopeService = new UserGroupScopeService();
-        if (!$scopeService->canAccessPersonId($personId)) {
+        $groupScope = new UserGroupScopeService();
+        $familyScope = new UserFamilyScopeService();
+        // Allow access if either group scope OR family scope permits it
+        if (!$groupScope->canAccessPersonId($personId) && !$familyScope->canAccessPersonId($personId)) {
             return null;
         }
 

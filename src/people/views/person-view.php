@@ -74,6 +74,21 @@ $fam_Longitude      = (float) ($personData['fam_Longitude'] ?? 0);
                             <?php if ($sEnvelope !== gettext('Not assigned')) : ?>
                             <li class="mb-1"><i class="fa-solid fa-envelope me-2 text-body-secondary" style="width: 1rem; text-align: center;"></i><?= gettext('Envelope') ?> #<?= $sEnvelope ?></li>
                             <?php endif; ?>
+                            <?php if (!empty($discipleMaker)) : ?>
+                            <li class="mb-1">
+                                <i class="fa-solid fa-hands-praying me-2 text-body-secondary" style="width: 1rem; text-align: center;"></i>
+                                <?= gettext('Disciple Maker') ?>:
+                                <a href="<?= SystemURLs::getRootPath() ?>/people/view/<?= (int) $discipleMaker['id'] ?>">
+                                    <?= InputUtils::escapeHTML($discipleMaker['fullName']) ?>
+                                </a>
+                            </li>
+                            <?php endif; ?>
+                            <?php if (!empty($disciples)) : ?>
+                            <li class="mb-1">
+                                <i class="fa-solid fa-people-group me-2 text-body-secondary" style="width: 1rem; text-align: center;"></i>
+                                <?= gettext('Disciples') ?> (<?= count($disciples) ?>)
+                            </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
@@ -154,6 +169,36 @@ $fam_Longitude      = (float) ($personData['fam_Longitude'] ?? 0);
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                             <small class="text-body-secondary">(<?= gettext('Work') ?>)</small>
+                        </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
+
+                <?php if (!empty($discipleMaker) || !empty($disciples)) : ?>
+                <div class="mb-3">
+                    <h6 class="text-body-secondary mb-2"><i class="fa-solid fa-hands-praying me-1"></i><?= gettext('Discipleship') ?></h6>
+                    <ul class="list-unstyled ms-3">
+                        <?php if (!empty($discipleMaker)) : ?>
+                        <li class="mb-2">
+                            <span class="text-body-secondary"><?= gettext('Disciple Maker') ?>:</span>
+                            <a href="<?= SystemURLs::getRootPath() ?>/people/view/<?= (int) $discipleMaker['id'] ?>">
+                                <?= InputUtils::escapeHTML($discipleMaker['fullName']) ?>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <?php if (!empty($disciples)) : ?>
+                        <li class="mb-2">
+                            <span class="text-body-secondary d-block mb-1"><?= gettext('Disciples') ?>:</span>
+                            <ul class="list-unstyled ms-2 mb-0">
+                                <?php foreach ($disciples as $disciple) : ?>
+                                <li class="mb-1">
+                                    <a href="<?= SystemURLs::getRootPath() ?>/people/view/<?= (int) $disciple['id'] ?>">
+                                        <?= InputUtils::escapeHTML($disciple['fullName']) ?>
+                                    </a>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
                         </li>
                         <?php endif; ?>
                     </ul>

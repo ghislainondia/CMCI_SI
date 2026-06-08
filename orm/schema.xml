@@ -925,4 +925,43 @@
  </table>
  -->
 
+    <table name="meeting_mtg" idMethod="native" phpName="Meeting" description="Church meetings (réunions)">
+        <column name="mtg_ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="mtg_Name" phpName="Name" type="VARCHAR" size="255" required="true"/>
+        <column name="mtg_DateTime" phpName="MeetingDateTime" type="TIMESTAMP" required="true"/>
+        <column name="mtg_OrganizerType" phpName="OrganizerType" type="VARCHAR" size="20" required="true" defaultValue="church"/>
+        <column name="mtg_OrganizerId" phpName="OrganizerId" type="INTEGER" required="true" defaultValue="0"/>
+        <column name="mtg_Remarks" phpName="Remarks" type="LONGVARCHAR"/>
+        <column name="mtg_DateEntered" phpName="DateEntered" type="TIMESTAMP"/>
+        <column name="mtg_DateLastEdited" phpName="DateLastEdited" type="TIMESTAMP"/>
+        <column name="mtg_EnteredBy" phpName="EnteredBy" type="SMALLINT" size="5" sqlType="smallint(5) unsigned" defaultValue="0"/>
+        <column name="mtg_EditedBy" phpName="EditedBy" type="SMALLINT" size="5" sqlType="smallint(5) unsigned" defaultValue="0"/>
+        <index name="idx_meeting_datetime">
+            <index-column name="mtg_DateTime"/>
+        </index>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+
+    <table name="meeting_attendance_mat" idMethod="native" phpName="MeetingAttendance" description="Meeting attendance records">
+        <column name="mat_ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+        <column name="mat_MeetingId" phpName="MeetingId" type="INTEGER" required="true"/>
+        <column name="mat_PersonId" phpName="PersonId" type="INTEGER" required="true"/>
+        <column name="mat_IsPresent" phpName="IsPresent" type="BOOLEAN" size="1" required="true" defaultValue="true"/>
+        <foreign-key foreignTable="meeting_mtg">
+            <reference local="mat_MeetingId" foreign="mtg_ID"/>
+        </foreign-key>
+        <foreign-key foreignTable="person_per">
+            <reference local="mat_PersonId" foreign="per_ID"/>
+        </foreign-key>
+        <unique name="meeting_person">
+            <unique-column name="mat_MeetingId"/>
+            <unique-column name="mat_PersonId"/>
+        </unique>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+
 </database>

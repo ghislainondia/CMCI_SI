@@ -11,6 +11,7 @@ use ChurchCRM\Authentication\Requests\LocalTwoFactorTokenRequest;
 use ChurchCRM\Authentication\Requests\LocalUsernamePasswordRequest;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\model\ChurchCRM\User;
+use ChurchCRM\Service\HouseAssemblyLeaderService;
 use ChurchCRM\Service\NotificationService;
 use ChurchCRM\Utils\ChurchCRMReleaseManager;
 use ChurchCRM\Utils\LoggerUtils;
@@ -136,7 +137,7 @@ class AuthenticationManager
         if ($result->isAuthenticated && !$result->preventRedirect) {
             $redirectLocation = self::validateRedirectPath($_SESSION['location'] ?? null);
             unset($_SESSION['location']); // clear post-login redirect (one-time use)
-            $redirectLocation ??= 'v2/dashboard';
+            $redirectLocation ??= self::getDefaultPostLoginPath();
             
             // One-time login tasks: check for system updates and fetch remote notifications
             self::checkSystemUpdates();
@@ -243,6 +244,21 @@ class AuthenticationManager
         if (!AuthenticationManager::getCurrentUser()->isAdmin()) {
             RedirectUtils::securityRedirect('Admin');
         }
+    }
+
+    /**
+     * Default landing page after login when no return URL was stored.
+     */
+    public static function getDefaultPostLoginPath(): string
+    {
+        if (self::validateUserSessionIsActive(false)) {
+            $leaderService = new HouseAssemblyLeaderService();
+            if ($leaderService->isHouseAssemblyLeader()) {
+                return HouseAssemblyLeaderService::DEFAULT_HOME_PATH;
+            }
+        }
+
+        return 'v2/dashboard';
     }
 
     /**

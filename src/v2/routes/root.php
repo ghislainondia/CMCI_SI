@@ -9,6 +9,7 @@ use ChurchCRM\model\ChurchCRM\FamilyQuery;
 use ChurchCRM\model\ChurchCRM\GroupQuery;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
 use ChurchCRM\Service\FamilyService;
+use ChurchCRM\Service\HouseAssemblyLeaderService;
 use ChurchCRM\Service\PersonService;
 use ChurchCRM\view\PageHeader;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -55,6 +56,13 @@ function viewAccessDenied(Request $request, Response $response, array $args): Re
 
 function viewDashboard(Request $request, Response $response, array $args): Response
 {
+    $leaderService = new HouseAssemblyLeaderService();
+    if ($leaderService->isHouseAssemblyLeader()) {
+        return $response
+            ->withStatus(302)
+            ->withHeader('Location', SystemURLs::getRootPath() . '/' . HouseAssemblyLeaderService::DEFAULT_HOME_PATH);
+    }
+
     $renderer = new PhpRenderer('templates/root/');
 
     $dashboardCounts = [];

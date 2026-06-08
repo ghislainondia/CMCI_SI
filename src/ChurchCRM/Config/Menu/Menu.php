@@ -3,7 +3,10 @@
 namespace ChurchCRM\Config\Menu;
 
 use ChurchCRM\Authentication\AuthenticationManager;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemConfig;
+use ChurchCRM\Service\BertouaAccessService;
+use ChurchCRM\Service\HouseAssemblyLeaderService;
 use ChurchCRM\model\ChurchCRM\GroupQuery;
 use ChurchCRM\model\ChurchCRM\ListOptionQuery;
 use ChurchCRM\Plugin\Hook\HookManager;
@@ -30,6 +33,11 @@ class Menu
     private static function buildMenuItems(): array
     {
         $currentUser = AuthenticationManager::getCurrentUser();
+        $leaderService = new HouseAssemblyLeaderService();
+        if ($leaderService->isHouseAssemblyLeader()) {
+            return self::buildHouseAssemblyLeaderMenu($currentUser);
+        }
+
         $isAdmin = $currentUser->isAdmin();
         $isMenuOptions = $currentUser->isMenuOptionsEnabled();
         $isManageGroups = $currentUser->isManageGroupsEnabled();
@@ -42,11 +50,16 @@ class Menu
             'SundaySchool' => self::getSundaySchoolMenu($isAdmin),
             'Communication' => self::getCommunicationMenu(),
             'Events'       => self::getEventsMenu($currentUser->isAddEventEnabled(), $canViewEvents),
+            'Meetings'     => self::getMeetingsMenu($currentUser->isEditRecordsEnabled()),
             'Deposits'     => self::getDepositsMenu($isAdmin, $currentUser->isFinanceEnabled()),
             'Fundraiser'   => self::getFundraisersMenu($isAdmin),
             'Reports'      => self::getReportsMenu(),
         ];
         
+        if ((new BertouaAccessService())->canAccessBertouaModule() && !$leaderService->isHouseAssemblyLeader()) {
+            $menus['Bertoua'] = self::getBertouaMenu($isAdmin);
+        }
+
         // Backward compatibility: plugins that declare parent 'Email' still attach to Communication
         if (isset($menus['Communication'])) {
             $menus['Email'] = $menus['Communication'];
@@ -70,6 +83,36 @@ class Menu
 
     }
 
+    /**
+     * Minimal navigation for users scoped to one house assembly (group_id on user_usr).
+     */
+    private static function buildHouseAssemblyLeaderMenu($currentUser): array
+    {
+        $menus = [
+            'HouseAssembly' => new MenuItem(
+                ChurchVocabulary::houseAssemblyDashboard(),
+                HouseAssemblyLeaderService::DEFAULT_HOME_PATH,
+                true,
+                'fa-house-chimney-user'
+            ),
+            'Meetings' => self::getMeetingsMenu($currentUser->isEditRecordsEnabled()),
+            'Bertoua' => self::getBertouaMenu($currentUser->isAdmin()),
+        ];
+
+        return HookManager::applyFilters(Hooks::MENU_BUILDING, $menus);
+    }
+
+    private static function getBertouaMenu(bool $includeAdminLink): MenuItem
+    {
+        $menu = new MenuItem(gettext('Bertoua Message'), '', true, 'fa-book-bible');
+        $menu->addSubMenu(new MenuItem(gettext('Notes'), 'bertoua/notes', true, 'fa-pen-to-square'));
+        if ($includeAdminLink) {
+            $menu->addSubMenu(new MenuItem(gettext('Administration'), 'admin/system/bertoua', true, 'fa-sliders'));
+        }
+
+        return $menu;
+    }
+
     private static function getCalendarMenu(bool $canViewEvents): MenuItem
     {
         $calendarMenu = new MenuItem(gettext('Calendar'), 'event/calendars', $canViewEvents, 'fa-calendar');
@@ -90,15 +133,15 @@ class Menu
         $peopleMenu->addSubMenu(new MenuItem(gettext('Add New') . ' ' . gettext('Person'), 'PersonEditor.php', $isAddRecordsEnabled, 'fa-user-plus'));
         $peopleMenu->addSubMenu(new MenuItem(gettext('Person Listing'), 'people/list', true, 'fa-person-half-dress'));
         $peopleMenu->addSubMenu(new MenuItem(gettext('Photo Directory'), 'people/photos', true, 'fa-images'));
-        $peopleMenu->addSubMenu(new MenuItem(gettext('Add New') . ' ' . gettext('Family'), 'FamilyEditor.php', $isAddRecordsEnabled, 'fa-people-roof'));
-        $peopleMenu->addSubMenu(new MenuItem(gettext('Family Listing'), 'people/family', true, 'fa-people-roof'));
-        $peopleMenu->addSubMenu(new MenuItem(gettext('Family Map'), 'v2/map', true, 'fa-map'));
+        $peopleMenu->addSubMenu(new MenuItem(gettext('Add New') . ' ' . ChurchVocabulary::houseAssembly(), 'FamilyEditor.php', $isAddRecordsEnabled, 'fa-people-roof'));
+        $peopleMenu->addSubMenu(new MenuItem(ChurchVocabulary::familyListing(), 'people/family', true, 'fa-people-roof'));
+        $peopleMenu->addSubMenu(new MenuItem(ChurchVocabulary::familyMap(), 'v2/map', true, 'fa-map'));
 
         if ($isAdmin || $isMenuOptions) {
             $adminMenu = new MenuItem(gettext('Admin'), '', true);
-            $adminMenu->addSubMenu(new MenuItem(gettext('Family Roles'), 'admin/system/options?mode=famroles', $isAdmin, 'fa-people-roof'));
-            $adminMenu->addSubMenu(new MenuItem(gettext('Family Properties'), 'PropertyList.php?Type=f', $isMenuOptions, 'fa-people-roof'));
-            $adminMenu->addSubMenu(new MenuItem(gettext('Family Custom Fields'), 'FamilyCustomFieldsEditor.php', $isAdmin, 'fa-sliders'));
+            $adminMenu->addSubMenu(new MenuItem(ChurchVocabulary::familyRoles(), 'admin/system/options?mode=famroles', $isAdmin, 'fa-people-roof'));
+            $adminMenu->addSubMenu(new MenuItem(ChurchVocabulary::familyProperties(), 'PropertyList.php?Type=f', $isMenuOptions, 'fa-people-roof'));
+            $adminMenu->addSubMenu(new MenuItem(ChurchVocabulary::familyCustomFields(), 'FamilyCustomFieldsEditor.php', $isAdmin, 'fa-sliders'));
             $adminMenu->addSubMenu(new MenuItem(gettext('Person Classifications'), 'admin/system/options?mode=classes', $isAdmin, 'fa-tags'));
             $adminMenu->addSubMenu(new MenuItem(gettext('Person Properties'), 'PropertyList.php?Type=p', $isMenuOptions, 'fa-person-half-dress'));
             $adminMenu->addSubMenu(new MenuItem(gettext('Person Custom Fields'), 'PersonCustomFieldsEditor.php', $isAdmin, 'fa-sliders'));
@@ -259,6 +302,16 @@ class Menu
         return $eventsMenu;
     }
 
+    private static function getMeetingsMenu(bool $canEdit): MenuItem
+    {
+        $meetingsMenu = new MenuItem(ChurchVocabulary::meetings(), '', true, 'fa-handshake');
+        $meetingsMenu->addSubMenu(new MenuItem(gettext('Dashboard'), 'meetings/dashboard', true, 'fa-gauge'));
+        $meetingsMenu->addSubMenu(new MenuItem(gettext('Meeting List'), 'meetings/list', true, 'fa-list'));
+        $meetingsMenu->addSubMenu(new MenuItem(gettext('New Meeting'), 'meetings/editor', $canEdit, 'fa-circle-plus'));
+
+        return $meetingsMenu;
+    }
+
     private static function getDepositsMenu(bool $isAdmin, bool $isFinanceEnabled): MenuItem
     {
         // $isFinanceEnabled already includes admin bypass and checks bEnabledFinance
@@ -338,6 +391,7 @@ class Menu
         $menu->addSubMenu(new MenuItem(gettext('System Settings'), 'SystemSettings.php', $isAdmin, 'fa-gear'));
         $menu->addSubMenu(new MenuItem(gettext('Plugins'), 'plugins/management', $isAdmin, 'fa-plug'));
         $menu->addSubMenu(new MenuItem(gettext('Export'), 'admin/export', $isAdmin, 'fa-file-export'));
+        $menu->addSubMenu(new MenuItem(gettext('Bertoua Message'), 'admin/system/bertoua', $isAdmin, 'fa-book-bible'));
 
         return $menu;
     }

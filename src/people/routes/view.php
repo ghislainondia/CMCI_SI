@@ -9,9 +9,11 @@ use ChurchCRM\model\ChurchCRM\PersonCustomMasterQuery;
 use ChurchCRM\model\ChurchCRM\PersonQuery;
 use ChurchCRM\model\ChurchCRM\PersonVolunteerOpportunityQuery;
 use ChurchCRM\model\ChurchCRM\VolunteerOpportunityQuery;
+use ChurchCRM\Service\DiscipleMakerService;
 use ChurchCRM\Service\PersonService;
 use ChurchCRM\Service\PropertyService;
 use ChurchCRM\Service\TimelineService;
+use ChurchCRM\Service\UserFamilyScopeService;
 use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Slim\SlimUtils;
 use ChurchCRM\Utils\InputUtils;
@@ -25,13 +27,15 @@ $app->post('/view/{personID:[0-9]+}', function (Request $request, Response $resp
     $iPersonID = (int) $args['personID'];
     $currentUser = AuthenticationManager::getCurrentUser();
     $groupScopeService = new UserGroupScopeService();
+    $familyScopeService = new UserFamilyScopeService();
 
     $person = PersonQuery::create()->findPk($iPersonID);
     if (empty($person)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/people/person/not-found?id=' . $iPersonID);
     }
 
-    if (!$groupScopeService->canAccessPersonId($iPersonID)) {
+    // Allow access if either group scope OR family scope permits it
+    if (!$groupScopeService->canAccessPersonId($iPersonID) && !$familyScopeService->canAccessPersonId($iPersonID)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/v2/access-denied?role=PersonView');
     }
 
@@ -58,13 +62,15 @@ $app->get('/view/{personID:[0-9]+}', function (Request $request, Response $respo
     $iPersonID   = (int) $args['personID'];
     $currentUser = AuthenticationManager::getCurrentUser();
     $groupScopeService = new UserGroupScopeService();
+    $familyScopeService = new UserFamilyScopeService();
 
     $person = PersonQuery::create()->findPk($iPersonID);
     if (empty($person)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/people/person/not-found?id=' . $iPersonID);
     }
 
-    if (!$groupScopeService->canAccessPersonId($iPersonID)) {
+    // Allow access if either group scope OR family scope permits it
+    if (!$groupScopeService->canAccessPersonId($iPersonID) && !$familyScopeService->canAccessPersonId($iPersonID)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/v2/access-denied?role=PersonView');
     }
 
@@ -219,6 +225,11 @@ $app->get('/view/{personID:[0-9]+}', function (Request $request, Response $respo
     $timelineService = new TimelineService();
     $personTimeline  = $timelineService->getForPerson($iPersonID);
 
+    // ── Disciple maker ───────────────────────────────────────────────────────
+    $discipleMakerService = new DiscipleMakerService();
+    $discipleMaker        = $discipleMakerService->getDiscipleMaker($iPersonID);
+    $disciples            = $discipleMakerService->getDisciples($iPersonID);
+
     // ── Render ───────────────────────────────────────────────────────────────
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
 
@@ -264,6 +275,8 @@ $app->get('/view/{personID:[0-9]+}', function (Request $request, Response $respo
         'personMapConfig'        => $personMapConfig,
         'familyHasCoords'        => $familyHasCoords,
         'personTimeline'         => $personTimeline,
+        'discipleMaker'          => $discipleMaker,
+        'disciples'              => $disciples,
     ];
 
     return $renderer->render($response, 'person-view.php', $pageArgs);

@@ -1,0 +1,89 @@
+# ChurchCRM Production Docker Compose with Traefik
+# Usage: docker compose -f docker-compose.hostinger.yaml up -d
+
+services:
+  database:
+    image: mariadb:10.11
+    container_name: churchcrm-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./docker/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+    networks:
+      - churchcrm-network
+
+  webserver:
+    image: churchcrm/crm:php8-debian
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.production
+    container_name: churchcrm-web
+    restart: always
+    # Pas de ports exposés - Traefik gère le routage
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DB_HOST: database
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      CHURCHCRM_LOCK_DASHBOARD: ${CHURCHCRM_LOCK_DASHBOARD:-false}
+      # Traefik détecte automatiquement le port 80
+    volumes:
+      - churchcrm_uploads:/var/www/html/Images
+      - churchcrm_logs:/var/www/html/logs
+      - churchcrm_tmp:/var/www/html/tmp_attach
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - churchcrm-network
+      - n8n_default
+    labels:
+      # Configuration Traefik
+      - "traefik.enable=true"
+      # Router HTTP
+      - "traefik.http.routers.churchcrm.rule=Host(`crm.cmcisn.com`)"
+      - "traefik.http.routers.churchcrm.entrypoints=web"
+      - "traefik.http.routers.churchcrm.middlewares=redirect-to-https"
+      # Router HTTPS
+      - "traefik.http.routers.churchcrm-secure.rule=Host(`crm.cmcisn.com`)"
+      - "traefik.http.routers.churchcrm-secure.entrypoints=websecure"
+      - "traefik.http.routers.churchcrm-secure.tls=true"
+      - "traefik.http.routers.churchcrm-secure.tls.certresolver=letsencrypt"
+      # Service
+      - "traefik.http.services.churchcrm.loadbalancer.server.port=80"
+      # Middleware HTTPS redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+
+volumes:
+  mariadb_data:
+    driver: local
+  churchcrm_uploads:
+    driver: local
+  churchcrm_logs:
+    driver: local
+  churchcrm_tmp:
+    driver: local
+
+networks:
+  churchcrm-network:
+    driver: bridge
+  n8n_default:
+    external: true
+    name: n8n_default

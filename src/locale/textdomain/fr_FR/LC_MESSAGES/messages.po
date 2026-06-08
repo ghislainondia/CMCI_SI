@@ -126,11 +126,11 @@ msgstr "Nombre d'années de mariage"
 #. Context: queryparameters_qrp
 #: 
 msgid "Family Role"
-msgstr "Rôle familial"
+msgstr "Rôle de l'assemblée de maison"
 
 #: 
 msgid "Depends whether using person or family output method"
-msgstr "Dépend de si c'est la méthode d'exportation par personne ou par famille."
+msgstr "Dépend de si c'est la méthode d'exportation par personne ou par assemblée de maison."
 
 #: 
 msgid "Custom Field Selection"
@@ -142,7 +142,7 @@ msgstr "Personnaliser les champs Personne"
 
 #: 
 msgid "Custom Family Fields"
-msgstr "Personnaliser les champs Famille"
+msgstr "Personnaliser les champs Assemblée de maison"
 
 #: 
 msgid "Filters"
@@ -206,7 +206,7 @@ msgstr "Enregistrements individuels (CSV)"
 
 #: 
 msgid "CSV Combine Families"
-msgstr "Combiner les familles (CSV)"
+msgstr "Combiner les assemblées de maison (CSV)"
 
 #: 
 msgid "Add Individuals to Cart"
@@ -273,11 +273,11 @@ msgstr "Votre panier est vide !"
 
 #: 
 msgid "No family name entered!"
-msgstr "Pas de nom de famille saisi !"
+msgstr "Pas de nom de assemblée de maison saisi !"
 
 #: 
 msgid "Add Cart to Family"
-msgstr "Ajouter le panier à la famille"
+msgstr "Ajouter le panier à l'assemblée de maison"
 
 #. Context: queryparameteroptions_qpo
 #: 
@@ -290,15 +290,15 @@ msgstr "Attribuer un rôle"
 
 #: 
 msgid "Already in a family"
-msgstr "Déjà dans une famille"
+msgstr "Déjà dans une assemblée de maison"
 
 #: 
 msgid "Create new family"
-msgstr "Créer une famille"
+msgstr "Créer une assemblée de maison"
 
 #: 
 msgid "If adding a new family, enter data below."
-msgstr "Si vous ajoutez une nouvelle famille, entrez les données ci-dessous."
+msgstr "Si vous ajoutez une nouvelle assemblée de maison, entrez les données ci-dessous."
 
 #: 
 msgid "Use address/contact data from"
@@ -314,7 +314,7 @@ msgstr "Ne pas utiliser le format automatique"
 
 #: 
 msgid "Add to Family"
-msgstr "Ajouter à la famille"
+msgstr "Ajouter à l'assemblée de maison"
 
 #: 
 msgid "Add Cart to Group"
@@ -354,7 +354,7 @@ msgstr "Vider le panier dans le groupe"
 
 #: 
 msgid "Empty Cart to Family"
-msgstr "Vider le panier dans la famille"
+msgstr "Vider le panier dans l'assemblée de maison"
 
 #: 
 msgid "Map Cart"
@@ -424,11 +424,11 @@ msgstr " de la/du"
 
 #: 
 msgid "(No assigned family)"
-msgstr "(Aucune famille assignée)"
+msgstr "(Aucune assemblée de maison assignée)"
 
 #: 
 msgid "Convert Individuals to Families"
-msgstr "Convertir les individus en familles"
+msgstr "Convertir les individus en assemblées de maison"
 
 #: 
 msgid "Convert Next"
@@ -473,7 +473,7 @@ msgstr "Sélectionner les catégories à inclure"
 
 #: 
 msgid "Which role is the head of household?"
-msgstr "Quel est le rôle du chef de famille?"
+msgstr "Quel est le rôle du dirigeant d'assemblée de maison?"
 
 #: 
 msgid "Which role is the spouse?"
@@ -497,19 +497,19 @@ msgstr "Anniversaire"
 
 #: 
 msgid "Family Home Phone"
-msgstr "Téléphone fixe de la famille"
+msgstr "Téléphone fixe de l'assemblée de maison"
 
 #: 
 msgid "Family Work Phone"
-msgstr "Téléphone professionnel de la famille"
+msgstr "Téléphone professionnel de l'assemblée de maison"
 
 #: 
 msgid "Family Cell Phone"
-msgstr "Téléphone portable de la famille"
+msgstr "Téléphone portable de l'assemblée de maison"
 
 #: 
 msgid "Family Email"
-msgstr "Email de la famille"
+msgstr "Email de l'assemblée de maison"
 
 #: 
 msgid "Personal Home Phone"
@@ -661,7 +661,7 @@ msgstr "Retourner aux types d'événements"
 
 #: 
 msgid "Family"
-msgstr "Famille"
+msgstr "Assemblée de maison"
 
 #: 
 msgid "Type"
@@ -738,7 +738,7 @@ msgstr "Ajouter un type d'événement"
 
 #: 
 msgid "Custom Family Fields Editor"
-msgstr "Personnaliser le gestionnaire de champ famille"
+msgstr "Personnaliser le gestionnaire de champ assemblée de maison"
 
 #: 
 msgid "Default Option"
@@ -746,7 +746,7 @@ msgstr "Option par défaut"
 
 #: 
 msgid "No custom Family fields have been added yet"
-msgstr "Aucun champ famille personnalisé n'a été ajouté pour l'instant"
+msgstr "Aucun champ assemblée de maison personnalisé n'a été ajouté pour l'instant"
 
 #: 
 msgid "Special option"
@@ -778,7 +778,7 @@ msgstr "Ce nom de champ existe déjà."
 
 #: 
 msgid "Family Editor"
-msgstr "Gestionnaire de famille"
+msgstr "Gestionnaire de assemblée de maison"
 
 #: 
 msgid "First name must be entered"
@@ -798,7 +798,7 @@ msgstr "L'adresse email n'est pas valide"
 
 #: 
 msgid "Family Info"
-msgstr "Info sur la famille"
+msgstr "Info sur l'assemblée de maison"
 
 #: 
 msgid "Envelope Info"
@@ -810,7 +810,7 @@ msgstr "Personnaliser les champs"
 
 #: 
 msgid "Family Members"
-msgstr "Membres de la famille"
+msgstr "Membres de l'assemblée de maison"
 
 #: 
 msgid "First"
@@ -978,7 +978,7 @@ msgstr "Voulez-vous continuer ?"
 
 #: 
 msgid "You are about to email copy of the family information to the following emails"
-msgstr "Vous êtes sur le point d'envoyer une copie des informations de la famille aux adresses e-mail suivantes"
+msgstr "Vous êtes sur le point d'envoyer une copie des informations de l'assemblée de maison aux adresses e-mail suivantes"
 
 #: 
 msgid "Financial Reports"
@@ -999,7 +999,7 @@ msgstr "Synthèse des contributions"
 
 #: 
 msgid "Pledge Family Summary"
-msgstr "Synthèse des contributions familiale"
+msgstr "Synthèse des contributions de l'assemblée de maisone"
 
 #: 
 msgid "Pledge Reminders"
@@ -1031,7 +1031,7 @@ msgstr "Suivant"
 
 #: 
 msgid "Filter by Family"
-msgstr "Filtrer par famille"
+msgstr "Filtrer par assemblée de maison"
 
 #: 
 #, fuzzy
@@ -1113,11 +1113,11 @@ msgstr "Tous les paiements"
 
 #: 
 msgid "Only Families with unpaid pledges"
-msgstr "Uniquement les familles avec des contributions non versées"
+msgstr "Uniquement les assemblées de maison avec des contributions non versées"
 
 #: 
 msgid "All Families"
-msgstr "Toutes les familles"
+msgstr "Toutes les assemblées de maison"
 
 #: 
 msgid "Report Heading:"
@@ -1264,7 +1264,7 @@ msgstr "Utilitaires géographiques des familes"
 #: 
 #, fuzzy
 msgid "Select Family"
-msgstr "Sélectionner une famille"
+msgstr "Sélectionner une assemblée de maison"
 
 #: 
 #, fuzzy
@@ -1287,11 +1287,11 @@ msgstr "Visualisation GPS"
 #: 
 #, fuzzy
 msgid "Include families in the coordinate file"
-msgstr "Inclure les familles dans le fichier de coordonnée"
+msgstr "Inclure les assemblées de maison dans le fichier de coordonnée"
 
 #: 
 msgid "Neighbor Families"
-msgstr "Familles voisines"
+msgstr "Assemblées de maison voisines"
 
 #: 
 msgid "Make Data File"
@@ -1505,7 +1505,7 @@ msgstr "Gestionnaire d'Enveloppes de dons"
 
 #: 
 msgid "Update Family Records"
-msgstr "Mettre à jour les enregistrements de la famille"
+msgstr "Mettre à jour les enregistrements de l'assemblée de maison"
 
 #: 
 msgid "Update Envelopes"
@@ -1549,11 +1549,11 @@ msgstr "Envoyer un Email à tous"
 
 #: 
 msgid "Family Roles"
-msgstr "Rôles d'une famille"
+msgstr "Rôles d'une assemblée de maison"
 
 #: 
 msgid "Family Geographic"
-msgstr "Famille géographique"
+msgstr "Carte des assemblées de maison"
 
 #: 
 msgid "Volunteer Opportunities"
@@ -1561,7 +1561,7 @@ msgstr "Opportunités de bénévolats"
 
 #: 
 msgid "Families"
-msgstr "Familles"
+msgstr "Assemblées de maison"
 
 #: 
 msgid "People"
@@ -1601,15 +1601,15 @@ msgstr "Suivi du dépôt"
 
 #: 
 msgid "Latest Families"
-msgstr "Dernières familles ajoutées"
+msgstr "Dernières assemblées de maison ajoutées"
 
 #: 
 msgid "Family Name"
-msgstr "Nom de Famille"
+msgstr "Nom de Assemblée de maison"
 
 #: 
 msgid "Updated Families"
-msgstr "Familles mises à jour"
+msgstr "Assemblées de maison mises à jour"
 
 #: 
 msgid "Updated"
@@ -1729,7 +1729,7 @@ msgstr "Cacher l'âge"
 
 #: 
 msgid "Create a new family (using last name)"
-msgstr "Créer une nouvelle famille (en utilisant le nom de famille)"
+msgstr "Créer une nouvelle assemblée de maison (en utilisant le nom de assemblée de maison)"
 
 #: 
 msgid "Friend Date"
@@ -1833,11 +1833,11 @@ msgstr "Scanner un chèque"
 
 #: 
 msgid "find family from check account #"
-msgstr "Rechercher une famille par leur compte chèque #"
+msgstr "Rechercher une assemblée de maison par leur compte chèque #"
 
 #: 
 msgid "Set default check account number for family"
-msgstr "Définir un numéro de compte chèque par défaut pour la famille"
+msgstr "Définir un numéro de compte chèque par défaut pour l'assemblée de maison"
 
 #: 
 msgid "Fund Name"
@@ -1974,19 +1974,19 @@ msgstr "Veuillez confirmer la suppression de"
 
 #: 
 msgid "Sorry, there are records of donations from this family. This family may not be deleted."
-msgstr "Désolé, il y a des enregistrements de dons de cette famille. Cette famille ne peut pas être supprimé."
+msgstr "Désolé, il y a des enregistrements de dons de cette assemblée de maison. Cette assemblée de maison ne peut pas être supprimé."
 
 #: 
 msgid "Return to Family View"
-msgstr "Retourner sur Voir la Famille"
+msgstr "Retourner sur Voir l'assemblée de maison"
 
 #: 
 msgid "WARNING: This family has records of donations and may NOT be deleted until these donations are associated with another family."
-msgstr "AVERTISSEMENT: Cette famille a des enregistrements de dons et ne peut pas être supprimé jusqu'à ce que ces dons soient associés avec une autre famille."
+msgstr "AVERTISSEMENT: Cette assemblée de maison a des enregistrements de dons et ne peut pas être supprimé jusqu'à ce que ces dons soient associés avec une autre assemblée de maison."
 
 #: 
 msgid "Please select another family with whom to associate these donations:"
-msgstr "Veuillez sélectionner une famille à qui attribuer ces dons:"
+msgstr "Veuillez sélectionner une assemblée de maison à qui attribuer ces dons:"
 
 #: 
 msgid "WARNING: This action can not be undone and may have legal implications!"
@@ -1994,23 +1994,23 @@ msgstr "AVERTISSEMENT: Cette action ne peut pas être annulée et pourrait avoir
 
 #: 
 msgid "CURRENT FAMILY WITH DONATIONS"
-msgstr "FAMILLE ACTUELLEMENT AVEC DES DONS"
+msgstr "ASSEMBLÉE DE MAISON ACTUELLEMENT AVEC DES DONS"
 
 #: 
 msgid "Please confirm deletion of this family record:"
-msgstr "Veuillez confirmer la suppression de cette famille:"
+msgstr "Veuillez confirmer la suppression de cette assemblée de maison:"
 
 #: 
 msgid "Note: This will also delete all Notes associated with this Family record."
-msgstr "Note : Ceci supprimera également toutes les Notes liées à cette Famille."
+msgstr "Note : Ceci supprimera également toutes les Notes liées à cette assemblée de maison."
 
 #: 
 msgid "Delete Family Record ONLY"
-msgstr "Supprimer uniquement les données de la Famille"
+msgstr "Supprimer uniquement les données de l'assemblée de maison"
 
 #: 
 msgid "Delete Family Record AND Family Members"
-msgstr "Supprimer les données de la famille ET ses membres."
+msgstr "Supprimer les données de l'assemblée de maison ET ses membres."
 
 #: 
 msgid "Listing"
@@ -2235,11 +2235,11 @@ msgstr "Liste déroulante personnalisée"
 
 #: 
 msgid "PDF successfully emailed to family members."
-msgstr "PDF envoyé avec succès aux membres de la famille."
+msgstr "PDF envoyé avec succès aux membres de l'assemblée de maison."
 
 #: 
 msgid "Failed to email PDF to family members."
-msgstr "Échec de l'envoi du PDF aux membres de la famille"
+msgstr "Échec de l'envoi du PDF aux membres de l'assemblée de maison"
 
 #: 
 msgid "Group successfully added to the Cart."
@@ -2340,7 +2340,7 @@ msgstr "Toutes personnes"
 
 #: 
 msgid "Grouped by Family"
-msgstr "Groupé par Famille"
+msgstr "Groupé par Assemblée de maison"
 
 #: 
 msgid "To the parents of"
@@ -2660,11 +2660,11 @@ msgstr "Date de dépôt"
 
 #: 
 msgid "This will overwrite the family envelope numbers in the database with those selected on this page.  Continue?"
-msgstr "Cette action va écraser le nombre d'enveloppe de dons par famille au niveau de la base de données, avec ceux sélectionnés dans cette page. Voulez-vous continuer ?"
+msgstr "Cette action va écraser le nombre d'enveloppe de dons par assemblée de maison au niveau de la base de données, avec ceux sélectionnés dans cette page. Voulez-vous continuer ?"
 
 #: 
 msgid "Family Select"
-msgstr "Famille sélectionnée"
+msgstr "Assemblée de maison sélectionnée"
 
 #: 
 msgid "with at least one:"
@@ -2748,11 +2748,11 @@ msgstr "Nettoyer toutes les classes"
 
 #: 
 msgid "Add All Families"
-msgstr "Ajouter toutes les familles"
+msgstr "Ajouter toutes les assemblées de maison"
 
 #: 
 msgid "Clear All Families"
-msgstr "Supprimer toutes les familles"
+msgstr "Supprimer toutes les assemblées de maison"
 
 #: 
 msgid "Add All Funds"
@@ -2788,7 +2788,7 @@ msgstr "Acheteur # "
 
 #: 
 msgid "Family Members:"
-msgstr "Membres de la Famille:"
+msgstr "Membres de l'assemblée de maison:"
 
 #: 
 msgid "Anniversary"
@@ -2804,7 +2804,7 @@ msgstr "Rapports"
 
 #: 
 msgid "family"
-msgstr "Famille"
+msgstr "Assemblée de maison"
 
 #: 
 #, fuzzy
@@ -2841,7 +2841,7 @@ msgstr "Tous"
 
 #: 
 msgid "Family Map"
-msgstr "Carte de toutes les familles"
+msgstr "Carte de toutes les assemblées de maison"
 
 #: 
 msgid "Groups"
@@ -2863,15 +2863,15 @@ msgstr "Inclure uniquement ces catégories dans le répertoire, séparées par u
 
 #: 
 msgid "These are the family role numbers designated as head of house"
-msgstr "Voici les numéros des rôles familiaux attribués au chef de famille"
+msgstr "Voici les numéros des rôles dans l'assemblée de maison attribués au dirigeant d'assemblée de maison"
 
 #: 
 msgid "These are the family role numbers designated as spouse"
-msgstr "Voici les numéros des rôles familiaux attribués aux conjoints"
+msgstr "Voici les numéros des rôles dans l'assemblée de maison attribués aux conjoints"
 
 #: 
 msgid "These are the family role numbers designated as child"
-msgstr "Voici les numéros des rôles familiaux attribués aux enfants"
+msgstr "Voici les numéros des rôles dans l'assemblée de maison attribués aux enfants"
 
 #: 
 msgid "Minimum length a user may set their password to"
@@ -2920,11 +2920,11 @@ msgstr "Cocher Vrai pour désactiver la saisie de Date d'amitié dans le Gestion
 
 #: 
 msgid "Set true to disable management of newsletter subscriptions in the Family Editor."
-msgstr "Cocher Vrai pour désactiver la gestion des inscriptions à la Lettre de Nouvelles dans le gestionnaire de Famille."
+msgstr "Cocher Vrai pour désactiver la gestion des inscriptions à la Lettre de Nouvelles dans le gestionnaire de Assemblée de maison."
 
 #: 
 msgid "Set true to disable entering Wedding Date in Family Editor.  Set false to enable entering Wedding Date in Family Editor."
-msgstr "Cocher Vrai pour désactiver la saisie de la date de mariage dans le Gestionnaire de famille. Cocher Faux pour activer la saisie de la date de mariage dans le Gestionnaire de famille."
+msgstr "Cocher Vrai pour désactiver la saisie de la date de mariage dans le Gestionnaire de assemblée de maison. Cocher Faux pour activer la saisie de la date de mariage dans le Gestionnaire de assemblée de maison."
 
 #: 
 msgid "Number of checks for Deposit Slip Report"
@@ -3044,7 +3044,7 @@ msgstr "Menu Requête"
 
 #: 
 msgid "Family Properties"
-msgstr "Propriétés des familles"
+msgstr "Propriétés des assemblées de maison"
 
 #: 
 msgid "Property Types"
@@ -3083,7 +3083,7 @@ msgstr "Toutes les années sur"
 
 #: 
 msgid "Family Roles Editor"
-msgstr "Gestionnaire des rôles de famille."
+msgstr "Gestionnaire des rôles de assemblée de maison."
 
 #: 
 msgid "Person Classification"
@@ -3135,11 +3135,11 @@ msgstr "Gestionnaire d'Options de Liste personnalisée"
 
 #: 
 msgid "Family Custom List Options Editor"
-msgstr "Gestionnaire des Options de Liste familiale personnalisée"
+msgstr "Gestionnaire des Options de Liste de l'assemblée de maisone personnalisée"
 
 #: 
 msgid "Family Data Verified"
-msgstr "Données Familiale vérifiées"
+msgstr "Données De l'assemblée de maisone vérifiées"
 
 #: 
 msgid "Profile Image Deleted"
@@ -4430,7 +4430,7 @@ msgstr "Zimbabwe"
 
 #: 
 msgid "Please verify your family's information"
-msgstr "Veuillez vérifier vos informations familiales"
+msgstr "Veuillez vérifier vos informations de l'assemblée de maisones"
 
 #: 
 msgid "Unable to load verification info"
@@ -4450,15 +4450,15 @@ msgstr "Oups ! Page non trouvée"
 
 #: 
 msgid "Family Registration"
-msgstr "Enregistrement de la famille"
+msgstr "Enregistrement de l'assemblée de maison"
 
 #: 
 msgid "Please enter the following to start your family's verification"
-msgstr "Veuillez compléter les champs suivants pour vérification de la famille"
+msgstr "Veuillez compléter les champs suivants pour vérification de l'assemblée de maison"
 
 #: 
 msgid "Family Verification"
-msgstr "Vérification de la Famille"
+msgstr "Vérification de l'assemblée de maison"
 
 #: 
 msgid "Request Family Info Verification"
@@ -4466,7 +4466,7 @@ msgstr "Demande de vérification des infos familliale"
 
 #: 
 msgid "Select how do you want to request the family information to be verified"
-msgstr "Sélectionner la manière dont vous voulez faire la demande de vérification des informations familiale"
+msgstr "Sélectionner la manière dont vous voulez faire la demande de vérification des informations de l'assemblée de maisone"
 
 #: 
 msgid "Online Verification"
@@ -4602,16 +4602,16 @@ msgstr "Vérification du numéro de compte de l'église"
 #: 
 #, fuzzy
 msgid "Marked the Family as Inactive"
-msgstr "Désactiver la famille."
+msgstr "Désactiver l'assemblée de maison."
 
 #: 
 #, fuzzy
 msgid "Marked the Family as Active"
-msgstr "Activer la famille."
+msgstr "Activer l'assemblée de maison."
 
 #: 
 msgid "families"
-msgstr "Familles"
+msgstr "Assemblées de maison"
 
 #: 
 msgid "Financial Settings"
@@ -4640,11 +4640,11 @@ msgstr "Confirmer l'activation"
 
 #: 
 msgid "Please confirm deactivation of family"
-msgstr "Veuillez confirmer la désactivation de la famille"
+msgstr "Veuillez confirmer la désactivation de l'assemblée de maison"
 
 #: 
 msgid "Please confirm activation of family"
-msgstr "Veuillez confirmer l'activation de la famille"
+msgstr "Veuillez confirmer l'activation de l'assemblée de maison"
 
 #: 
 #, fuzzy
@@ -4653,7 +4653,7 @@ msgstr "Afficher les voisins avec ces catégories"
 
 #: 
 msgid "Please select a Family."
-msgstr "Veuillez sélectionner une famille."
+msgstr "Veuillez sélectionner une assemblée de maison."
 
 #: 
 #, fuzzy
@@ -4786,7 +4786,7 @@ msgstr "Timeout en sec. du serveur SMTP"
 
 #: 
 msgid "Exclude Inactive Families"
-msgstr "Exclure les familles inactives"
+msgstr "Exclure les assemblées de maison inactives"
 
 #: 
 msgid "The role is already assigned."
@@ -4979,7 +4979,7 @@ msgstr "Êtes vous sûr de vouloir retirer cette propriété ?"
 
 #: 
 msgid "Select a family"
-msgstr "Sélectionner une famille"
+msgstr "Sélectionner une assemblée de maison"
 
 #: 
 msgid "Release Notes"
@@ -5027,7 +5027,7 @@ msgstr "Pour définir les date dans Date-Picker-Bootstrap, par défaut :  Y-m-d,
 
 #: 
 msgid "Comma Separated list of PersonIDs of people to notify when a new family or person is added"
-msgstr "Liste des ID de personnes à notifier quand une famille ou une personne est ajoutée, séparée par des virgules."
+msgstr "Liste des ID de personnes à notifier quand une assemblée de maison ou une personne est ajoutée, séparée par des virgules."
 
 #: 
 msgid "Allow unauthenticated reads of events from the external calendar API"
@@ -5039,7 +5039,7 @@ msgstr "Nouvelle personne ajoutée"
 
 #: 
 msgid "New Family Added"
-msgstr "Nouvelle Famille ajoutée"
+msgstr "Nouvelle Assemblée de maison ajoutée"
 
 #: 
 msgid "Church Greeter"
@@ -5119,11 +5119,11 @@ msgstr "OSO"
 
 #: 
 msgid "Search Family"
-msgstr "Rechercher une famille"
+msgstr "Rechercher une assemblée de maison"
 
 #: 
 msgid "Show Family Head of House Names"
-msgstr "Afficher les prénoms des chefs des familles"
+msgstr "Afficher les prénoms des chefs des assemblées de maison"
 
 #: 
 msgid "Search Groups"
@@ -5147,7 +5147,7 @@ msgstr "Rechercher dans les adresses"
 
 #: 
 msgid "Maximum number of Families"
-msgstr "Nombre maximum de familles"
+msgstr "Nombre maximum de assemblées de maison"
 
 #: 
 msgid "Maximum number of Family H.O.H Names"
@@ -5263,7 +5263,7 @@ msgstr "L'identifiant Groupe pour le Panier doit être un nombre"
 
 #: 
 msgid "FamilyID for Cart must be numeric"
-msgstr "L'identifiant Famille pour le Panier doit être un nombre"
+msgstr "L'identifiant Assemblée de maison pour le Panier doit être un nombre"
 
 #: 
 msgid "Search People"
@@ -5353,7 +5353,7 @@ msgstr "Rajouté au groupe"
 #: 
 #, fuzzy
 msgid "This Family is Inactive"
-msgstr "Cette famille a été déactivée"
+msgstr "Cette assemblée de maison a été déactivée"
 
 #: 
 msgid "The database has been cleared."
@@ -5454,7 +5454,7 @@ msgstr "Debug"
 
 #: 
 msgid "Family Custom Fields"
-msgstr "Champs personnalisés Famille"
+msgstr "Champs personnalisés Assemblée de maison"
 
 #: 
 msgid "Person Custom Fields"
@@ -5568,7 +5568,7 @@ msgstr "Inclure les contacts et les données démographiques dans le corps de l'
 
 #: 
 msgid "Include family custom properties in global search."
-msgstr "Inclure les propriétés personnalisées des familles dans la recherche globale."
+msgstr "Inclure les propriétés personnalisées des assemblées de maison dans la recherche globale."
 
 #. Context: countries
 #: 
@@ -5839,7 +5839,7 @@ msgstr "Gérer les notes"
 
 #: 
 msgid "Pledge Summary By Family"
-msgstr "Résumé de l'engagement par famille"
+msgstr "Résumé de l'engagement par assemblée de maison"
 
 #: 
 msgid "Pledge"
@@ -5897,7 +5897,7 @@ msgstr "Anniversaires de mariage du jour"
 
 #: 
 msgid "View Family Page"
-msgstr "Voir page de la Famille"
+msgstr "Voir page de l'assemblée de maison"
 
 #: 
 msgid "View Person Page"
@@ -5909,7 +5909,7 @@ msgstr "Vérifier"
 
 #: 
 msgid "Family has no emails to use"
-msgstr "Aucune adresse email renseignée pour cette famille"
+msgstr "Aucune adresse email renseignée pour cette assemblée de maison"
 
 #: 
 msgid "Deleted"
@@ -6167,7 +6167,7 @@ msgstr "Vider entièrement votre panier ?"
 
 #: 
 msgid "Failed to add family to cart"
-msgstr "Impossible d'ajouter la famille au panier"
+msgstr "Impossible d'ajouter l'assemblée de maison au panier"
 
 #: 
 msgid "Failed to add group to cart"
@@ -6187,7 +6187,7 @@ msgstr "Impossible de vider le panier dans le groupe"
 
 #: 
 msgid "Failed to remove family from cart"
-msgstr "Impossible de retirer la famille du panier"
+msgstr "Impossible de retirer l'assemblée de maison du panier"
 
 #: 
 msgid "Failed to remove from cart"
@@ -6199,11 +6199,11 @@ msgstr "Échec de la suppression du groupe"
 
 #: 
 msgid "Family added to cart"
-msgstr "Famille ajoutée au panier"
+msgstr "Assemblée de maison ajoutée au panier"
 
 #: 
 msgid "Family removed from cart"
-msgstr "Famille retirée du panier"
+msgstr "Assemblée de maison retirée du panier"
 
 #: 
 msgid "Group added to cart"
@@ -6243,7 +6243,7 @@ msgstr "Personne déjà dans le panier"
 
 #: 
 msgid "Remove this family from cart?"
-msgstr "Retirer cette famille du panier ?"
+msgstr "Retirer cette assemblée de maison du panier ?"
 
 #: 
 msgid "Remove this group from cart?"
@@ -6351,7 +6351,7 @@ msgstr "Événements aujourd'hui"
 
 #: 
 msgid "Add Family Member"
-msgstr "Ajouter un membre de la famille"
+msgstr "Ajouter un membre de l'assemblée de maison"
 
 #: 
 msgid "Address is required"
@@ -6371,15 +6371,15 @@ msgstr "adresse email"
 
 #: 
 msgid "Enter family name"
-msgstr "Entrez le nom de famille"
+msgstr "Entrez le nom de assemblée de maison"
 
 #: 
 msgid "Family name is required"
-msgstr "Le nom de famille est requis"
+msgstr "Le nom de assemblée de maison est requis"
 
 #: 
 msgid "Family name must be at least 2 characters"
-msgstr "Le nom de famille doit comporter au moins 2 caractères"
+msgstr "Le nom de assemblée de maison doit comporter au moins 2 caractères"
 
 #: 
 msgid "First name"
@@ -6407,15 +6407,15 @@ msgstr "Format invalide"
 
 #: 
 msgid "Last name"
-msgstr "Nom de famille"
+msgstr "Nom de assemblée de maison"
 
 #: 
 msgid "Last name is required"
-msgstr "Le nom de famille est obligatoire"
+msgstr "Le nom de assemblée de maison est obligatoire"
 
 #: 
 msgid "Last name must be at least 2 characters"
-msgstr "Le nom de famille doit comporter au moins 2 caractères"
+msgstr "Le nom de assemblée de maison doit comporter au moins 2 caractères"
 
 #: 
 msgid "Maximum length is"
@@ -6455,7 +6455,7 @@ msgstr "Numéro de téléphone"
 
 #: 
 msgid "Please add at least one family member."
-msgstr "Veuillez ajouter au moins un membre de la famille."
+msgstr "Veuillez ajouter au moins un membre de l'assemblée de maison."
 
 #: 
 msgid "Please enter a valid URL"
@@ -6491,7 +6491,7 @@ msgstr "Erreur d'enregistrement"
 
 #: 
 msgid "Role in Family"
-msgstr "Rôle dans la famille"
+msgstr "Rôle dans l'assemblée de maison"
 
 #: 
 msgid "Select date"
@@ -7485,7 +7485,7 @@ msgstr "Une promesse est un engagement à donner. Elle n'est pas liée à un ver
 
 #: 
 msgid "Add Another Family Member"
-msgstr "Ajouter un autre membre de la famille"
+msgstr "Ajouter un autre membre de l'assemblée de maison"
 
 #: 
 msgid "Add Pledge"
@@ -7521,11 +7521,11 @@ msgstr "Retour aux versements"
 
 #: 
 msgid "Back to Families"
-msgstr "Retour aux familles"
+msgstr "Retour aux assemblées de maison"
 
 #: 
 msgid "Birth & Family"
-msgstr "Naissance & Famille"
+msgstr "Naissance & Assemblée de maison"
 
 #: 
 msgid "Cart"
@@ -7605,7 +7605,7 @@ msgstr "Année fiscale actuelle"
 
 #: 
 msgid "Customizable report with filtering by date, fund, family, and payment method."
-msgstr "Rapport personnalisable avec filtrage par date, fonds, famille et méthode de paiement."
+msgstr "Rapport personnalisable avec filtrage par date, fonds, assemblée de maison et méthode de paiement."
 
 #: 
 msgid "Customize the text that appears on tax statements (sTaxReport1, sTaxReport2, etc)."
@@ -7641,7 +7641,7 @@ msgstr "Ventilation détaillée d'un seul versement."
 
 #: 
 msgid "Detailed breakdown of pledges and payments by family."
-msgstr "Ventilation détaillée des promesses et des paiements par famille."
+msgstr "Ventilation détaillée des promesses et des paiements par assemblée de maison."
 
 #: 
 msgid "Documentation"
@@ -7649,7 +7649,7 @@ msgstr "Documentation"
 
 #: 
 msgid "Donor Families"
-msgstr "Familles donatrices"
+msgstr "Assemblées de maison donatrices"
 
 #: 
 msgid "Edit Deposit"
@@ -7657,7 +7657,7 @@ msgstr "Modifier le versement"
 
 #: 
 msgid "Edit Family"
-msgstr "Modifier la famille"
+msgstr "Modifier l'assemblée de maison"
 
 #: 
 msgid "Edit Payment"
@@ -7685,7 +7685,7 @@ msgstr "Impossible d'enregistrer les paramètres"
 
 #: 
 msgid "Family Navigation"
-msgstr "Navigation familiale"
+msgstr "Navigation de l'assemblée de maisone"
 
 #: 
 msgid "Feb"
@@ -7741,7 +7741,7 @@ msgstr "Générez des rapports détaillés pour des versements individuels ou de
 
 #: 
 msgid "Generate reminder letters for families with outstanding pledges."
-msgstr "Générez des lettres de rappel pour les familles avec des promesses en attente."
+msgstr "Générez des lettres de rappel pour les assemblées de maison avec des promesses en attente."
 
 #: 
 msgid "Generate reports for tax statements, pledge tracking, and financial analysis."
@@ -7921,7 +7921,7 @@ msgstr "Examiner les fonds de donation"
 
 #: 
 msgid "Save and Add New Family"
-msgstr "Enregistrer et ajouter une nouvelle famille"
+msgstr "Enregistrer et ajouter une nouvelle assemblée de maison"
 
 #: 
 msgid "Sep"
@@ -8013,7 +8013,7 @@ msgstr "Mettre à niveau"
 
 #: 
 msgid "Use classification and family filters to generate reports for specific groups of donors."
-msgstr "Utilisez les filtres de classification et de famille pour générer des rapports pour des groupes de donateurs spécifiques."
+msgstr "Utilisez les filtres de classification et de assemblée de maison pour générer des rapports pour des groupes de donateurs spécifiques."
 
 #: 
 msgid "User must be an Admin or have Finance permission"
@@ -8041,7 +8041,7 @@ msgstr "Promesses depuis le début de l'année"
 
 #: 
 msgid "You may create family members now or add them later. All entries will become new person records."
-msgstr "Vous pouvez créer les membres de la famille maintenant ou les ajouter plus tard. Tous les enregistrements deviendront de nouveaux enregistrements de personne."
+msgstr "Vous pouvez créer les membres de l'assemblée de maison maintenant ou les ajouter plus tard. Tous les enregistrements deviendront de nouveaux enregistrements de personne."
 
 #: 
 msgid "Your fiscal year starts in month"
@@ -8221,7 +8221,7 @@ msgstr "Affichage et gestion des fichiers journaux système pour le débogage."
 
 #: 
 msgid "You must enter a Last Name."
-msgstr "Vous devez entrer un nom de famille."
+msgstr "Vous devez entrer un nom de assemblée de maison."
 
 #: 
 msgid "Your privacy is important. We never share your information with third parties."
@@ -8249,7 +8249,7 @@ msgstr "Choisissez des opportunités..."
 
 #: 
 msgid "Confirm Family Information"
-msgstr "Confirmer les informations de famille"
+msgstr "Confirmer les informations de assemblée de maison"
 
 #: 
 msgid "Contact & Personal Info"
@@ -8285,7 +8285,7 @@ msgstr "Personnel"
 
 #: 
 msgid "Please confirm your family information:"
-msgstr "Veuillez confirmer vos informations de famille:"
+msgstr "Veuillez confirmer vos informations de assemblée de maison:"
 
 #: 
 msgid "Please update our records with corrections"
@@ -8305,7 +8305,7 @@ msgstr "Sélectionner les opportunités"
 
 #: 
 msgid "Share this URL with family members to verify their information"
-msgstr "Partagez cette URL avec les membres de la famille pour vérifier leurs informations"
+msgstr "Partagez cette URL avec les membres de l'assemblée de maison pour vérifier leurs informations"
 
 #: 
 msgid "Submit Verification"
@@ -8377,7 +8377,7 @@ msgstr "Impossible d'actualiser les informations de mise à niveau"
 
 #: 
 msgid "Failed to upload family photo"
-msgstr "Impossible de télécharger la photo de famille"
+msgstr "Impossible de télécharger la photo de assemblée de maison"
 
 #: 
 msgid "Failed to upload person photo"
@@ -8417,7 +8417,7 @@ msgstr "Exportation..."
 
 #: 
 msgid "Family Listing"
-msgstr "Listing des familles"
+msgstr "Listing des assemblées de maison"
 
 #: 
 msgid "Invalid request data"
@@ -8500,8 +8500,8 @@ msgstr[1] "%d personnes ajoutées au panier."
 #: 
 msgid "%d Person successfully added to selected Family."
 msgid_plural "%d People successfully added to selected Family."
-msgstr[0] "%d personne ajoutée avec succès à la famille sélectionnée."
-msgstr[1] "%d personnes ajoutées avec succès à la famille sélectionnée."
+msgstr[0] "%d personne ajoutée avec succès à l'assemblée de maison sélectionnée."
+msgstr[1] "%d personnes ajoutées avec succès à l'assemblée de maison sélectionnée."
 
 #: 
 msgid "%d Person successfully added to selected Group."
@@ -8515,7 +8515,7 @@ msgstr "Êtes-vous sûr de vouloir supprimer"
 
 #: 
 msgid "By deleting this field, you will irrevocably lose all family data assigned for this field!"
-msgstr "En supprimant ce champ, vous perdrez irrévocablement toutes les données familiales assignées à ce champ !"
+msgstr "En supprimant ce champ, vous perdrez irrévocablement toutes les données de l'assemblée de maisones assignées à ce champ !"
 
 #: 
 msgid "By deleting this field, you will irrevocably lose all person data assigned for this field!"
@@ -8539,7 +8539,7 @@ msgstr "Confirmer la suppression"
 
 #: 
 msgid "Existing Custom Family Fields"
-msgstr "Champs personnalisés existants de la famille"
+msgstr "Champs personnalisés existants de l'assemblée de maison"
 
 #: 
 msgid "Existing Custom Person Fields"
@@ -8579,7 +8579,7 @@ msgstr "Ordre"
 
 #: 
 msgid "PDFs successfully emailed to %s families."
-msgstr "Les PDF ont été envoyés avec succès par courriel à %s familles."
+msgstr "Les PDF ont été envoyés avec succès par courriel à %s assemblées de maison."
 
 #: 
 msgid "Percentage"
@@ -8767,7 +8767,7 @@ msgstr "Total des Engagements"
 
 #: 
 msgid "Track and manage pledge commitments by family and fund"
-msgstr "Suivez et gérez les engagements par famille et par fonds"
+msgstr "Suivez et gérez les engagements par assemblée de maison et par fonds"
 
 #: 
 msgid "View Properties"
@@ -9307,11 +9307,11 @@ msgstr "Échec de la réinitialisation des paramètres"
 
 #: 
 msgid "Family Status"
-msgstr "Statut de la famille"
+msgstr "Statut de l'assemblée de maison"
 
 #: 
 msgid "Family not found"
-msgstr "Famille introuvable"
+msgstr "Assemblée de maison introuvable"
 
 #: 
 msgid "Find in MailChimp: Audience > Settings > Audience name and defaults > Audience ID"
@@ -9884,7 +9884,7 @@ msgstr "Paramètres requis manquants : %s"
 
 #: 
 msgid "Person has no family"
-msgstr "La personne n'a pas de famille"
+msgstr "La personne n'a pas de assemblée de maison"
 
 #: 
 msgid "Plugin not found or not active"
@@ -9928,7 +9928,7 @@ msgstr "Êtes-vous sûr de vouloir supprimer définitivement cet engagement fina
 
 #: 
 msgid "Cancel and Return to Family View"
-msgstr "Annuler et revenir à la vue famille"
+msgstr "Annuler et revenir à la vue assemblée de maison"
 
 #: 
 msgid "If you delete this type, you will also remove all properties using it and lose any corresponding property assignments."
@@ -9936,7 +9936,7 @@ msgstr "Si vous supprimez ce type, vous supprimerez également toutes les propri
 
 #: 
 msgid "Move Donations to Selected Family"
-msgstr "Déplacer les offrandes vers la famille sélectionnée"
+msgstr "Déplacer les offrandes vers l'assemblée de maison sélectionnée"
 
 #: 
 msgid "Calendar not found"
@@ -10008,7 +10008,7 @@ msgstr "Votre mot de passe a été mis à jour avec succès."
 
 #: 
 msgid "selected family has no coordinates"
-msgstr "la famille sélectionnée n'a pas de coordonnées"
+msgstr "l'assemblée de maison sélectionnée n'a pas de coordonnées"
 
 #: 
 msgid "2FA"
@@ -10068,7 +10068,7 @@ msgstr "L'adresse e-mail est obligatoire."
 
 #: 
 msgid "Family has no street address to geocode"
-msgstr "La famille n'a pas d'adresse postale à géocoder"
+msgstr "L'assemblée de maison n'a pas d'adresse postale à géocoder"
 
 #: 
 msgid "Father"
@@ -10258,7 +10258,7 @@ msgstr "(facultatif — laisser vide pour inclure tous les rôles)"
 
 #: 
 msgid "A family represents a household. It holds the shared address and home phone number for all family members living together."
-msgstr "Une famille représente un foyer. Elle contient l'adresse commune et le numéro de téléphone du domicile de tous les fidèles vivant ensemble."
+msgstr "Une assemblée de maison représente un foyer. Elle contient l'adresse commune et le numéro de téléphone du domicile de tous les fidèles vivant ensemble."
 
 #: 
 msgid "A household. Stores the shared mailing address and home phone."
@@ -10266,7 +10266,7 @@ msgstr "Un foyer. Contient l'adresse postale commune et le téléphone du domici
 
 #: 
 msgid "A person does not need to belong to a family, but assigning one makes address management much easier."
-msgstr "Une personne n'a pas besoin d'appartenir à une famille, mais en assigner une facilite grandement la gestion des adresses."
+msgstr "Une personne n'a pas besoin d'appartenir à une assemblée de maison, mais en assigner une facilite grandement la gestion des adresses."
 
 #: 
 msgid "About"
@@ -10282,11 +10282,11 @@ msgstr "Récupération de compte"
 
 #: 
 msgid "Add Family"
-msgstr "Ajouter une famille"
+msgstr "Ajouter une assemblée de maison"
 
 #: 
 msgid "Add First Family"
-msgstr "Ajouter la première famille"
+msgstr "Ajouter la première assemblée de maison"
 
 #: 
 msgid "Add Member"
@@ -10302,7 +10302,7 @@ msgstr "Ajouter une note"
 
 #: 
 msgid "Add People to the Family"
-msgstr "Ajouter des personnes à la famille"
+msgstr "Ajouter des personnes à l'assemblée de maison"
 
 #: 
 msgid "Add Person"
@@ -10326,7 +10326,7 @@ msgstr "Ajouter vos données"
 
 #: 
 msgid "Add Your First Family"
-msgstr "Ajouter votre première famille"
+msgstr "Ajouter votre première assemblée de maison"
 
 #: 
 msgid "Add Your First Property"
@@ -10346,7 +10346,7 @@ msgstr "Tout ajouter au panier"
 
 #: 
 msgid "Add cart items to a family"
-msgstr "Ajouter les éléments du panier à une famille"
+msgstr "Ajouter les éléments du panier à une assemblée de maison"
 
 #: 
 msgid "Add everyone in your household — adults and children alike."
@@ -10354,11 +10354,11 @@ msgstr "Ajoutez tous les membres de votre foyer — adultes et enfants."
 
 #: 
 msgid "Add families and individuals one by one directly in ChurchCRM. Great for smaller congregations or topping up imported data."
-msgstr "Ajoutez des familles et des individus un par un directement dans ChurchCRM. Idéal pour les petites églises ou pour compléter des données importées."
+msgstr "Ajoutez des assemblées de maison et des individus un par un directement dans ChurchCRM. Idéal pour les petites églises ou pour compléter des données importées."
 
 #: 
 msgid "Add first family"
-msgstr "Ajouter la première famille"
+msgstr "Ajouter la première assemblée de maison"
 
 #: 
 msgid "Add or edit individual person records"
@@ -10370,7 +10370,7 @@ msgstr "Ajouter ou modifier des articles donnés pour des collectes de fonds"
 
 #: 
 msgid "Add or edit notes for people and families"
-msgstr "Ajouter ou modifier des notes pour les personnes et les familles"
+msgstr "Ajouter ou modifier des notes pour les personnes et les assemblées de maison"
 
 #: 
 msgid "Add staff and volunteers"
@@ -10450,7 +10450,7 @@ msgstr "Attribuer et gérer les numéros d'acheteurs pour les collectes de fonds
 
 #: 
 msgid "Assign cart items to a family record"
-msgstr "Affecter les éléments du panier à une fiche familiale"
+msgstr "Affecter les éléments du panier à une fiche de l'assemblée de maisone"
 
 #: 
 msgid "Assign cart items to a group"
@@ -10510,7 +10510,7 @@ msgstr "Parcourir tous les plugins"
 
 #: 
 msgid "Browse and search all families in your congregation"
-msgstr "Parcourir et rechercher toutes les familles de votre assemblée"
+msgstr "Parcourir et rechercher toutes les assemblées de maison de votre communauté"
 
 #: 
 msgid "Browse and search fundraiser campaigns"
@@ -10542,7 +10542,7 @@ msgstr "Fonctions du panier"
 
 #: 
 msgid "Change Family Role"
-msgstr "Modifier le rôle dans la famille"
+msgstr "Modifier le rôle dans l'assemblée de maison"
 
 #: 
 msgid "Check Out"
@@ -10638,11 +10638,11 @@ msgstr "Entrer en contact avec d'autres"
 
 #: 
 msgid "Convert individual records into family units"
-msgstr "Convertir des fiches individuelles en unités familiales"
+msgstr "Convertir des fiches individuelles en unités de l'assemblée de maisones"
 
 #: 
 msgid "Convert to Family"
-msgstr "Convertir en famille"
+msgstr "Convertir en assemblée de maison"
 
 #: 
 msgid "Copied"
@@ -10666,7 +10666,7 @@ msgstr "Créez une sauvegarde manuelle au moins une fois par semaine, ou activez
 
 #: 
 msgid "Create and edit family information and relationships"
-msgstr "Créer et modifier les informations et relations familiales"
+msgstr "Créer et modifier les informations et relations de l'assemblée de maisones"
 
 #: 
 msgid "Create and manage church events and activities"
@@ -10698,7 +10698,7 @@ msgstr "Par défaut / Notes"
 
 #: 
 msgid "Define custom fields to collect additional family data"
-msgstr "Définir des champs personnalisés pour collecter des données familiales supplémentaires"
+msgstr "Définir des champs personnalisés pour collecter des données de l'assemblée de maisones supplémentaires"
 
 #: 
 msgid "Define custom fields to collect additional person data"
@@ -10722,7 +10722,7 @@ msgstr "Tout supprimer"
 
 #: 
 msgid "Delete Family"
-msgstr "Supprimer la famille"
+msgstr "Supprimer l'assemblée de maison"
 
 #: 
 msgid "Delete Group"
@@ -10738,7 +10738,7 @@ msgstr "Supprimer l'engagement financier"
 
 #: 
 msgid "Deleting this property will also remove all its assignments from any People, Family, or Group records."
-msgstr "La suppression de cette propriété supprimera également toutes ses affectations des fiches Personnes, Familles ou Groupes."
+msgstr "La suppression de cette propriété supprimera également toutes ses affectations des fiches Personnes, Assemblées de maison ou Groupes."
 
 #: 
 msgid "Deposit Value"
@@ -10766,7 +10766,7 @@ msgstr "Article donné"
 
 #: 
 msgid "Donations and giving records are tracked at the family level. If you plan to record giving for an individual who lives alone, create a single-person family for them."
-msgstr "Les dons et les offrandes sont suivis au niveau de la famille. Si vous prévoyez d'enregistrer les offrandes d'une personne vivant seule, créez une famille d'une seule personne pour elle."
+msgstr "Les dons et les offrandes sont suivis au niveau de l'assemblée de maison. Si vous prévoyez d'enregistrer les offrandes d'une personne vivant seule, créez une assemblée de maison d'une seule personne pour elle."
 
 #: 
 msgid "Download"
@@ -10818,7 +10818,7 @@ msgstr "E-mail en CCI"
 
 #: 
 msgid "Email Families"
-msgstr "Envoyer un e-mail aux familles"
+msgstr "Envoyer un e-mail aux assemblées de maison"
 
 #: 
 msgid "Email Settings"
@@ -10934,27 +10934,27 @@ msgstr "Impossible de retirer de la classe. Veuillez réessayer."
 
 #: 
 msgid "Families share an address and phone number."
-msgstr "Les familles partagent une adresse et un numéro de téléphone."
+msgstr "Les assemblées de maison partagent une adresse et un numéro de téléphone."
 
 #: 
 msgid "Family List"
-msgstr "Liste des familles"
+msgstr "Liste des assemblées de maison"
 
 #: 
 msgid "Family Pledge Summary"
-msgstr "Récapitulatif des engagements financiers de la famille"
+msgstr "Récapitulatif des engagements financiers de l'assemblée de maison"
 
 #: 
 msgid "Family Profile"
-msgstr "Profil de la famille"
+msgstr "Profil de l'assemblée de maison"
 
 #: 
 msgid "Family roles (Head of Household, Spouse, Child, etc.) help organise your records."
-msgstr "Les rôles familiaux (Chef de famille, Conjoint, Enfant, etc.) aident à organiser vos fiches."
+msgstr "Les rôles dans l'assemblée de maison (Dirigeant d'assemblée de maison, Conjoint, Enfant, etc.) aident à organiser vos fiches."
 
 #: 
 msgid "Family vs Person"
-msgstr "Famille vs Personne"
+msgstr "Assemblée de maison vs Personne"
 
 #: 
 msgid "Fields to Include"
@@ -11170,7 +11170,7 @@ msgstr "Courriers et étiquettes"
 
 #: 
 msgid "List families created via self registration"
-msgstr "Lister les familles créées via l'auto-inscription"
+msgstr "Lister les assemblées de maison créées via l'auto-inscription"
 
 #: 
 msgid "Load demo data"
@@ -11178,7 +11178,7 @@ msgstr "Charger des données de démonstration"
 
 #: 
 msgid "Load sample families, people, groups, and giving records. The safest way to learn ChurchCRM before committing your real data."
-msgstr "Chargez des familles, personnes, groupes et enregistrements d'offrandes exemples. La façon la plus sûre d'apprendre ChurchCRM avant de saisir vos vraies données."
+msgstr "Chargez des assemblées de maison, personnes, groupes et enregistrements d'offrandes exemples. La façon la plus sûre d'apprendre ChurchCRM avant de saisir vos vraies données."
 
 #: 
 msgid "Log Files"
@@ -11222,7 +11222,7 @@ msgstr "Gérer les outils e-mail et la configuration SMTP"
 
 #: 
 msgid "Manage families, people, and demographic information"
-msgstr "Gérer les familles, les personnes et les informations démographiques"
+msgstr "Gérer les assemblées de maison, les personnes et les informations démographiques"
 
 #: 
 msgid "Manage people in your cart"
@@ -11230,7 +11230,7 @@ msgstr "Gérer les personnes dans votre panier"
 
 #: 
 msgid "Manage person, family, and group property types"
-msgstr "Gérer les types de propriétés des personnes, familles et groupes"
+msgstr "Gérer les types de propriétés des personnes, assemblées de maison et groupes"
 
 #: 
 msgid "Manage properties from the"
@@ -11290,7 +11290,7 @@ msgstr "Minimum"
 
 #: 
 msgid "Modify family roles for group members"
-msgstr "Modifier les rôles familiaux pour les membres du groupe"
+msgstr "Modifier les rôles dans l'assemblée de maison pour les membres du groupe"
 
 #: 
 msgid "Move Members"
@@ -11326,7 +11326,7 @@ msgstr "Nouveau"
 
 #: 
 msgid "New Family"
-msgstr "Nouvelle famille"
+msgstr "Nouvelle assemblée de maison"
 
 #: 
 msgid "New Group"
@@ -11438,11 +11438,11 @@ msgstr "Pas encore prêt ?"
 
 #: 
 msgid "Once you have a family, add each household member as a person. Assign them a family role (e.g. Head of Household, Spouse, Child)."
-msgstr "Une fois que vous avez une famille, ajoutez chaque membre du foyer comme personne. Attribuez-lui un rôle familial (ex. Chef de famille, Conjoint, Enfant)."
+msgstr "Une fois que vous avez une assemblée de maison, ajoutez chaque membre du foyer comme personne. Attribuez-lui un rôle de l'assemblée de maison (ex. Dirigeant d'assemblée de maison, Conjoint, Enfant)."
 
 #: 
 msgid "Once you submit, our team will receive your registration and reach out to personally welcome your family. If anything looks wrong, use the Previous button to go back and make changes."
-msgstr "Une fois soumis, notre équipe recevra votre inscription et vous contactera pour accueillir personnellement votre famille. Si quelque chose semble incorrect, utilisez le bouton Précédent pour revenir et apporter des modifications."
+msgstr "Une fois soumis, notre équipe recevra votre inscription et vous contactera pour accueillir personnellement votre assemblée de maison. Si quelque chose semble incorrect, utilisez le bouton Précédent pour revenir et apporter des modifications."
 
 #: 
 msgid "Only .csv files are accepted"
@@ -11536,7 +11536,7 @@ msgstr "Imprimer des badges"
 
 #: 
 msgid "Printable directory of all people, grouped by family"
-msgstr "Annuaire imprimable de toutes les personnes, regroupées par famille"
+msgstr "Annuaire imprimable de toutes les personnes, regroupées par assemblée de maison"
 
 #: 
 msgid "Properties Form"
@@ -11588,11 +11588,11 @@ msgstr "Enregistrer la raison de la visite des participants à l'église"
 
 #: 
 msgid "Register Your Family"
-msgstr "Inscrire votre famille"
+msgstr "Inscrire votre assemblée de maison"
 
 #: 
 msgid "Register another family"
-msgstr "Inscrire une autre famille"
+msgstr "Inscrire une autre assemblée de maison"
 
 #: 
 msgid "Remove all from Cart"
@@ -11624,7 +11624,7 @@ msgstr "Retour au tableau de bord"
 
 #: 
 msgid "Return to Families"
-msgstr "Retour aux familles"
+msgstr "Retour aux assemblées de maison"
 
 #: 
 msgid "Return to Groups"
@@ -11664,7 +11664,7 @@ msgstr "Résultats de recherche"
 
 #: 
 msgid "Search across people, families, groups, addresses, and more."
-msgstr "Rechercher parmi les personnes, familles, groupes, adresses et plus encore."
+msgstr "Rechercher parmi les personnes, assemblées de maison, groupes, adresses et plus encore."
 
 #: 
 msgid "Search and view deposit slip records"
@@ -11676,7 +11676,7 @@ msgstr "Rechercher des groupes..."
 
 #: 
 msgid "Search people, families, groups…"
-msgstr "Rechercher des personnes, familles, groupes…"
+msgstr "Rechercher des personnes, assemblées de maison, groupes…"
 
 #: 
 msgid "Security First"
@@ -11704,7 +11704,7 @@ msgstr "Rapport d'auto-inscription"
 
 #: 
 msgid "Send email to families"
-msgstr "Envoyer un e-mail aux familles"
+msgstr "Envoyer un e-mail aux assemblées de maison"
 
 #: 
 msgid "Server Error"
@@ -11820,7 +11820,7 @@ msgstr "Détails techniques"
 
 #: 
 msgid "Tell us about your family"
-msgstr "Parlez-nous de votre famille"
+msgstr "Parlez-nous de votre assemblée de maison"
 
 #: 
 msgid "The property could not be removed."
@@ -11832,7 +11832,7 @@ msgstr "La propriété a été supprimée avec succès."
 
 #: 
 msgid "To Family"
-msgstr "Vers la famille"
+msgstr "Vers l'assemblée de maison"
 
 #: 
 msgid "To Group"
@@ -11848,7 +11848,7 @@ msgstr "Taille totale"
 
 #: 
 msgid "Track family pledges and fund contributions by fiscal year"
-msgstr "Suivre les engagements financiers de la famille et les contributions aux fonds par exercice fiscal"
+msgstr "Suivre les engagements financiers de l'assemblée de maison et les contributions aux fonds par exercice fiscal"
 
 #: 
 msgid "Transaction Details"
@@ -11900,7 +11900,7 @@ msgstr "Vérifier votre identité"
 
 #: 
 msgid "View Family"
-msgstr "Voir la famille"
+msgstr "Voir l'assemblée de maison"
 
 #: 
 msgid "View People"
@@ -11908,7 +11908,7 @@ msgstr "Voir les personnes"
 
 #: 
 msgid "View all families on an interactive map"
-msgstr "Voir toutes les familles sur une carte interactive"
+msgstr "Voir toutes les assemblées de maison sur une carte interactive"
 
 #: 
 msgid "View all results"
@@ -11924,7 +11924,7 @@ msgstr "Voir et gérer les paiements par bordereau de dépôt"
 
 #: 
 msgid "View and manage family location data"
-msgstr "Voir et gérer les données de localisation des familles"
+msgstr "Voir et gérer les données de localisation des assemblées de maison"
 
 #: 
 msgid "View and manage system log files for debugging"
@@ -11944,11 +11944,11 @@ msgstr "Voir la liste de la classe, les affectations d'enseignants et les coordo
 
 #: 
 msgid "View family details, members, and timeline"
-msgstr "Voir les détails de la famille, les fidèles et la chronologie"
+msgstr "Voir les détails de l'assemblée de maison, les fidèles et la chronologie"
 
 #: 
 msgid "View family pledge summaries and fund allocations"
-msgstr "Voir les récapitulatifs d'engagements financiers de la famille et les allocations de fonds"
+msgstr "Voir les récapitulatifs d'engagements financiers de l'assemblée de maison et les allocations de fonds"
 
 #: 
 msgid "View group members, roles, and properties"
@@ -11968,7 +11968,7 @@ msgstr "Les fidèles votants doivent avoir fait un don dans un délai de ce nomb
 
 #: 
 msgid "We could not find the family you were looking for."
-msgstr "Nous n'avons pas pu trouver la famille que vous recherchiez."
+msgstr "Nous n'avons pas pu trouver l'assemblée de maison que vous recherchiez."
 
 #: 
 msgid "We could not find the group you were looking for."
@@ -11992,11 +11992,11 @@ msgstr "Nous l'utiliserons pour rester en contact et envoyer des nouvelles de l'
 
 #: 
 msgid "We're so glad you're here! Register your family in just 3 easy steps."
-msgstr "Nous sommes si heureux de vous accueillir ! Inscrivez votre famille en seulement 3 étapes simples."
+msgstr "Nous sommes si heureux de vous accueillir ! Inscrivez votre assemblée de maison en seulement 3 étapes simples."
 
 #: 
 msgid "We're so glad your family has joined us!"
-msgstr "Nous sommes si heureux que votre famille nous ait rejoints !"
+msgstr "Nous sommes si heureux que votre assemblée de maison nous ait rejoints !"
 
 #: 
 msgid "Welcome Back!"
@@ -12008,7 +12008,7 @@ msgstr "Bon retour ! Veuillez saisir vos informations pour continuer"
 
 #: 
 msgid "Welcome to the Family!"
-msgstr "Bienvenue dans la famille !"
+msgstr "Bienvenue dans l'assemblée de maison !"
 
 #: 
 msgid "What happens next?"
@@ -12020,7 +12020,7 @@ msgstr "Qu'est-ce qui s'est mal passé ? À quoi vous attendiez-vous ?"
 
 #: 
 msgid "Who is in your family?"
-msgstr "Qui fait partie de votre famille ?"
+msgstr "Qui fait partie de votre assemblée de maison ?"
 
 #: 
 msgid "Why Came"
@@ -12844,7 +12844,7 @@ msgstr "Sélectionnez le champ de recherche."
 #. Context: queryparameters_qrp
 #: 
 msgid "Select the desired family role."
-msgstr "Sélectionnez le rôle familial souhaité."
+msgstr "Sélectionnez le rôle de l'assemblée de maison souhaité."
 
 #: 
 msgid "Send text message"
@@ -12924,7 +12924,7 @@ msgstr "La classe d'école du dimanche pour laquelle vous souhaitez que les doss
 
 #: 
 msgid "These values are pre-filled when creating new families. Leave blank to require manual entry."
-msgstr "Ces valeurs sont préremplies lors de la création de nouvelles familles. Laissez vide pour exiger une saisie manuelle."
+msgstr "Ces valeurs sont préremplies lors de la création de nouvelles assemblées de maison. Laissez vide pour exiger une saisie manuelle."
 
 #: 
 msgid "Time"
@@ -13099,11 +13099,11 @@ msgstr "Autoriser l'accès non authentifié aux événements du calendrier via d
 
 #: 
 msgid "Allow visitors to create their own family record via the self-registration page"
-msgstr "Autoriser les visiteurs à créer leur propre enregistrement familial via la page d'auto-inscription"
+msgstr "Autoriser les visiteurs à créer leur propre enregistrement de l'assemblée de maison via la page d'auto-inscription"
 
 #: 
 msgid "Allow visitors to self-register as new families."
-msgstr "Autoriser les visiteurs à s'auto-inscrire en tant que nouvelles familles."
+msgstr "Autoriser les visiteurs à s'auto-inscrire en tant que nouvelles assemblées de maison."
 
 #. plugin:external-backup:section:5:content
 #: 
@@ -13314,7 +13314,7 @@ msgstr "IDs de requête d'autorisation de finance"
 
 #: 
 msgid "Find family"
-msgstr "Trouver la famille"
+msgstr "Trouver l'assemblée de maison"
 
 #. plugin:openlp:section:3:title
 #: 
@@ -13805,11 +13805,11 @@ msgstr "Lorsqu'il est activé et configuré, ChurchCRM envoie des messages d'ale
 
 #: 
 msgid "When enabled, hides the address field for people not assigned to a family"
-msgstr "Lorsqu'il est activé, masque le champ d'adresse pour les personnes non assignées à une famille"
+msgstr "Lorsqu'il est activé, masque le champ d'adresse pour les personnes non assignées à une assemblée de maison"
 
 #: 
 msgid "When enabled, hides the latitude/longitude fields in the Family Editor. Geocoding still runs in the background."
-msgstr "Lorsqu'il est activé, masque les champs latitude/longitude dans l'éditeur de famille. Le géocodage s'exécute toujours en arrière-plan."
+msgstr "Lorsqu'il est activé, masque les champs latitude/longitude dans l'éditeur de assemblée de maison. Le géocodage s'exécute toujours en arrière-plan."
 
 #. plugin:external-backup:section:3:content
 #: 
@@ -13874,7 +13874,7 @@ msgstr "Format de colonnes compatible ChMeetings"
 
 #: 
 msgid "Contact info, family roles, and key dates"
-msgstr "Informations de contact, rôles familiaux et dates clés"
+msgstr "Informations de contact, rôles dans l'assemblée de maison et dates clés"
 
 #: 
 msgid "Create a full backup of your church database. Download a database-only SQL file or a complete archive including uploaded photos."
@@ -13906,7 +13906,7 @@ msgstr "Sauvegarde externe (WebDAV) via plugin"
 
 #: 
 msgid "Family or individual record layout"
-msgstr "Disposition par famille ou par individu"
+msgstr "Disposition par assemblée de maison ou par individu"
 
 #: 
 msgid "Flexible field selection"
@@ -14014,7 +14014,7 @@ msgstr "Nombre de lignes affichées par défaut dans les tableaux. Prend effet a
 
 #: 
 msgid "Edit own family only"
-msgstr "Modifier uniquement sa propre famille"
+msgstr "Modifier uniquement sa propre assemblée de maison"
 
 #: 
 msgid "Enter text here..."
@@ -14318,7 +14318,7 @@ msgstr "Tous les ministères, rôles et membres"
 
 #: 
 msgid "All people and family records"
-msgstr "Tous les dossiers de personnes et de familles"
+msgstr "Tous les dossiers de personnes et de assemblées de maison"
 
 #: 
 msgid "All system settings and custom fields"
@@ -14386,7 +14386,7 @@ msgstr "Enregistrer tous"
 
 #: 
 msgid "Check In Family"
-msgstr "Enregistrer la famille"
+msgstr "Enregistrer l'assemblée de maison"
 
 #: 
 msgid "Check Out All"
@@ -14394,7 +14394,7 @@ msgstr "Sortie de tous"
 
 #: 
 msgid "Check in all %d family members to a single event."
-msgstr "Enregistrer les %d membres de la famille à un seul événement."
+msgstr "Enregistrer les %d membres de l'assemblée de maison à un seul événement."
 
 #: 
 msgid "Check out"
@@ -14994,7 +14994,7 @@ msgstr "ans"
 
 #: 
 msgid "An error occurred while deleting the family."
-msgstr "Une erreur s'est produite lors de la suppression de la famille."
+msgstr "Une erreur s'est produite lors de la suppression de l'assemblée de maison."
 
 #: 
 msgid "An error occurred while moving donations."
@@ -15002,7 +15002,7 @@ msgstr "Une erreur s'est produite lors du déplacement des dons."
 
 #: 
 msgid "At least one family member is required"
-msgstr "Au moins un membre de la famille est requis"
+msgstr "Au moins un membre de l'assemblée de maison est requis"
 
 #: 
 msgid "Back to Users"
@@ -15010,7 +15010,7 @@ msgstr "Retour aux utilisateurs"
 
 #: 
 msgid "Cannot delete a family with donation records. Contact a finance administrator."
-msgstr "Impossible de supprimer une famille avec des enregistrements de dons. Contactez un administrateur financier."
+msgstr "Impossible de supprimer une assemblée de maison avec des enregistrements de dons. Contactez un administrateur financier."
 
 #: 
 msgid "Cannot move property in that direction"
@@ -15018,7 +15018,7 @@ msgstr "Impossible de déplacer la propriété dans cette direction"
 
 #: 
 msgid "Confirm Family Info"
-msgstr "Confirmer les informations de la famille"
+msgstr "Confirmer les informations de l'assemblée de maison"
 
 #: 
 msgid "Delete failed"
@@ -15058,7 +15058,7 @@ msgstr "Identifiant de champ invalide"
 
 #: 
 msgid "Invalid target family"
-msgstr "Famille cible invalide"
+msgstr "Assemblée de maison cible invalide"
 
 #: 
 msgid "Log Out"
@@ -15074,19 +15074,19 @@ msgstr "Mot de passe modifié avec succès pour"
 
 #: 
 msgid "Please review your family information below and confirm or request changes."
-msgstr "Veuillez vérifier les informations de votre famille ci-dessous et confirmer ou demander des modifications."
+msgstr "Veuillez vérifier les informations de votre assemblée de maison ci-dessous et confirmer ou demander des modifications."
 
 #: 
 msgid "Please select a target family."
-msgstr "Veuillez sélectionner une famille cible."
+msgstr "Veuillez sélectionner une assemblée de maison cible."
 
 #: 
 msgid "Target family not found"
-msgstr "Famille cible introuvable"
+msgstr "Assemblée de maison cible introuvable"
 
 #: 
 msgid "Verify Family Info"
-msgstr "Vérifier les informations de la famille"
+msgstr "Vérifier les informations de l'assemblée de maison"
 
 #: 
 msgid "Welcome"
@@ -15094,7 +15094,7 @@ msgstr "Bienvenue"
 
 #: 
 msgid "You can review and verify your family information using the link below. If you need additional access, please contact your church administrator."
-msgstr "Vous pouvez consulter et vérifier les informations de votre famille en utilisant le lien ci-dessous. Si vous avez besoin d'un accès supplémentaire, veuillez contacter votre administrateur d'église."
+msgstr "Vous pouvez consulter et vérifier les informations de votre assemblée de maison en utilisant le lien ci-dessous. Si vous avez besoin d'un accès supplémentaire, veuillez contacter votre administrateur d'église."
 
 #: 
 msgid "You do not have permission to view this person"
@@ -15606,7 +15606,7 @@ msgstr "Les champs de date acceptent AAAA-MM-JJ ou J/M/AAAA. Utilisez 0000-MM-JJ
 
 #: 
 msgid "Each row is one person. People in the same family share a FamilyID. Leave columns blank when you have no value for them."
-msgstr "Chaque ligne représente une personne. Les personnes de la même famille partagent un FamilyID. Laissez les colonnes vides si vous n'avez pas de valeur pour elles."
+msgstr "Chaque ligne représente une personne. Les personnes de la même assemblée de maison partagent un FamilyID. Laissez les colonnes vides si vous n'avez pas de valeur pour elles."
 
 #: 
 msgid "Event Timing"
@@ -15626,11 +15626,11 @@ msgstr "Échec du chargement de l'éditeur d'événements. Veuillez actualiser e
 
 #: 
 msgid "Family Custom"
-msgstr "Personnalisé famille"
+msgstr "Personnalisé assemblée de maison"
 
 #: 
 msgid "Family Property"
-msgstr "Propriété famille"
+msgstr "Propriété assemblée de maison"
 
 #: 
 msgid "Fields"
@@ -15674,7 +15674,7 @@ msgstr "Facultatif — notes de sermon, matériaux ou autres détails copiés da
 
 #: 
 msgid "Person / Family"
-msgstr "Personne / Famille"
+msgstr "Personne / Assemblée de maison"
 
 #: 
 msgid "Person Custom"
@@ -15702,11 +15702,11 @@ msgstr "La date de début ou de fin dans le lien n'a pas pu être comprise. Essa
 
 #: 
 msgid "The template already contains every column you can map — the core Person/Family fields plus each custom field and property your site defines."
-msgstr "Le modèle contient déjà toutes les colonnes que vous pouvez mapper — les champs principaux Personne/Famille ainsi que chaque champ personnalisé et propriété définis sur votre site."
+msgstr "Le modèle contient déjà toutes les colonnes que vous pouvez mapper — les champs principaux Personne/Assemblée de maison ainsi que chaque champ personnalisé et propriété définis sur votre site."
 
 #: 
 msgid "The template already includes a column for every Person/Family custom field and for every property you have defined. If you add columns manually, just use the exact name of the custom field or property as the column header and the importer will match it automatically."
-msgstr "Le modèle inclut déjà une colonne pour chaque champ personnalisé Personne/Famille et pour chaque propriété que vous avez définie. Si vous ajoutez des colonnes manuellement, utilisez simplement le nom exact du champ personnalisé ou de la propriété comme en-tête de colonne et l'importateur le correspondra automatiquement."
+msgstr "Le modèle inclut déjà une colonne pour chaque champ personnalisé Personne/Assemblée de maison et pour chaque propriété que vous avez définie. Si vous ajoutez des colonnes manuellement, utilisez simplement le nom exact du champ personnalisé ou de la propriété comme en-tête de colonne et l'importateur le correspondra automatiquement."
 
 #: 
 msgid "This calendar link is invalid or has been revoked. Ask the church for a current link."
@@ -15718,7 +15718,7 @@ msgstr "Associe cet événement à une liste de classe ou de ministère — util
 
 #: 
 msgid "Upload a CSV to create families and people in bulk."
-msgstr "Importez un CSV pour créer des familles et des personnes en masse."
+msgstr "Importez un CSV pour créer des assemblées de maison et des personnes en masse."
 
 #: 
 msgid "Volunteer-entered headcounts, broken down by category."
@@ -16123,4 +16123,286 @@ msgstr "Les horaires utilisent l'heure de la paroisse ({{church}}), et non celle
 #: 
 msgid "Welcome — sign in to manage your community"
 msgstr "Bienvenue — connectez-vous pour gérer votre communauté"
+
+#: ChurchCRM/dto/ChurchVocabulary.php
+msgid "House Assembly"
+msgstr "Assemblée de maison"
+
+#: ChurchCRM/dto/ChurchVocabulary.php
+msgid "House Assemblies"
+msgstr "Assemblées de maison"
+
+#: ChurchCRM/dto/ChurchVocabulary.php
+msgid "My House Assembly"
+msgstr "Mon assemblée de maison"
+
+#: ChurchCRM/dto/ChurchVocabulary.php
+msgid "House Assembly Leader"
+msgstr "Dirigeant d'assemblée de maison"
+
+#: ChurchCRM/dto/ChurchVocabulary.php
+msgid "Head of Household"
+msgstr "Dirigeant d'assemblée de maison"
+
+#: ChurchCRM/dto/ChurchVocabulary.php
+msgid "House Assembly Members"
+msgstr "Membres de l'assemblée de maison"
+
+#: ChurchCRM/dto/ChurchVocabulary.php
+msgid "Scoped House Assembly (Group)"
+msgstr "Assemblée de maison (groupe)"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Members of %s"
+msgstr "Membres de %s"
+
+#: people/views/house-assembly-dashboard.php
+msgid "No members are assigned to this house assembly yet."
+msgstr "Aucun membre n'est encore assigné à cette assemblée de maison."
+
+#: UserEditor.php
+msgid "None (full access per permissions)"
+msgstr "Aucun (accès complet selon les permissions)"
+
+#: UserEditor.php
+msgid "When set, this user is a %1$s and only sees members of the selected group after login."
+msgstr "Si renseigné, cet utilisateur est %1$s et ne voit après connexion que les membres du groupe sélectionné."
+
+#: meetings/views/editor.php
+msgid "The attendance list is filled with members of the selected organizer (%1$s or group)."
+msgstr "La liste de présence est remplie avec les membres de l'organisateur sélectionné (%1$s ou groupe)."
+
+#: meetings/views/editor.php
+msgid "Select a %1$s or group to list members. The church organization has no fixed member list."
+msgstr "Sélectionnez une %1$s ou un groupe pour lister les membres. L'organisation paroissiale n'a pas de liste fixe."
+
+#: ChurchCRM/dto/ChurchVocabulary.php meetings module
+msgid "Meetings"
+msgstr "Réunion"
+
+#: meetings module
+msgid "Meeting"
+msgstr "Réunion"
+
+#: meetings/routes/dashboard.php
+msgid "Manage church meetings and attendance"
+msgstr "Gérer les réunions et les présences"
+
+#: meetings/index.php
+msgid "Back to Meetings Dashboard"
+msgstr "Retour au tableau de bord des réunions"
+
+#: meetings/views/list.php
+msgid "All Meetings"
+msgstr "Toutes les réunions"
+
+#: meetings/routes/editor.php
+msgid "New Meeting"
+msgstr "Nouvelle réunion"
+
+#: meetings/routes/editor.php
+msgid "Edit Meeting"
+msgstr "Modifier la réunion"
+
+#: meetings/routes/list.php
+msgid "Meeting List"
+msgstr "Liste des réunions"
+
+#: meetings/routes/list.php
+msgid "All scheduled and past meetings"
+msgstr "Toutes les réunions planifiées et passées"
+
+#: meetings/routes/editor.php
+msgid "Schedule a meeting and record attendance"
+msgstr "Planifier une réunion et enregistrer les présences"
+
+#: meetings/views/dashboard.php
+msgid "Upcoming Meetings"
+msgstr "Réunions à venir"
+
+#: meetings/views/dashboard.php
+msgid "Recent Meetings"
+msgstr "Réunions récentes"
+
+#: meetings/views/dashboard.php
+msgid "No upcoming meetings."
+msgstr "Aucune réunion à venir."
+
+#: meetings/views/dashboard.php
+msgid "No past meetings yet."
+msgstr "Aucune réunion passée pour l'instant."
+
+#: meetings/views/list.php
+msgid "No meetings found."
+msgstr "Aucune réunion trouvée."
+
+#: meetings/views/editor.php
+msgid "Meeting Information"
+msgstr "Informations sur la réunion"
+
+#: meetings/views/editor.php
+msgid "Meeting Name"
+msgstr "Nom de la réunion"
+
+#: meetings/views/view.php
+msgid "Meeting Details"
+msgstr "Détails de la réunion"
+
+#: meetings/views/view.php
+msgid "Delete this meeting?"
+msgstr "Supprimer cette réunion ?"
+
+#: meetings/routes/editor.php
+msgid "Meeting name is required."
+msgstr "Le nom de la réunion est obligatoire."
+
+#: Bertoua Message module
+msgid "Bertoua Message"
+msgstr "Message de Bertoua"
+
+msgid "Bertoua Message Administration"
+msgstr "Administration du Message de Bertoua"
+
+msgid "Manage modules and lessons for the Bertoua Message"
+msgstr "Gérer les modules et les leçons du Message de Bertoua"
+
+msgid "Record lesson notes for house assembly members"
+msgstr "Saisir les notes de leçon pour les membres de l'assemblée de maison"
+
+msgid "Context"
+msgstr "Contexte"
+
+msgid "Module"
+msgstr "Module"
+
+msgid "Lesson"
+msgstr "Leçon"
+
+msgid "Select a module first..."
+msgstr "Sélectionnez d'abord un module..."
+
+msgid "Member Notes"
+msgstr "Notes des membres"
+
+msgid "Select a house assembly, module, and lesson to enter notes."
+msgstr "Sélectionnez une assemblée de maison, un module et une leçon pour saisir les notes."
+
+msgid "You do not have access to the Bertoua Message module."
+msgstr "Vous n'avez pas accès au module Message de Bertoua."
+
+msgid "You do not have access to this house assembly."
+msgstr "Vous n'avez pas accès à cette assemblée de maison."
+
+msgid "You cannot save notes for members outside your house assembly."
+msgstr "Vous ne pouvez pas enregistrer de notes pour des membres hors de votre assemblée de maison."
+
+msgid "Lesson not found."
+msgstr "Leçon introuvable."
+
+msgid "Notes saved successfully."
+msgstr "Notes enregistrées avec succès."
+
+msgid "No members in this house assembly."
+msgstr "Aucun membre dans cette assemblée de maison."
+
+msgid "Back to Bertoua Message"
+msgstr "Retour au Message de Bertoua"
+
+msgid "Add Module"
+msgstr "Ajouter un module"
+
+msgid "Module title"
+msgstr "Titre du module"
+
+msgid "No modules defined yet."
+msgstr "Aucun module défini pour l'instant."
+
+msgid "Delete this module and all its lessons?"
+msgstr "Supprimer ce module et toutes ses leçons ?"
+
+msgid "Update Module"
+msgstr "Mettre à jour le module"
+
+msgid "Lessons"
+msgstr "Leçons"
+
+msgid "No lessons in this module."
+msgstr "Aucune leçon dans ce module."
+
+msgid "Delete this lesson?"
+msgstr "Supprimer cette leçon ?"
+
+msgid "New lesson"
+msgstr "Nouvelle leçon"
+
+msgid "Add Lesson"
+msgstr "Ajouter une leçon"
+
+msgid "Module display order"
+msgstr "Ordre d'affichage des modules"
+
+msgid "Module IDs in order (comma-separated)"
+msgstr "Identifiants des modules dans l'ordre (séparés par des virgules)"
+
+msgid "Apply order"
+msgstr "Appliquer l'ordre"
+
+msgid "Module title is required."
+msgstr "Le titre du module est obligatoire."
+
+msgid "Lesson title is required."
+msgstr "Le titre de la leçon est obligatoire."
+
+msgid "Module not found."
+msgstr "Module introuvable."
+
+msgid "Invalid notes payload."
+msgstr "Données de notes invalides."
+
+msgid "Failed to load data."
+msgstr "Échec du chargement des données."
+
+#: Bertoua CSV import
+msgid "Import modules and lessons (CSV)"
+msgstr "Importer modules et leçons (CSV)"
+
+msgid "Download template"
+msgstr "Télécharger le modèle"
+
+msgid "One row per lesson. Columns: module, module_order (optional), lesson, lesson_order (optional). Separator ; or , (Excel FR)."
+msgstr "Une ligne par leçon. Colonnes : module, module_order (optionnel), lesson, lesson_order (optionnel). Séparateur ; ou , (Excel FR)."
+
+msgid "CSV file"
+msgstr "Fichier CSV"
+
+msgid "Replace existing catalog (deletes all modules, lessons, and notes)"
+msgstr "Remplacer le catalogue existant (supprime tous les modules, leçons et notes)"
+
+msgid "Import"
+msgstr "Importer"
+
+msgid "Import complete: %1$d module(s) created, %2$d lesson(s) created (%3$d lesson(s) skipped as duplicates)."
+msgstr "Import terminé : %1$d module(s) créé(s), %2$d leçon(s) créée(s) (%3$d leçon(s) ignorée(s) comme doublons)."
+
+msgid "Please choose a CSV file to import."
+msgstr "Veuillez choisir un fichier CSV à importer."
+
+msgid "File upload failed."
+msgstr "Échec du téléversement du fichier."
+
+msgid "Only .csv files are accepted."
+msgstr "Seuls les fichiers .csv sont acceptés."
+
+msgid "Unable to read the CSV file."
+msgstr "Impossible de lire le fichier CSV."
+
+msgid "The CSV file is empty or has no data rows."
+msgstr "Le fichier CSV est vide ou ne contient aucune ligne de données."
+
+msgid "Line %d: module title is required."
+msgstr "Ligne %d : le titre du module est obligatoire."
+
+msgid "This will delete all existing modules, lessons, and notes. Continue?"
+msgstr "Cela supprimera tous les modules, leçons et notes existants. Continuer ?"
+
 
