@@ -57,10 +57,11 @@ function viewAccessDenied(Request $request, Response $response, array $args): Re
 function viewDashboard(Request $request, Response $response, array $args): Response
 {
     $leaderService = new HouseAssemblyLeaderService();
-    if ($leaderService->isHouseAssemblyLeader()) {
+    $homePath = $leaderService->getHomePath();
+    if ($homePath !== null) {
         return $response
             ->withStatus(302)
-            ->withHeader('Location', SystemURLs::getRootPath() . '/' . HouseAssemblyLeaderService::DEFAULT_HOME_PATH);
+            ->withHeader('Location', SystemURLs::getRootPath() . '/' . $homePath);
     }
 
     $renderer = new PhpRenderer('templates/root/');

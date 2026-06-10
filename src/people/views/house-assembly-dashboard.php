@@ -47,6 +47,13 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <div class="card">
     <div class="card-header">
         <h3 class="card-title mb-0"><?= ChurchVocabulary::houseAssemblyMembers() ?></h3>
+        <div class="card-actions">
+            <?php if ($familyId !== null): ?>
+            <a href="<?= SystemURLs::getRootPath() ?>/PersonEditor.php?FamilyID=<?= $familyId ?>" class="btn btn-primary">
+                <i class="fa-solid fa-user-plus me-2"></i><?= gettext('Add Member') ?>
+            </a>
+            <?php endif; ?>
+        </div>
     </div>
     <div class="card-body p-0">
         <?php if ($memberCount === 0): ?>
@@ -87,9 +94,15 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         <?php endif; ?>
                     </td>
                     <td>
-                        <a href="<?= InputUtils::escapeAttribute($row['viewUrl']) ?>" class="btn btn-sm btn-outline-primary">
-                            <?= gettext('View') ?>
-                        </a>
+                        <div class="btn-group">
+                            <a href="<?= InputUtils::escapeAttribute($row['viewUrl']) ?>" class="btn btn-sm btn-outline-primary">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removeMemberModal"
+                                data-person-id="<?= $row['id'] ?>" data-person-name="<?= InputUtils::escapeAttribute($row['name']) ?>">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -99,6 +112,41 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
         <?php endif; ?>
     </div>
 </div>
+
+<!-- ─── Modal: Remove Member ─────────────────────────────────────────────────── -->
+<div class="modal fade" id="removeMemberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" action="<?= SystemURLs::getRootPath() ?>/people/house-assembly/remove-member">
+                <input type="hidden" name="personId" id="removePersonId" value="">
+                <div class="modal-header">
+                    <h5 class="modal-title"><?= gettext('Remove Member') ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><?= gettext('Are you sure you want to remove') ?> <strong id="removePersonName"></strong> <?= gettext('from this house assembly?') ?></p>
+                    <p class="text-body-secondary"><?= gettext('This person will no longer be associated with this house assembly family.') ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= gettext('Cancel') ?></button>
+                    <button type="submit" class="btn btn-danger"><?= gettext('Remove') ?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Handle remove member modal
+document.getElementById('removeMemberModal').addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const personId = button.getAttribute('data-person-id');
+    const personName = button.getAttribute('data-person-name');
+
+    document.getElementById('removePersonId').value = personId;
+    document.getElementById('removePersonName').textContent = personName;
+});
+</script>
 
 <?php
 require SystemURLs::getDocumentRoot() . '/Include/Footer.php';

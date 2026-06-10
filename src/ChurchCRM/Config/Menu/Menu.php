@@ -88,10 +88,13 @@ class Menu
      */
     private static function buildHouseAssemblyLeaderMenu($currentUser): array
     {
+        $leaderService = new HouseAssemblyLeaderService();
+        $homePath = $leaderService->getHomePath() ?? HouseAssemblyLeaderService::DEFAULT_HOME_PATH;
+
         $menus = [
             'HouseAssembly' => new MenuItem(
-                ChurchVocabulary::houseAssemblyDashboard(),
-                HouseAssemblyLeaderService::DEFAULT_HOME_PATH,
+                ChurchVocabulary::houseAssembly(),
+                $homePath,
                 true,
                 'fa-house-chimney-user'
             ),

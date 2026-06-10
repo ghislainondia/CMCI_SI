@@ -273,9 +273,14 @@
     "scripts": ["/mysql/upgrade/7.3.5.sql"],
     "dbVersion": "7.3.5"
   },
-  "current": {
+  "pre-7.3.6": {
     "versions": ["7.3.5"],
+    "scripts": ["/mysql/upgrade/7.3.6.sql"],
+    "dbVersion": "7.3.6"
+  },
+  "current": {
+    "versions": ["7.3.6"],
     "scripts": [],
-    "dbVersion": "7.3.5"
+    "dbVersion": "7.3.6"
   }
 }

@@ -9,7 +9,9 @@ use ChurchCRM\model\ChurchCRM\FamilyCustomQuery;
 use ChurchCRM\model\ChurchCRM\FamilyQuery;
 use ChurchCRM\model\ChurchCRM\PropertyQuery;
 use ChurchCRM\Service\FinancialService;
+use ChurchCRM\Service\HouseAssemblyLeaderService;
 use ChurchCRM\Service\TimelineService;
+use ChurchCRM\Service\UserFamilyScopeService;
 use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Slim\SlimUtils;
 use ChurchCRM\Utils\FiscalYearUtils;
@@ -133,7 +135,6 @@ function viewFamilyNotFound(Request $request, Response $response, array $args): 
 function viewFamily(Request $request, Response $response, array $args): Response
 {
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
-    $groupScopeService = new UserGroupScopeService();
 
     $familyId = (int)$args['id'];
     $family = FamilyQuery::create()->findPk($familyId);
@@ -142,7 +143,8 @@ function viewFamily(Request $request, Response $response, array $args): Response
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/people/family/not-found?id=' . $familyId);
     }
 
-    if (!$groupScopeService->canAccessFamilyId($familyId)) {
+    // Allow access if either group scope OR family scope permits it
+    if (!UserFamilyScopeService::canUserAccessFamily($familyId)) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/v2/access-denied?role=FamilyView');
     }
 

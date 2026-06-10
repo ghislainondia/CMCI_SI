@@ -16,9 +16,8 @@ use Slim\Views\PhpRenderer;
 // Redirect /people root to house-assembly dashboard for leaders, else people dashboard
 $app->get('/', function (Request $request, Response $response): Response {
     $leaderService = new HouseAssemblyLeaderService();
-    $target = $leaderService->isHouseAssemblyLeader()
-        ? HouseAssemblyLeaderService::DEFAULT_HOME_PATH
-        : '/people/dashboard';
+    $homePath = $leaderService->getHomePath();
+    $target = $homePath ?? 'people/dashboard';
 
     return $response
         ->withHeader('Location', SystemURLs::getRootPath() . '/' . ltrim($target, '/'))
@@ -28,9 +27,10 @@ $app->get('/', function (Request $request, Response $response): Response {
 // People Dashboard (replaces PeopleDashboard.php)
 $app->get('/dashboard', function (Request $request, Response $response): Response {
     $leaderService = new HouseAssemblyLeaderService();
-    if ($leaderService->isHouseAssemblyLeader()) {
+    $homePath = $leaderService->getHomePath();
+    if ($homePath !== null) {
         return $response
-            ->withHeader('Location', SystemURLs::getRootPath() . '/' . HouseAssemblyLeaderService::DEFAULT_HOME_PATH)
+            ->withHeader('Location', SystemURLs::getRootPath() . '/' . $homePath)
             ->withStatus(302);
     }
 

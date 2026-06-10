@@ -12,6 +12,7 @@ use ChurchCRM\Authentication\Requests\LocalUsernamePasswordRequest;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\model\ChurchCRM\User;
 use ChurchCRM\Service\HouseAssemblyLeaderService;
+use Propel\Runtime\Propel;
 use ChurchCRM\Service\NotificationService;
 use ChurchCRM\Utils\ChurchCRMReleaseManager;
 use ChurchCRM\Utils\LoggerUtils;
@@ -135,10 +136,19 @@ class AuthenticationManager
         }
 
         if ($result->isAuthenticated && !$result->preventRedirect) {
+            // Check if user is a house assembly leader first (they have priority redirect)
+            $defaultPath = self::getDefaultPostLoginPath();
+
             $redirectLocation = self::validateRedirectPath($_SESSION['location'] ?? null);
             unset($_SESSION['location']); // clear post-login redirect (one-time use)
-            $redirectLocation ??= self::getDefaultPostLoginPath();
-            
+
+            // For house assembly leaders, always use their dedicated page
+            if ($defaultPath !== 'v2/dashboard') {
+                $redirectLocation = $defaultPath;
+            } else {
+                $redirectLocation ??= $defaultPath;
+            }
+
             // One-time login tasks: check for system updates and fetch remote notifications
             self::checkSystemUpdates();
             NotificationService::fetchRemoteNotifications();
@@ -251,10 +261,11 @@ class AuthenticationManager
      */
     public static function getDefaultPostLoginPath(): string
     {
-        if (self::validateUserSessionIsActive(false)) {
-            $leaderService = new HouseAssemblyLeaderService();
-            if ($leaderService->isHouseAssemblyLeader()) {
-                return HouseAssemblyLeaderService::DEFAULT_HOME_PATH;
+        $currentUser = self::getCurrentUser();
+        if ($currentUser !== null && !$currentUser->isAdmin()) {
+            $homePath = (new HouseAssemblyLeaderService())->getHomePath();
+            if ($homePath !== null) {
+                return $homePath;
             }
         }
 

@@ -115,4 +115,17 @@ class UserFamilyScopeService
 
         return $userFamilyId === $familyId;
     }
+
+    /**
+     * True if the current user may access this family via group_id OR fam_id scope.
+     */
+    public static function canUserAccessFamily(int $familyId): bool
+    {
+        $groupScope = new UserGroupScopeService();
+        if ($groupScope->canAccessFamilyId($familyId)) {
+            return true;
+        }
+
+        return (new self())->canAccessFamilyId($familyId);
+    }
 }
