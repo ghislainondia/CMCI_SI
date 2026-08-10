@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Icons</title>
+    <link rel="stylesheet" href="/skin/v2/churchcrm.min.css">
+</head>
+<body>
+    <h1>Test des icônes ChurchCRM</h1>
+    <div style="padding: 20px;">
+        <h2>Font Awesome Icons</h2>
+        <i class="fa-solid fa-user"></i> User Icon<br>
+        <i class="fa-solid fa-lock"></i> Lock Icon<br>
+        <i class="fa-solid fa-envelope"></i> Email Icon<br>
+        <i class="fa-solid fa-key"></i> Key Icon<br>
+        <i class="fa-solid fa-right-to-bracket"></i> Login Icon<br>
+        <br>
+        <h2>Brand Icons</h2>
+        <i class="fa-brands fa-facebook"></i> Facebook<br>
+        <i class="fa-brands fa-twitter"></i> Twitter<br>
+        <i class="fa-brands fa-instagram"></i> Instagram<br>
+    </div>
+    <script>
+        console.log('Icons loaded');
+        // Test if Font Awesome is loaded
+        setTimeout(() => {
+            const icons = document.querySelectorAll('.fa-solid, .fa-brands');
+            console.log('Found icons:', icons.length);
+            icons.forEach((icon, index) => {
+                const styles = window.getComputedStyle(icon);
+                console.log('Icon', index, 'font-family:', styles.fontFamily);
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

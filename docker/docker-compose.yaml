@@ -8,7 +8,8 @@ services:
       - .env
       - .env.local
     volumes:
-      - ../cypress/data:/docker-entrypoint-initdb.d
+      - ./churchcrm-backup.sql.gz:/docker-entrypoint-initdb.d/01-backup.sql.gz:ro
+      - ./init-import.sh:/docker-entrypoint-initdb.d/02-import.sh:ro
       - mariadb_data:/var/lib/mysql
       - ./migrations:/docker-entrypoint-initdb.d/99-migrations
     hostname: crm-database

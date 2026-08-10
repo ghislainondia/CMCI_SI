@@ -1,20 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["es2020", "dom", "dom.iterable"],
-    "sourceMap": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "moduleResolution": "bundler",
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020", "DOM"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": false,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["jquery", "node"],
-    "typeRoots": ["./node_modules/@types", "./webpack/types"]
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["jquery"],
+    "ignoreDeprecations": "6.0"
   },
+  "include": [
+    "webpack/**/*.ts",
+    "src/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
-    "src/vendor",
-    "tests/vendor",
-    "cypress/configs/*"
+    "dist",
+    "vendor"
   ]
 }
