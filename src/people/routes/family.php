@@ -40,7 +40,7 @@ function listFamilies(Request $request, Response $response, array $args): Respon
     if ($leaderService->isHouseAssemblyLeader()) {
         return SlimUtils::renderRedirect(
             $response,
-            SystemURLs::getRootPath() . '/' . $leaderService->getHomePath()
+            SystemURLs::getRootPath() . '/' . $leaderService->getFamilyPath()
         );
     }
 

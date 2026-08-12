@@ -88,9 +88,15 @@ class Menu
     {
         $leaderService = new HouseAssemblyLeaderService();
         $menus = [
+            'Dashboard' => new MenuItem(
+                gettext('Dashboard'),
+                $leaderService->getHomePath(),
+                true,
+                'fa-gauge'
+            ),
             'HouseAssembly' => new MenuItem(
                 ChurchVocabulary::houseAssemblyDashboard(),
-                $leaderService->getHomePath(),
+                $leaderService->getFamilyPath(),
                 true,
                 'fa-house-chimney-user'
             ),

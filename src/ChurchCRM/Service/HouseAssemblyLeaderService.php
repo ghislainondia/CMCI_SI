@@ -36,10 +36,14 @@ class HouseAssemblyLeaderService
         return $this->familyScope->getCurrentUserFamilyId();
     }
 
-    /**
-     * Canonical landing page for a leader: their own house assembly profile.
-     */
+    /** Canonical landing page for a house assembly leader. */
     public function getHomePath(): string
+    {
+        return 'people/house-assembly';
+    }
+
+    /** Direct path to the leader's assigned house assembly profile. */
+    public function getFamilyPath(): string
     {
         $familyId = $this->getLeaderFamilyId();
 

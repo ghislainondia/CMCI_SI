@@ -42,17 +42,19 @@ elles sont déjà enregistrées dans les colonnes correspondant à leur type.
 
 Pour un utilisateur non administrateur ayant un `fam_id` :
 
-1. Après authentification, il arrive sur `/people/family/{fam_id}`.
-2. Le logo, le menu « Mon assemblée de maison », `/people`,
-   `/people/dashboard`, `/v2/dashboard` et l’ancienne URL
-   `/people/house-assembly` ramènent tous à cette même page.
+1. Après authentification, il arrive sur `/people/house-assembly`, le tableau
+   de bord de son ADM.
+2. Le logo, `/people`, `/people/dashboard` et `/v2/dashboard` ramènent à ce
+   tableau de bord. Le menu « Mon assemblée de maison » mène à
+   `/people/family/{fam_id}`.
 3. `/people/family` ne liste jamais les autres ADM pour un dirigeant : il
    redirige directement vers son ADM.
 4. La page ADM ne propose ni retour vers la liste globale ni navigation
    précédent/suivant.
 
-L’ancienne page `/people/house-assembly` est conservée comme redirection de
-compatibilité, mais n’est plus une destination principale.
+Le tableau de bord présente les programmes des sept prochains jours, les
+profils récemment mis à jour de l’ADM et une bannière défilante prête à
+recevoir les communications de l’église.
 
 ## Sécurité et correction de l’erreur « Assemblée introuvable »
 
