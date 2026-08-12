@@ -13,11 +13,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\PhpRenderer;
 
-// Redirect /people root to house-assembly dashboard for leaders, else people dashboard
+// Redirect a house assembly leader to their assigned house assembly, else people dashboard.
 $app->get('/', function (Request $request, Response $response): Response {
     $leaderService = new HouseAssemblyLeaderService();
     $target = $leaderService->isHouseAssemblyLeader()
-        ? HouseAssemblyLeaderService::DEFAULT_HOME_PATH
+        ? $leaderService->getHomePath()
         : '/people/dashboard';
 
     return $response
@@ -30,7 +30,7 @@ $app->get('/dashboard', function (Request $request, Response $response): Respons
     $leaderService = new HouseAssemblyLeaderService();
     if ($leaderService->isHouseAssemblyLeader()) {
         return $response
-            ->withHeader('Location', SystemURLs::getRootPath() . '/' . HouseAssemblyLeaderService::DEFAULT_HOME_PATH)
+            ->withHeader('Location', SystemURLs::getRootPath() . '/' . $leaderService->getHomePath())
             ->withStatus(302);
     }
 

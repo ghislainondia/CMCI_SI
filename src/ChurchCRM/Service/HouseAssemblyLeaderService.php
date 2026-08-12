@@ -10,7 +10,6 @@ use Propel\Runtime\Collection\ObjectCollection;
 
 class HouseAssemblyLeaderService
 {
-    public const DEFAULT_HOME_PATH = 'people/house-assembly';
 
     private UserFamilyScopeService $familyScope;
 
@@ -35,6 +34,16 @@ class HouseAssemblyLeaderService
     public function getLeaderFamilyId(): ?int
     {
         return $this->familyScope->getCurrentUserFamilyId();
+    }
+
+    /**
+     * Canonical landing page for a leader: their own house assembly profile.
+     */
+    public function getHomePath(): string
+    {
+        $familyId = $this->getLeaderFamilyId();
+
+        return $familyId === null ? 'people/family' : 'people/family/' . $familyId;
     }
 
     public function getScopedAssemblyFamily(): ?Family

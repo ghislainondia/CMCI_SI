@@ -254,7 +254,10 @@ class AuthenticationManager
         if (self::validateUserSessionIsActive(false)) {
             $leaderService = new HouseAssemblyLeaderService();
             if ($leaderService->isHouseAssemblyLeader()) {
-                return HouseAssemblyLeaderService::DEFAULT_HOME_PATH;
+                $familyId = $leaderService->getLeaderFamilyId();
+                if ($familyId !== null) {
+                    return 'people/family/' . $familyId;
+                }
             }
         }
 

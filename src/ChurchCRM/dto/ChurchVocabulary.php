@@ -39,12 +39,12 @@ class ChurchVocabulary
 
     public static function scopedHouseAssemblyGroup(): string
     {
-        return gettext('Scoped House Assembly (Group)');
+        return 'Scoped House Assembly (Groupe)';
     }
 
-    public static function scopedHouseAssemblyFamily(): string
+    public static function houseAssemblyFamily(): string
     {
-        return gettext('Scoped House Assembly (Family)');
+        return self::houseAssembly() . ' (Family)';
     }
 
     public static function meetings(): string

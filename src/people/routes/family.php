@@ -9,7 +9,9 @@ use ChurchCRM\model\ChurchCRM\FamilyCustomQuery;
 use ChurchCRM\model\ChurchCRM\FamilyQuery;
 use ChurchCRM\model\ChurchCRM\PropertyQuery;
 use ChurchCRM\Service\FinancialService;
+use ChurchCRM\Service\HouseAssemblyLeaderService;
 use ChurchCRM\Service\TimelineService;
+use ChurchCRM\Service\UserFamilyScopeService;
 use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Slim\SlimUtils;
 use ChurchCRM\Utils\FiscalYearUtils;
@@ -32,7 +34,15 @@ function listFamilies(Request $request, Response $response, array $args): Respon
 {
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
     $groupScopeService = new UserGroupScopeService();
+    $leaderService = new HouseAssemblyLeaderService();
     $sMode = 'Active';
+
+    if ($leaderService->isHouseAssemblyLeader()) {
+        return SlimUtils::renderRedirect(
+            $response,
+            SystemURLs::getRootPath() . '/' . $leaderService->getHomePath()
+        );
+    }
 
     $queryParams = $request->getQueryParams();
 
@@ -98,6 +108,7 @@ function listFamilies(Request $request, Response $response, array $args): Respon
     }
 
     $families = $familiesQuery->find();
+
     $pageArgs = [
         'sMode' => $sMode,
         'sRootPath' => SystemURLs::getRootPath(),
@@ -134,6 +145,8 @@ function viewFamily(Request $request, Response $response, array $args): Response
 {
     $renderer = new PhpRenderer(__DIR__ . '/../views/');
     $groupScopeService = new UserGroupScopeService();
+    $familyScopeService = new UserFamilyScopeService();
+    $leaderService = new HouseAssemblyLeaderService();
 
     $familyId = (int)$args['id'];
     $family = FamilyQuery::create()->findPk($familyId);
@@ -142,7 +155,10 @@ function viewFamily(Request $request, Response $response, array $args): Response
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/people/family/not-found?id=' . $familyId);
     }
 
-    if (!$groupScopeService->canAccessFamilyId($familyId)) {
+    // Allow access if user has group scope permission OR family scope permission (house assembly leaders)
+    $canAccess = $groupScopeService->canAccessFamilyId($familyId) || $familyScopeService->canAccessFamilyId($familyId);
+
+    if (!$canAccess) {
         return SlimUtils::renderRedirect($response, SystemURLs::getRootPath() . '/v2/access-denied?role=FamilyView');
     }
 
@@ -171,19 +187,33 @@ function viewFamily(Request $request, Response $response, array $args): Response
         }
     }
 
+    // Create breadcrumbs based on user type
+    $isHouseAssemblyLeader = $leaderService->isHouseAssemblyLeader();
+    if ($isHouseAssemblyLeader) {
+        // For house assembly leaders, simpler breadcrumb structure
+        $breadcrumbs = PageHeader::breadcrumbs([
+            [ChurchVocabulary::houseAssemblyDashboard(), '/' . $leaderService->getHomePath()],
+            [InputUtils::escapeHTML($family->getName())],
+        ]);
+    } else {
+        // Standard breadcrumb for other users
+        $breadcrumbs = PageHeader::breadcrumbs([
+            [gettext('People'), '/people/dashboard'],
+            [ChurchVocabulary::houseAssemblies(), '/people/family'],
+            [InputUtils::escapeHTML($family->getName())],
+        ]);
+    }
+
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => ChurchVocabulary::houseAssembly() . ': ' . InputUtils::escapeHTML($family->getName()),
         'sPageSubtitle' => gettext('View family details, members, and timeline'),
-        'aBreadcrumbs' => PageHeader::breadcrumbs([
-            [gettext('People'), '/people/dashboard'],
-            [ChurchVocabulary::houseAssemblies(), '/people/family'],
-            [InputUtils::escapeHTML($family->getName())],
-        ]),
+        'aBreadcrumbs' => $breadcrumbs,
         'family' => $family,
         'familyTimeline' => $timelineService->getForFamily($family->getId()),
         'allFamilyProperties' => $allFamilyProperties,
         'familyCustom' => $familyCustom,
+        'isHouseAssemblyLeader' => $isHouseAssemblyLeader,
         'currentFY' => FinancialService::formatFiscalYear(FiscalYearUtils::getCurrentFiscalYearId()),
     ];
 

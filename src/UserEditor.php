@@ -31,6 +31,7 @@ $iPersonID = -1;
 $vNewUser = false;
 $bShowPersonSelect = false;
 $usr_group_id = 0;
+$usr_fam_id = null;
 
 /**
  * @return int|null group_id from user_usr, or null if unset
@@ -504,27 +505,7 @@ require_once __DIR__ . '/Include/Header.php';
         </div>
 
         <div class="row mb-3">
-            <label class="col-sm-5 col-form-label" for="HouseAssemblyGroupId"><?= ChurchVocabulary::scopedHouseAssemblyGroup() ?></label>
-            <div class="col-sm-7">
-                <select class="form-select" name="HouseAssemblyGroupId" id="HouseAssemblyGroupId">
-                    <option value="0"><?= gettext('None (full access per permissions)') ?></option>
-                    <?php foreach (GroupQuery::create()->orderByName()->find() as $group) : ?>
-                    <option value="<?= (int) $group->getId() ?>"<?= (int) $usr_group_id === (int) $group->getId() ? ' selected' : '' ?>>
-                        <?= InputUtils::escapeHTML($group->getName()) ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-                <div class="form-text">
-                    <?= sprintf(
-                        gettext('When set, this user is a %1$s and only sees members of the selected group after login.'),
-                        ChurchVocabulary::houseAssemblyLeader()
-                    ) ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label class="col-sm-5 col-form-label" for="HouseAssemblyFamilyId"><?= ChurchVocabulary::scopedHouseAssemblyFamily() ?></label>
+            <label class="col-sm-5 col-form-label" for="HouseAssemblyFamilyId"><?= ChurchVocabulary::houseAssemblyFamily() ?></label>
             <div class="col-sm-7">
                 <select class="form-select" name="HouseAssemblyFamilyId" id="HouseAssemblyFamilyId">
                     <option value=""><?= gettext('None (full access per permissions)') ?></option>
@@ -536,9 +517,26 @@ require_once __DIR__ . '/Include/Header.php';
                 </select>
                 <div class="form-text">
                     <?= sprintf(
-                        gettext('When set, this user is a %1$s and only sees members of the selected family after login.'),
+                        gettext('When set, this user is a %1$s and only sees members of the selected house assembly after login.'),
                         ChurchVocabulary::houseAssemblyLeader()
                     ) ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-5 col-form-label" for="HouseAssemblyGroupId"><?= ChurchVocabulary::scopedHouseAssemblyGroup() ?></label>
+            <div class="col-sm-7">
+                <select class="form-select" name="HouseAssemblyGroupId" id="HouseAssemblyGroupId">
+                    <option value="0"><?= gettext('None (full access per permissions)') ?></option>
+                    <?php foreach (GroupQuery::create()->orderByName()->find() as $group) : ?>
+                    <option value="<?= (int) $group->getId() ?>"<?= (int) $usr_group_id === (int) $group->getId() ? ' selected' : '' ?>>
+                        <?= InputUtils::escapeHTML($group->getName()) ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+                <div class="form-text">
+                    <?= gettext('When set, this user only sees members of the selected group after login.') ?>
                 </div>
             </div>
         </div>

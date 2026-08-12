@@ -83,15 +83,14 @@ class Menu
 
     }
 
-    /**
-     * Minimal navigation for users scoped to one house assembly (group_id on user_usr).
-     */
+    /** Minimal navigation for users scoped to one house assembly (fam_id on user_usr). */
     private static function buildHouseAssemblyLeaderMenu($currentUser): array
     {
+        $leaderService = new HouseAssemblyLeaderService();
         $menus = [
             'HouseAssembly' => new MenuItem(
                 ChurchVocabulary::houseAssemblyDashboard(),
-                HouseAssemblyLeaderService::DEFAULT_HOME_PATH,
+                $leaderService->getHomePath(),
                 true,
                 'fa-house-chimney-user'
             ),

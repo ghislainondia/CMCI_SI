@@ -12,6 +12,7 @@ use ChurchCRM\Plugin\PluginManager;
 use ChurchCRM\view\MenuRenderer;
 use ChurchCRM\Service\SystemService;
 use ChurchCRM\Service\NotificationService;
+use ChurchCRM\Service\HouseAssemblyLeaderService;
 use ChurchCRM\Utils\DateTimeUtils;
 use ChurchCRM\Utils\InputUtils;
 
@@ -183,7 +184,14 @@ $MenuFirst = 1;
               aria-label="<?= gettext('Toggle navigation') ?>">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a href="<?= SystemURLs::getRootPath() ?>/v2/dashboard" class="navbar-brand py-2">
+      <?php
+      $leaderService = new HouseAssemblyLeaderService();
+      $logoTarget = SystemURLs::getRootPath() . '/v2/dashboard';
+      if ($leaderService->isHouseAssemblyLeader()) {
+          $logoTarget = SystemURLs::getRootPath() . '/' . $leaderService->getHomePath();
+      }
+      ?>
+      <a href="<?= $logoTarget ?>" class="navbar-brand py-2">
         <img src="<?= SystemURLs::getRootPath() ?>/Images/CRM_50x50.png"
              alt="<?= InputUtils::escapeAttribute(ChurchMetaData::getChurchName() ?: 'ChurchCRM') ?>"
              class="navbar-brand-image rounded"

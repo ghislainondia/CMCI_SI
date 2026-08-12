@@ -12,6 +12,7 @@ use Propel\Runtime\ActiveQuery\Criteria;
 
 $sPageTitle = InputUtils::escapeHTML($family->getName());
 $sPageSubtitle = gettext('Family Profile') . ' — ID: ' . $family->getId();
+
 require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 $familyAddress = $family->getAddress();
@@ -341,6 +342,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
     <div class="col-12 col-lg-4">
         <!-- Family Navigation -->
         <div class="d-flex justify-content-between align-items-center mb-3">
+            <?php if (!$isHouseAssemblyLeader): ?>
             <a href="<?= SystemURLs::getRootPath()?>/people/family" class="btn btn-outline-secondary btn-sm">
                 <i class="fa-solid fa-arrow-left me-1"></i><?= gettext('Back to Families'); ?>
             </a>
@@ -352,6 +354,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
                     <i class="fa-solid fa-chevron-right"></i>
                 </a>
             </div>
+            <?php endif; ?>
         </div>
 
         <!-- Family Photo & Attributes Card -->

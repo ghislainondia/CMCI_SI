@@ -60,7 +60,7 @@ function viewDashboard(Request $request, Response $response, array $args): Respo
     if ($leaderService->isHouseAssemblyLeader()) {
         return $response
             ->withStatus(302)
-            ->withHeader('Location', SystemURLs::getRootPath() . '/' . HouseAssemblyLeaderService::DEFAULT_HOME_PATH);
+            ->withHeader('Location', SystemURLs::getRootPath() . '/' . $leaderService->getHomePath());
     }
 
     $renderer = new PhpRenderer('templates/root/');

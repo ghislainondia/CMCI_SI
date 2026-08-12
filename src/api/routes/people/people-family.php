@@ -14,6 +14,7 @@ use ChurchCRM\Plugin\Hook\HookManager;
 use ChurchCRM\Plugin\Hooks;
 use ChurchCRM\Service\FamilyService;
 use ChurchCRM\Service\SystemService;
+use ChurchCRM\Service\UserFamilyScopeService;
 use ChurchCRM\Service\UserGroupScopeService;
 use ChurchCRM\Slim\Middleware\Request\Auth\DeleteRecordRoleAuthMiddleware;
 use ChurchCRM\Slim\Middleware\Request\Auth\EditRecordsRoleAuthMiddleware;
@@ -43,7 +44,9 @@ $app->group('/family/{familyId:[0-9]+}', function (RouteCollectorProxy $group): 
     // Returns uploaded photo only - 404 if no uploaded photo
     $group->get('/photo', function (Request $request, Response $response, array $args): Response {
         $familyId = (int) $args['familyId'];
-        if (!(new UserGroupScopeService())->canAccessFamilyId($familyId)) {
+        $groupScope = new UserGroupScopeService();
+        $familyScope = new UserFamilyScopeService();
+        if (!$groupScope->canAccessFamilyId($familyId) && !$familyScope->canAccessFamilyId($familyId)) {
             throw new HttpNotFoundException($request, gettext('Family not found'));
         }
         $photo = new Photo('Family', $familyId);
@@ -69,7 +72,9 @@ $app->group('/family/{familyId:[0-9]+}', function (RouteCollectorProxy $group): 
     // No cache middleware - needs to reflect immediate photo upload changes
     $group->get('/avatar', function (Request $request, Response $response, array $args): Response {
         $familyId = (int) $args['familyId'];
-        if (!(new UserGroupScopeService())->canAccessFamilyId($familyId)) {
+        $groupScope = new UserGroupScopeService();
+        $familyScope = new UserFamilyScopeService();
+        if (!$groupScope->canAccessFamilyId($familyId) && !$familyScope->canAccessFamilyId($familyId)) {
             throw new HttpNotFoundException($request, gettext('Family not found'));
         }
         $avatarInfo = Photo::getAvatarInfo('Family', $familyId);
