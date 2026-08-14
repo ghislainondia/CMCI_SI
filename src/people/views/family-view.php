@@ -1,6 +1,7 @@
 <?php
 
 use ChurchCRM\Authentication\AuthenticationManager;
+use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\Photo;
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
@@ -61,6 +62,89 @@ $allFamilyProperties = PropertyService::getAll($family);
 $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled();
 ?>
 
+<style nonce="<?= SystemURLs::getCSPNonce() ?>">
+    /* Premium presentation layer for the family profile. Existing data, permissions and JavaScript hooks stay intact. */
+    .family-premium {
+        --fam-primary: #166c5d;
+        --fam-primary-dark: #0c4d42;
+        --fam-primary-soft: #e8f4f0;
+        --fam-ink: #17251f;
+        --fam-muted: #66756e;
+        --fam-line: #e5ece8;
+        --fam-canvas: #f5f8f6;
+        --fam-radius: 16px;
+        --fam-shadow: 0 8px 24px rgba(17, 47, 38, .06);
+        animation: fam-enter .35s ease-out both;
+        background: var(--fam-canvas);
+        border-radius: var(--fam-radius);
+        color: var(--fam-ink);
+        padding: 1.25rem;
+    }
+
+    @keyframes fam-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .family-premium a:focus-visible, .family-premium button:focus-visible { outline: 3px solid rgba(226, 166, 66, .55); outline-offset: 3px; }
+    .family-premium .card { border: 1px solid var(--fam-line); border-radius: var(--fam-radius); box-shadow: var(--fam-shadow); overflow: visible; }
+    .family-premium .card-header { background: #fff; border-bottom-color: var(--fam-line); min-height: 64px; padding: 1rem 1.25rem; }
+    .family-premium .card-title { color: var(--fam-ink); font-size: 1rem; font-weight: 700; letter-spacing: -.02em; }
+
+    .fam-overview {
+        background: linear-gradient(118deg, var(--fam-primary-dark), var(--fam-primary) 64%, #258976);
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(11, 77, 66, .18);
+        color: #fff;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        padding: 1.5rem;
+        position: relative;
+    }
+
+    .fam-overview::after { border: 1px solid rgba(255,255,255,.15); border-radius: 50%; content: ''; height: 280px; pointer-events: none; position: absolute; right: -75px; top: -145px; width: 280px; }
+    .fam-overview > * { position: relative; z-index: 1; }
+    .fam-overview-kicker { color: rgba(255,255,255,.76); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .fam-overview-title { font-size: clamp(1.45rem, 2.6vw, 2.05rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.12; margin: .35rem 0 .7rem; }
+    .fam-overview-copy { color: rgba(255,255,255,.84); font-size: .92rem; margin: 0; }
+    .fam-overview-stats { display: flex; flex-wrap: wrap; gap: .65rem; justify-content: flex-lg-end; }
+    .fam-overview-stat { backdrop-filter: blur(8px); background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); border-radius: 12px; min-width: 112px; padding: .75rem .85rem; }
+    .fam-overview-stat__label { color: rgba(255,255,255,.7); font-size: .67rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .fam-overview-stat__value { font-size: 1.15rem; font-weight: 700; margin-top: .18rem; }
+
+    .family-premium .family-action-toolbar { background: #fff; border: 1px solid var(--fam-line); border-radius: 13px; box-shadow: var(--fam-shadow); margin-bottom: 1rem !important; padding: .55rem; }
+    .family-premium .family-action-toolbar .btn { border-radius: 9px; font-size: .84rem; font-weight: 600; min-height: 38px; }
+    .family-premium .family-action-toolbar .dropdown.ms-auto { margin-left: auto; }
+    .family-premium .family-members-card .card-header { background: linear-gradient(90deg, #f9fcfa, #fff); }
+    .family-premium .family-members-card .card-body { padding: .75rem 1.25rem 1.1rem; }
+    .family-premium .family-members-card .table { --tblr-table-border-color: var(--fam-line); margin-bottom: .85rem; }
+    .family-premium .family-members-card thead th { color: var(--fam-muted); font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .family-premium .family-members-card tbody tr { transition: background .16s ease; }
+    .family-premium .family-members-card tbody tr:hover { background: #f8fbf9; }
+    .family-premium .family-members-card .avatar { border: 2px solid #e2f1eb; }
+    .family-premium .timeline-container .card-header { background: #fff; }
+    .family-premium .timeline-container .card-header:hover { background: #f8fbf9; }
+
+    .family-premium .family-photo-card { overflow: hidden; }
+    .family-premium .family-photo-card .card-body { background: linear-gradient(135deg, #f7fbf9, #fff); }
+    .family-premium .family-photo-card .photo-profile { border-radius: var(--fam-radius) 0 0 var(--fam-radius) !important; }
+    .family-premium .family-photo-card li { color: var(--fam-muted); font-size: .87rem; }
+    .family-premium .family-photo-card li:first-child { color: var(--fam-ink); font-weight: 700; }
+    .family-premium .family-details-card .card-body { padding: 1.1rem 1.25rem; }
+    .family-premium .family-details-card .list-group-item { border-color: var(--fam-line); }
+    .family-premium .family-navigation { min-height: 38px; }
+    .family-premium .directions-btn-group .btn, .family-premium .family-details-card .btn { border-radius: 9px; }
+
+    @media (max-width: 575.98px) {
+        .family-premium { border-radius: 0; margin: 0 -1rem; padding: 1rem; }
+        .fam-overview { padding: 1.3rem; }
+        .fam-overview-stats { justify-content: flex-start; margin-top: 1rem; }
+        .fam-overview-stat { flex: 1 1 0; min-width: 0; }
+        .family-premium .family-action-toolbar { gap: .35rem !important; }
+        .family-premium .family-action-toolbar .btn { font-size: 0; min-width: 38px; padding: .5rem; }
+        .family-premium .family-action-toolbar .btn i { font-size: .9rem; margin: 0 !important; }
+        .family-premium .family-action-toolbar .dropdown-toggle::after { font-size: .75rem; }
+        .family-premium .family-members-card .card-body { padding-left: 1rem; padding-right: 1rem; }
+        .family-premium .family-photo-card .flex-shrink-0 { width: 124px !important; }
+    }
+</style>
+
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
     window.CRM.currentFamily = <?= $family->getId() ?>;
     window.CRM.currentFamilyName = <?= json_encode($family->getName(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
@@ -76,15 +160,32 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
     <?php endif; ?>
 </script>
 
+<main class="family-premium">
 <div id="family-deactivated" class="alert alert-warning d-none">
     <strong><?= gettext("This Family is Inactive") ?> </strong>
 </div>
+
+<section class="fam-overview" aria-label="<?= ChurchVocabulary::houseAssemblyDashboard() ?>">
+    <div class="row align-items-center g-3">
+        <div class="col-lg-7">
+            <div class="fam-overview-kicker"><i class="ti ti-building-community me-1"></i><?= ChurchVocabulary::houseAssemblyDashboard() ?></div>
+            <h1 class="fam-overview-title"><?= InputUtils::escapeHTML($family->getName()) ?></h1>
+            <p class="fam-overview-copy"><?= gettext('View family details, members, and timeline') ?></p>
+        </div>
+        <div class="col-lg-5">
+            <div class="fam-overview-stats">
+                <div class="fam-overview-stat"><div class="fam-overview-stat__label"><?= gettext('Members') ?></div><div class="fam-overview-stat__value"><?= (int) $memberCount ?></div></div>
+                <div class="fam-overview-stat"><div class="fam-overview-stat__label"><?= gettext('Status') ?></div><div class="fam-overview-stat__value"><?= $family->isActive() ? gettext('Active') : gettext('Inactive') ?></div></div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div class="row">
     <!-- LEFT COLUMN: Actions, Members, Timeline -->
     <div class="col-12 col-lg-8">
         <!-- Family Action Toolbar -->
-        <div class="d-flex align-items-center mb-3 gap-2 flex-wrap d-print-none">
+        <div class="family-action-toolbar d-flex align-items-center mb-3 gap-2 flex-wrap d-print-none">
             <?php if (AuthenticationManager::getCurrentUser()->isEditRecordsEnabled()) { ?>
             <a class="btn btn-ghost-primary" href="<?= SystemURLs::getRootPath() ?>/FamilyEditor.php?FamilyID=<?= $family->getId() ?>">
                 <i class="fa-solid fa-pen me-1"></i><?= gettext('Edit') ?>
@@ -307,7 +408,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
             </div>
         <?php } ?>
 
-        <div class="card mb-3">
+        <div class="card family-members-card mb-3">
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title m-0"><i class="fa-solid fa-people-roof me-1"></i> <?= gettext("Family Members") ?></h3>
                 <span class="badge bg-primary-lt text-primary ms-2"><?= $memberCount ?></span>
@@ -341,7 +442,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
     <!-- RIGHT COLUMN: Navigation, Photo, Address, Contact, Properties -->
     <div class="col-12 col-lg-4">
         <!-- Family Navigation -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="family-navigation d-flex justify-content-between align-items-center mb-3">
             <?php if (!$isHouseAssemblyLeader): ?>
             <a href="<?= SystemURLs::getRootPath()?>/people/family" class="btn btn-outline-secondary btn-sm">
                 <i class="fa-solid fa-arrow-left me-1"></i><?= gettext('Back to Families'); ?>
@@ -358,7 +459,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
         </div>
 
         <!-- Family Photo & Attributes Card -->
-        <div class="card mb-3">
+        <div class="card family-photo-card mb-3">
             <div class="card-body p-0">
                 <div class="d-flex">
                     <!-- Photo (left) — click to upload -->
@@ -409,7 +510,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
 
         <?php if ($family->hasAddress()): ?>
         <!-- Address Card -->
-        <div class="card mb-3">
+        <div class="card family-details-card mb-3">
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title m-0"><i class="fa-solid fa-map me-1"></i> <?= gettext("Address") ?>
                     <?php if ($family->hasLatitudeAndLongitude()): ?>
@@ -478,7 +579,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
 
         <?php if (!empty($family->getEmail())) { ?>
         <!-- Email Card (with Mailchimp status if plugin enabled) -->
-        <div class="card mb-3">
+        <div class="card family-details-card mb-3">
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title m-0"><i class="fa-solid fa-envelope me-1"></i> <?= gettext("Email") ?></h3>
             </div>
@@ -504,7 +605,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
 
         <?php if (!empty($familyCustom)) { ?>
         <!-- Custom Fields Card (collapsible) -->
-        <div class="card mb-3">
+        <div class="card family-details-card mb-3">
             <div class="card-header d-flex align-items-center" role="button" data-bs-toggle="collapse" data-bs-target="#family-custom-body" aria-expanded="true">
                 <h3 class="card-title m-0"><i class="fa-solid fa-sliders me-1"></i> <?= gettext("Custom Fields") ?></h3>
                 <div class="ms-auto"><i class="fa-solid fa-chevron-down"></i></div>
@@ -534,7 +635,7 @@ $canEditRecords = AuthenticationManager::getCurrentUser()->isEditRecordsEnabled(
         <?php } ?>
 
         <!-- Properties Card (inline, matching Person page style) -->
-        <div class="card mb-3">
+        <div class="card family-details-card mb-3">
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title m-0"><i class="fa-solid fa-hashtag me-1"></i> <?= gettext("Properties") ?></h3>
             </div>
@@ -640,6 +741,8 @@ if (AuthenticationManager::getCurrentUser()->isFinanceEnabled()) { ?>
     </div>
 </div>
 <?php } ?>
+
+</main>
 
 <!-- Leaflet map (loaded only if geocoded) -->
 <link rel="stylesheet" href="<?= SystemURLs::assetVersioned('/skin/external/leaflet/leaflet.css') ?>">

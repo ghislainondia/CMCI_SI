@@ -9,7 +9,7 @@ use ChurchCRM\Utils\LoggerUtils;
  * Manages ChurchCRM plugins: discovery, loading, activation, and lifecycle.
  *
  * Plugins can be:
- * - Core plugins: Shipped with ChurchCRM (src/plugins/core/)
+ * - Core plugins: Shipped with CMCI Life (src/plugins/core/)
  * - Community plugins: Third-party extensions (src/plugins/community/)
  *
  * Plugin state is stored in SystemConfig with prefixed keys (plugin.{id}.enabled).

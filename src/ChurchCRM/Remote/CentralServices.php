@@ -3,11 +3,11 @@
 namespace ChurchCRM\Remote;
 
 /**
- * Hardcoded URLs for ChurchCRM maintainer-managed remote services.
+ * Hardcoded URLs for CMCI Life maintainer-managed remote services.
  *
  * These are NOT user-configurable — they are set by the ChurchCRM
  * maintainers and shipped with the software. All URLs point to files
- * on the `External` orphan branch of ChurchCRM/CRM so maintainers
+ * on the `External` orphan branch of CMCI Life/CRM so maintainers
  * can push updates without requiring an install upgrade.
  *
  * ── HOW TO UPDATE THE HOSTED FILES ───────────────────────────────────

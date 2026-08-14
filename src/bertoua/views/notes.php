@@ -6,7 +6,42 @@ use ChurchCRM\Utils\InputUtils;
 require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 ?>
 
-<div class="card mb-3">
+<style nonce="<?= SystemURLs::getCSPNonce() ?>">
+    .bertoua-notes-premium { --bert-primary:#5c438f; --bert-primary-dark:#41306a; --bert-soft:#f0ecfb; --bert-ink:#251d36; --bert-muted:#706982; --bert-line:#e8e4f0; --bert-canvas:#f8f7fb; --bert-radius:16px; animation:bert-enter .35s ease-out both; background:var(--bert-canvas); border-radius:var(--bert-radius); color:var(--bert-ink); padding:1.25rem; }
+    @keyframes bert-enter { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    .bertoua-hero { background:linear-gradient(118deg,var(--bert-primary-dark),var(--bert-primary) 64%,#7860b4); border-radius:20px; box-shadow:0 12px 30px rgba(56,42,91,.18); color:#fff; margin-bottom:1rem; overflow:hidden; padding:1.45rem 1.5rem; position:relative; }
+    .bertoua-hero::after { border:1px solid rgba(255,255,255,.16); border-radius:50%; content:''; height:285px; pointer-events:none; position:absolute; right:-72px; top:-145px; width:285px; }
+    .bertoua-hero > * { position:relative; z-index:1; }
+    .bertoua-kicker { color:rgba(255,255,255,.76); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .bertoua-title { font-size:clamp(1.45rem,2.7vw,2.05rem); font-weight:700; letter-spacing:-.04em; line-height:1.12; margin:.35rem 0 .65rem; }
+    .bertoua-copy { color:rgba(255,255,255,.86); font-size:.92rem; line-height:1.5; margin:0; max-width:620px; }
+    .bertoua-steps { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:flex-lg-end; }
+    .bertoua-step { backdrop-filter:blur(8px); background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.18); border-radius:999px; font-size:.76rem; font-weight:600; padding:.48rem .7rem; }
+    .bertoua-notes-premium .card { border:1px solid var(--bert-line); border-radius:var(--bert-radius); box-shadow:0 8px 24px rgba(46,35,75,.07); overflow:visible; }
+    .bertoua-notes-premium .card-header { background:linear-gradient(90deg,#fbfaff,#fff); border-bottom-color:var(--bert-line); min-height:64px; padding:1rem 1.25rem; }
+    .bertoua-notes-premium .card-title { color:var(--bert-ink); font-size:1rem; font-weight:700; letter-spacing:-.02em; }
+    .bertoua-context-card .card-body { padding:1.25rem; }
+    .bertoua-context-card label { color:#51486a; font-size:.8rem; font-weight:700; margin-bottom:.4rem; }
+    .bertoua-context-card .form-select, .bertoua-notes-premium .note-field { border-color:#ddd6ed; border-radius:10px; }
+    .bertoua-context-card .form-select { min-height:44px; }
+    .bertoua-context-card .form-select:focus, .bertoua-notes-premium .note-field:focus { border-color:#a692d4; box-shadow:0 0 0 .2rem rgba(92,67,143,.13); }
+    .bertoua-context-help { color:var(--bert-muted); font-size:.8rem; margin-top:.8rem; }
+    #saveNotesBtn { background:var(--bert-primary); border-color:var(--bert-primary); border-radius:10px; font-weight:700; min-height:40px; }
+    #saveNotesBtn:hover { background:var(--bert-primary-dark); border-color:var(--bert-primary-dark); }
+    #notesTable thead th { background:#f8f6fc; color:var(--bert-muted); font-size:.69rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; }
+    #notesTable td { border-color:var(--bert-line); vertical-align:middle; }
+    #notesTable td:first-child { color:var(--bert-ink); font-weight:700; min-width:210px; }
+    .bertoua-notes-premium .note-field { min-height:68px; }
+    #notesHint { background:var(--bert-soft); border:1px solid #ddd5ee; border-radius:13px; color:#4f4074; }
+    @media (max-width:575.98px) { .bertoua-notes-premium { border-radius:0; margin:0 -1rem; padding:1rem; } .bertoua-hero { padding:1.3rem; } .bertoua-steps { justify-content:flex-start; margin-top:1rem; } .bertoua-context-card .card-body, .bertoua-notes-premium .card-header { padding-left:1rem; padding-right:1rem; } #notesTable td:first-child { min-width:145px; } }
+</style>
+
+<main class="bertoua-notes-premium">
+    <section class="bertoua-hero" aria-label="<?= gettext('Bertoua Message') ?>">
+        <div class="row align-items-center g-3"><div class="col-lg-7"><div class="bertoua-kicker"><i class="ti ti-book-2 me-1"></i><?= gettext('Bertoua Message') ?></div><h1 class="bertoua-title"><?= gettext('A guided journey to learn to walk with God') ?></h1><p class="bertoua-copy"><?= gettext('Choose a lesson, review its questions with the members, and record their progress thoughtfully.') ?></p></div><div class="col-lg-5"><div class="bertoua-steps"><span class="bertoua-step"><i class="ti ti-building-community me-1"></i><?= InputUtils::escapeHTML($houseAssemblyLabel) ?></span><span class="bertoua-step"><i class="ti ti-book me-1"></i><?= gettext('Module') ?></span><span class="bertoua-step"><i class="ti ti-notebook me-1"></i><?= gettext('Lesson') ?></span></div></div></div>
+    </section>
+
+<div class="card bertoua-context-card mb-3">
     <div class="card-header">
         <h3 class="card-title mb-0"><?= gettext('Context') ?></h3>
     </div>
@@ -45,6 +80,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 </select>
             </div>
         </div>
+        <div class="bertoua-context-help"><i class="ti ti-info-circle me-1"></i><?= gettext('Select the assembly, module, and lesson before entering the members’ answers.') ?></div>
     </div>
 </div>
 
@@ -77,6 +113,8 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
 </div>
 
 <div id="saveAlert" class="alert d-none" role="alert"></div>
+
+</main>
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 (function () {
@@ -180,6 +218,7 @@ require SystemURLs::getDocumentRoot() . '/Include/Header.php';
             const notes = notesData.notes || {};
             members.forEach(function (member) {
                 const tr = document.createElement('tr');
+                tr.className = 'bertoua-member-row';
                 const existing = notes[member.id] ? notes[member.id].note : '';
                 tr.innerHTML =
                     '<td class="align-middle">' + escapeHtml(member.name) + '</td>' +

@@ -1,4 +1,4 @@
-# Tabler Migration Rules for ChurchCRM
+# Tabler Migration Rules for CMCI Life
 
 This file is the authoritative skill reference for the AdminLTE → Tabler migration.
 All agents working on UI migration tasks **must** read this file first.
@@ -7,7 +7,7 @@ All agents working on UI migration tasks **must** read this file first.
 
 ## Context
 
-We are migrating ChurchCRM from AdminLTE (Bootstrap 4) to Tabler (Bootstrap 5).
+We are migrating CMCI Life from AdminLTE (Bootstrap 4) to Tabler (Bootstrap 5).
 
 - **Framework**: Tabler (Bootstrap 5)
 - **Typography**: Inter Variable Font (`font-family: 'Inter', sans-serif`)
@@ -55,7 +55,7 @@ Every migrated page must use this layout structure:
       <span class="navbar-toggler-icon"></span>
     </button>
     <a href="<?= SystemURLs::getRootPath() ?>/v2/dashboard" class="navbar-brand navbar-brand-autodark">
-      <img src="<?= SystemURLs::getRootPath() ?>/Images/CRM_50x50.png" alt="ChurchCRM" class="navbar-brand-image">
+      <img src="<?= SystemURLs::getRootPath() ?>/Images/CRM_50x50.png" alt="CMCI Life" class="navbar-brand-image">
     </a>
     <div class="collapse navbar-collapse" id="sidebar-menu">
       <ul class="navbar-nav pt-lg-3">

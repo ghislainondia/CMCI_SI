@@ -3,7 +3,7 @@
 use ChurchCRM\dto\SystemURLs;
 
 ?>
-<title>ChurchCRM: <?= $sPageTitle ?></title>
+<title>CMCI Life: <?= $sPageTitle ?></title>
 
 <link rel="icon" href="<?= SystemURLs::getRootPath() ?>/favicon.ico" type="image/x-icon">
 

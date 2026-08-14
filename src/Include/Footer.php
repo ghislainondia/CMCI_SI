@@ -17,30 +17,16 @@ $isAdmin = AuthenticationManager::getCurrentUser()->isAdmin();
           <div class="col-lg-auto ms-lg-auto">
             <b><?= gettext('Version') ?></b> <?= $_SESSION['sSoftwareInstalledVersion'] ?>
             &nbsp;&nbsp;
-            <a href="https://www.facebook.com/getChurchCRM" target="_blank" rel="noopener noreferrer" title="Facebook">
+            <a href="https://www.facebook.com/cmcisn" target="_blank" rel="noopener noreferrer" title="Facebook">
               <i class="fa-brands fa-facebook"></i>
             </a>
             &nbsp;
-            <a href="https://www.instagram.com/getchurchcrm/" target="_blank" rel="noopener noreferrer" title="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            &nbsp;
-            <a href="https://x.com/getChurchCRM" target="_blank" rel="noopener noreferrer" title="X">
-              <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            &nbsp;
-            <a href="https://www.linkedin.com/company/getchurchcrm/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-              <i class="fa-brands fa-linkedin"></i>
-            </a>
-            &nbsp;
-            <a href="https://www.youtube.com/@getChurchCRM" target="_blank" rel="noopener noreferrer" title="YouTube">
+            <a href="https://www.youtube.com/@ZTFMINISTRY" target="_blank" rel="noopener noreferrer" title="YouTube">
               <i class="fa-brands fa-youtube"></i>
             </a>
           </div>
           <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-            <?= gettext('Copyright') ?> &copy; <?= SystemService::getCopyrightDate() ?>
-            <a href="https://churchcrm.io" target="_blank" rel="noopener noreferrer">Church<b>CRM</b></a>.
-            <?= gettext('All rights reserved') ?>.
+            <?= gettext('Copyright') ?> &copy; <?= SystemService::getCopyrightDate() ?> CMCI Sénégal. <?= gettext('All rights reserved') ?>.
           </div>
         </div>
       </div>

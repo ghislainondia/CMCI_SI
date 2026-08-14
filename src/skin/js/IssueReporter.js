@@ -54,7 +54,7 @@ function initializeIssueReporter() {
       .done(function (data) {
         var userDescription = description ? description + "\n\n" : "**Describe the issue** \n\n\n\n";
         var systemInfo = encodeURIComponent(userDescription + data["issueBody"]);
-        var gitHubTemplateURL = "https://github.com/ChurchCRM/CRM/issues/new?type=bug&body=" + systemInfo;
+        var gitHubTemplateURL = "https://github.com/CMCI Life/CRM/issues/new?type=bug&body=" + systemInfo;
         window.open(gitHubTemplateURL, "github");
 
         // Success feedback before closing

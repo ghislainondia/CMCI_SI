@@ -1,4 +1,4 @@
-Getting Started with Docker for ChurchCRM
+Getting Started with Docker for CMCI Life
 ===========================
 
 This directory contains two types of Docker configurations:
@@ -16,7 +16,7 @@ Development & Testing (Apache)
 
 ** THIS DOCKER CONFIGURATION IS INTENDED FOR DEVELOPMENT & TESTING PURPOSES ONLY**
 
-ChurchCRM uses a single `docker-compose.yaml` with profiles to support different environments:
+CMCI Life uses a single `docker-compose.yaml` with profiles to support different environments:
 - **dev**: Full development environment (Node, NPM, Composer, Xdebug, Adminer)
 - **test**: Minimal runtime for testing
 - **ci**: CI/CD optimized (used by GitHub Actions)
@@ -33,13 +33,13 @@ Development
 
 ## Steps
 
-1. Clone ChurchCRM Repo: `git clone git@github.com:ChurchCRM/CRM.git`
+1. Clone CMCI Life Repo: `git clone git@github.com:CMCI Life/CRM.git`
 2. `cd` into the project directory: `cd CRM`
 3. Start dev containers: `npm run docker:dev:start`
     * **Note:** Containers run in background with `--profile dev`
 4. Launch terminal in web container: `npm run docker:dev:login:web`
-5. `cd` into project directory: `cd /home/ChurchCRM`
-6. Build ChurchCRM: `npm run deploy`
+5. `cd` into project directory: `cd /home/CMCI Life`
+6. Build CMCI Life: `npm run deploy`
 7. Make logs writable: `chmod a+rwx src/logs`
 8. Stop docker: `npm run docker:dev:stop`
 9. View live logs: `npm run docker:dev:logs`
@@ -78,7 +78,7 @@ Testing
 
 ## Steps
 
-1. Clone repo: `git clone git@github.com:ChurchCRM/CRM.git`
+1. Clone repo: `git clone git@github.com:CMCI Life/CRM.git`
 2. Change into project directory: `cd CRM`
 3. Install Node dependencies: `npm ci`
 4. Build code locally: `npm run deploy`
@@ -107,7 +107,7 @@ Testing
 
 ### Parallel Testing (Root + Subdirectory)
 
-ChurchCRM supports both root path (`/`) and subdirectory (`/churchcrm/`) installations. The parallel testing infrastructure allows testing both configurations simultaneously without conflicts.
+CMCI Life supports both root path (`/`) and subdirectory (`/churchcrm/`) installations. The parallel testing infrastructure allows testing both configurations simultaneously without conflicts.
 
 ```bash
 # Root path tests
@@ -138,13 +138,13 @@ Self-Hosted / Production (nginx + PHP-FPM)
 ---
 
 The `docker-compose.nginx.yaml` and `nginx/default.conf` files provide a reference
-configuration for deploying ChurchCRM with **nginx + PHP-FPM** instead of Apache.
+configuration for deploying CMCI Life with **nginx + PHP-FPM** instead of Apache.
 This is the setup most commonly used in self-hosted environments (reverse-proxy
 stacks, Kubernetes, etc.).
 
 ### Why nginx needs explicit routing
 
-ChurchCRM is structured as multiple independent **Slim 4 PHP applications**, each
+CMCI Life is structured as multiple independent **Slim 4 PHP applications**, each
 in its own subdirectory with its own `index.php` entry point:
 
 | URL prefix | Entry point |
@@ -189,7 +189,7 @@ Visit `http://localhost/` — you will see the setup wizard on first run.
 
 1. Copy `nginx/default.conf` to your deployment.
 2. Replace `php-fpm:9000` with your PHP-FPM container hostname/port.
-3. Set `root` to the path where ChurchCRM's `src/` contents are served from.
+3. Set `root` to the path where CMCI Life's `src/` contents are served from.
 4. For a **subdirectory install** (e.g. `http://example.com/churchcrm/`):
    - Set `$sRootPath = '/churchcrm'` in `Include/Config.php`.
    - Prefix all `location` paths in the nginx config with `/churchcrm`.
@@ -207,13 +207,13 @@ The `Dockerfile.churchcrm-fpm-php8` installs all of these.
 ### Self-Hosted / Production (FrankenPHP)
 
 The `docker-compose.frankenphp.yaml` and `frankenphp/Caddyfile` files provide a
-reference configuration for deploying ChurchCRM with **FrankenPHP** — an
+reference configuration for deploying CMCI Life with **FrankenPHP** — an
 all-in-one server that bundles Caddy and PHP in a single binary and container.
 This results in a simpler two-service stack compared to nginx + PHP-FPM.
 
 ### Why FrankenPHP needs explicit routing
 
-The same routing requirement applies as for nginx: ChurchCRM is structured as
+The same routing requirement applies as for nginx: CMCI Life is structured as
 multiple independent **Slim 4 PHP applications**, each in its own subdirectory
 with its own `index.php` entry point.
 
@@ -259,7 +259,7 @@ Visit `http://localhost/` — you will see the setup wizard on first run.
 ### Customising the Caddyfile
 
 1. Copy `frankenphp/Caddyfile` to your deployment.
-2. Update `root` to the path where ChurchCRM's `src/` contents are served from.
+2. Update `root` to the path where CMCI Life's `src/` contents are served from.
 3. For a **subdirectory install** (e.g. `http://example.com/churchcrm/`):
    - Set `$sRootPath = '/churchcrm'` in `Include/Config.php`.
    - Prefix all `handle` paths in the Caddyfile with `/churchcrm`.

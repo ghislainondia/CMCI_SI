@@ -21,7 +21,7 @@
 
 ### 3. 🔧 Service PHP
 
-**Fichier**: `src/ChurchCRM/Service/DiscipleMakerService.php`
+**Fichier**: `src/CMCI Life/Service/DiscipleMakerService.php`
 
 **Méthodes implémentées**:
 - ✅ `setDiscipleMaker()` - Assigner un faiseur de disciple
@@ -48,7 +48,7 @@
 ### 5. 🎨 Interface Utilisateur
 
 **Fichiers créés**:
-- ✅ `src/ChurchCRM/View/DiscipleMakerView.php` - Classe pour gérer l'affichage
+- ✅ `src/CMCI Life/View/DiscipleMakerView.php` - Classe pour gérer l'affichage
 - ✅ `src/js/DiscipleMakerManager.js` - Module JavaScript pour l'interactivité
 
 ### 6. 📊 Données de Test
@@ -72,7 +72,7 @@ Paul Responsable (ID: 263)
 
 ```php
 // Assigner un faiseur de disciple
-$service = new \ChurchCRM\Service\DiscipleMakerService();
+$service = new \CMCI Life\Service\DiscipleMakerService();
 $service->setDiscipleMaker($personId, $discipleMakerId);
 
 // Obtenir le faiseur de disciple

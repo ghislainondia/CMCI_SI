@@ -40,6 +40,7 @@ $app->get('/calendars', function (Request $request, Response $response) {
         'sPageHeaderButtons'   => PageHeader::buttons($headerButtons),
         'sSettingsCollapseId'  => $isAdmin ? 'calendarSettings' : '',
         'isAdmin'              => $isAdmin,
+        'canAddEvents'         => AuthenticationManager::getCurrentUser()->isAddEvent(),
         'calendarJSArgs'       => $calendarJSArgs,
     ]);
 });

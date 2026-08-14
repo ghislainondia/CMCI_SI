@@ -166,7 +166,7 @@ if ($mysqlversion >= 4) {
     $rsRecords = mysqli_query($cnInfoCentral, $sSQL) || exit(mysqli_error($cnInfoCentral));
     $sSQL = 'SELECT DISTINCT * FROM tmp ORDER BY SortMe';
 } else {
-    exit(gettext('This option requires at least version 3.22 of MySQL!  Hit browser back button to return to ChurchCRM.'));
+    exit(gettext('This option requires at least version 3.22 of MySQL!  Hit browser back button to return to CMCI Life.'));
 }
 
 $rsRecords = RunQuery($sSQL);

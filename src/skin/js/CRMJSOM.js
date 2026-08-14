@@ -1,5 +1,5 @@
 /*
- * ChurchCRM JavaScript Object Model Initialization Script
+ * CMCI Life JavaScript Object Model Initialization Script
  */
 
 // Ensure jQuery is available — churchcrm.min.js sets window.jQuery globally

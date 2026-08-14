@@ -6,7 +6,7 @@ use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\Utils\LoggerUtils;
 
 /**
- * Abstract base class for ChurchCRM plugins.
+ * Abstract base class for CMCI Life plugins.
  *
  * Provides common functionality and sensible defaults
  * for plugin implementations.

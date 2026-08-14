@@ -22,7 +22,8 @@ class BirthdaysCalendar implements SystemCalendar
 
     public function getBackgroundColor(): string
     {
-        return '0000FF';
+        // Keep fixed-date birthday events aligned with the ChurchCRM green/teal interface.
+        return '0F766E';
     }
 
     public function getForegroundColor(): string

@@ -1,6 +1,6 @@
-# ChurchCRM Build & Utility Scripts
+# CMCI Life Build & Utility Scripts
 
-This folder contains Node.js and shell scripts used for building, packaging, and maintaining ChurchCRM.
+This folder contains Node.js and shell scripts used for building, packaging, and maintaining CMCI Life.
 
 ## Scripts Overview
 
@@ -12,7 +12,7 @@ This folder contains Node.js and shell scripts used for building, packaging, and
 | `package-release.js` | Create release ZIP package | `npm run package` |
 | `locale-check.js` | Lint locale files for issues | `npm run locale:lint` |
 | `startNewRelease.js` | Version bump for releases | Used by maintainers |
-| `create-plugin.php` | Scaffold a new community plugin (clones [community-plugin-hello-world](https://github.com/ChurchCRM/community-plugin-hello-world) from GitHub) | `php scripts/create-plugin.php <kebab-id> [--author="Name"]` |
+| `create-plugin.php` | Scaffold a new community plugin (clones [community-plugin-hello-world](https://github.com/CMCI Life/community-plugin-hello-world) from GitHub) | `php scripts/create-plugin.php <kebab-id> [--author="Name"]` |
 | `plugin-scan.php` | Self-audit a community plugin directory against the maintainer review checklist | `php scripts/plugin-scan.php [--json] <plugin-dir>` |
 
 ---
@@ -32,7 +32,7 @@ This folder contains Node.js and shell scripts used for building, packaging, and
 2. Runs `npm ci` to install dependencies
 3. Initializes Git LFS (if available)
 4. Starts Docker dev containers
-5. Builds ChurchCRM inside the container
+5. Builds CMCI Life inside the container
 
 **Prerequisites:**
 - Docker installed and running
@@ -85,7 +85,7 @@ npm run build:php:validate
 npm run package
 ```
 
-**Output:** `temp/ChurchCRM-{version}.zip`
+**Output:** `temp/CMCI Life-{version}.zip`
 
 **What it does:**
 - Reads version from `package.json`
@@ -130,7 +130,7 @@ node scripts/startNewRelease.js <new-version>
 ### create-plugin.php
 
 **Scaffold a new community plugin.** Clones
-[ChurchCRM/community-plugin-hello-world](https://github.com/ChurchCRM/community-plugin-hello-world)
+[CMCI Life/community-plugin-hello-world](https://github.com/CMCI Life/community-plugin-hello-world)
 into a temp directory, then copies it into
 `src/plugins/community/<kebab-id>/`, rewriting plugin id, PHP
 namespace, and main class name so the result is immediately runnable.
@@ -151,7 +151,7 @@ confirm it passes the self-audit before enabling it from Admin → Plugins.
 
 ### plugin-scan.php
 
-**Community plugin self-audit.** Runs the same checklist ChurchCRM
+**Community plugin self-audit.** Runs the same checklist CMCI Life
 maintainers use during the plugin security review, against a plugin
 directory on disk. Intended for authors to run against their own
 plugin BEFORE opening a pull request against
@@ -188,10 +188,10 @@ invocation).
 
 ## Related Documentation
 
-- [Development Guide](https://github.com/ChurchCRM/CRM/wiki/Development) - Full development setup
-- [npm Scripts Reference](https://github.com/ChurchCRM/CRM/wiki/Development#key-npm-scripts) - All available npm commands
+- [Development Guide](https://github.com/CMCI Life/CRM/wiki/Development) - Full development setup
+- [npm Scripts Reference](https://github.com/CMCI Life/CRM/wiki/Development#key-npm-scripts) - All available npm commands
 - [Documentation](https://docs.churchcrm.io/contributing) - How to contribute
-- [Testing Guide](https://github.com/ChurchCRM/CRM/wiki/Testing) - Cypress testing documentation
+- [Testing Guide](https://github.com/CMCI Life/CRM/wiki/Testing) - Cypress testing documentation
 
 ---
 

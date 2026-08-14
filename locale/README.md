@@ -1,6 +1,6 @@
-# ChurchCRM Localization System
+# CMCI Life Localization System
 
-This directory contains all localization tools and workflows for ChurchCRM — from term extraction to POEditor management to translation downloads.
+This directory contains all localization tools and workflows for CMCI Life — from term extraction to POEditor management to translation downloads.
 
 ## 📋 Quick Start
 
@@ -89,7 +89,7 @@ For testing: Always verify BOTH logged-out (system) and logged-in (user override
 
 ### PHP vs JavaScript
 
-ChurchCRM uses two separate systems:
+CMCI Life uses two separate systems:
 
 - **PHP/Gettext**: Server-rendered pages, uses `.mo` files and OS locales
 - **JavaScript/i18next**: Client UI, uses JSON files from `src/locale/i18n/`
@@ -227,7 +227,7 @@ node locale/scripts/poeditor-downloader.js --locale fr --verbose
 | POEditor Docs | [POEditor Docs](https://poeditor.com/docs/) |
 | GNU Gettext | [GNU Gettext Manual](https://www.gnu.org/software/gettext/manual/) |
 | i18next Docs | [i18next](https://www.i18next.com/) |
-| ChurchCRM Translation Guide | [Translation Guide (wiki)](https://github.com/ChurchCRM/CRM/wiki/Translation) |
+| CMCI Life Translation Guide | [Translation Guide (wiki)](https://github.com/CMCI Life/CRM/wiki/Translation) |
 
 ---
 
@@ -241,4 +241,4 @@ node locale/scripts/poeditor-downloader.js --locale fr --verbose
 
 ## Questions?
 
-Open an issue: [GitHub Issues](https://github.com/ChurchCRM/CRM/issues)
+Open an issue: [GitHub Issues](https://github.com/CMCI Life/CRM/issues)

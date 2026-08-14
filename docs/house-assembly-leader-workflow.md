@@ -64,7 +64,7 @@ Les routes HTML autorisent le dirigeant si l’ADM demandée correspond à son
 Les fichiers suivants contrôlent désormais l’accès par **groupe OU famille** :
 
 - `src/api/routes/people/people-family.php` pour les avatars et photos ;
-- `src/ChurchCRM/Slim/Middleware/Api/FamilyMiddleware.php` pour les autres API
+- `src/CMCI Life/Slim/Middleware/Api/FamilyMiddleware.php` pour les autres API
   de famille.
 
 Avant cette correction, la page `/people/family/{fam_id}` était autorisée,
@@ -74,18 +74,18 @@ Le navigateur affichait alors brièvement « Assemblée de maison introuvable »
 ## Fichiers modifiés dans cette reprise
 
 - `src/UserEditor.php`
-- `src/ChurchCRM/dto/ChurchVocabulary.php`
-- `src/ChurchCRM/Service/HouseAssemblyLeaderService.php`
-- `src/ChurchCRM/Authentication/AuthenticationManager.php`
+- `src/CMCI Life/dto/ChurchVocabulary.php`
+- `src/CMCI Life/Service/HouseAssemblyLeaderService.php`
+- `src/CMCI Life/Authentication/AuthenticationManager.php`
 - `src/Include/Header.php`
-- `src/ChurchCRM/Config/Menu/Menu.php`
+- `src/CMCI Life/Config/Menu/Menu.php`
 - `src/people/routes/dashboard.php`
 - `src/v2/routes/root.php`
 - `src/people/routes/house-assembly.php`
 - `src/people/routes/family.php`
 - `src/people/views/family-view.php`
 - `src/api/routes/people/people-family.php`
-- `src/ChurchCRM/Slim/Middleware/Api/FamilyMiddleware.php`
+- `src/CMCI Life/Slim/Middleware/Api/FamilyMiddleware.php`
 
 ## Vérifications à effectuer après une modification future
 

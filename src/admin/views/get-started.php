@@ -47,7 +47,7 @@ $isMailChimpActive = PluginManager::isPluginActive('mailchimp');
                     <i class="fa-solid fa-file-csv"></i>
                 </div>
                 <h5><?= gettext('Import from a Spreadsheet') ?></h5>
-                <p><?= gettext('Upload a CSV from Excel, Google Sheets, or your previous church management system and map columns to ChurchCRM fields.') ?></p>
+                <p><?= gettext('Upload a CSV from Excel, Google Sheets, or your previous church management system and map columns to CMCI Life fields.') ?></p>
                 <span class="gs-card-cta">
                     <?= gettext('Import CSV') ?>
                     <i class="fa-solid fa-arrow-right fa-sm"></i>

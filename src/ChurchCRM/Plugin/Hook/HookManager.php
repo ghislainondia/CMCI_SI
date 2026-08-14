@@ -5,7 +5,7 @@ namespace ChurchCRM\Plugin\Hook;
 use ChurchCRM\Utils\LoggerUtils;
 
 /**
- * Hook Manager for ChurchCRM Plugin System.
+ * Hook Manager for CMCI Life Plugin System.
  *
  * Implements WordPress-style actions and filters for extensibility.
  *

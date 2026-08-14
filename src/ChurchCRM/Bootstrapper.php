@@ -51,7 +51,7 @@ class Bootstrapper
     private static bool $initialized = false;
 
     /**
-     * Initialize the ChurchCRM system
+     * Initialize the CMCI Life system
      * 
      * @param string $sSERVERNAME Database server hostname
      * @param string|int|null $dbPort Database server port (defaults to 3306)
@@ -296,17 +296,24 @@ class Bootstrapper
 
             // Get locale information
             $localeInfo = self::getCurrentLocale();
-            self::$bootStrapLogger->debug("Setting locale to: " . $localeInfo->getLocale());
-            
-            // Set locale with fallback options
-            $localeSet = setlocale(LC_ALL, 
-                $localeInfo->getLocale(), 
-                $localeInfo->getLocale() . '.UTF-8', 
-                $localeInfo->getLocale() . '.utf8'
-            );
-            
+            $requestedLocale = $localeInfo->getLocale();
+            self::$bootStrapLogger->debug("Setting locale to: " . $requestedLocale);
+
+            // Force French locale - explicitly prioritize fr_FR.UTF-8 for French systems
+            if (strpos($requestedLocale, 'fr') === 0 || $requestedLocale === 'fr_FR') {
+                $localeSet = setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR');
+            } else {
+                $localeSet = setlocale(LC_ALL,
+                    $requestedLocale . '.UTF-8',
+                    $requestedLocale . '.utf8',
+                    $requestedLocale
+                );
+            }
+
             if ($localeSet === false) {
-                self::$bootStrapLogger->warning("Failed to set locale: " . $localeInfo->getLocale() . ", using system default");
+                self::$bootStrapLogger->warning("Failed to set locale: " . $requestedLocale . ", using system default");
+            } else {
+                self::$bootStrapLogger->debug("Locale set to: " . $localeSet);
             }
 
             // Get numeric and monetary locale settings
@@ -414,7 +421,7 @@ class Bootstrapper
     }
     private static function isDatabaseEmpty(): bool
     {
-        self::$bootStrapLogger->debug("Checking for ChurchCRM Database tables");
+        self::$bootStrapLogger->debug("Checking for CMCI Life Database tables");
         try {
             $connection = Propel::getConnection();
             $query = "SHOW TABLES FROM `" . self::$databaseName . "`";
@@ -603,11 +610,11 @@ class Bootstrapper
                 require_once $headerPath;
             } else {
                 // Fallback to basic HTML header
-                echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>ChurchCRM - Error</title></head><body>';
+                echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Installation - CMCI Life</title></head><body>';
             }
             ?>
     <div class='container'>
-        <h3>ChurchCRM – <?= _($header) ?></h3>
+        <h3>CMCI Life – <?= _($header) ?></h3>
         <div class='alert alert-danger text-center'>
             <?= gettext($message) ?>
         </div>
@@ -620,9 +627,9 @@ class Bootstrapper
             }
         } catch (\Exception $e) {
             // Last resort: plain HTML error if header/footer includes fail
-            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>ChurchCRM Error</title></head><body>';
+            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Installation - CMCI Life</title></head><body>';
             echo '<div style="max-width: 800px; margin: 50px auto; padding: 20px;">';
-            echo '<h1>ChurchCRM Error</h1>';
+            echo '<h1>CMCI Life Error</h1>';
             echo '<div style="padding: 15px; margin: 20px 0; border: 1px solid #f5c6cb; background-color: #f8d7da; color: #721c24; border-radius: 4px;">';
             echo InputUtils::escapeHTML($message);
             echo '</div></div></body></html>';

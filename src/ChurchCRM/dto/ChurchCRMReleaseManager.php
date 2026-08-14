@@ -416,13 +416,13 @@ class ChurchCRMReleaseManager
                 }
             }
 
-            $logger->error('Cannot write to ChurchCRM installation directory', [
+            $logger->error('Cannot write to CMCI Life installation directory', [
                 'docRoot' => $docRoot,
                 'isWritable' => false,
                 'permissions' => substr(sprintf('%o', fileperms($docRoot)), -4),
                 'owner' => $ownerName,
             ]);
-            throw new \Exception(gettext('Cannot write to ChurchCRM installation directory. Please check that the web server has write permissions.'));
+            throw new \Exception(gettext('Cannot write to CMCI Life installation directory. Please check that the web server has write permissions.'));
         }
 
         // Create Upgrade directory if it doesn't exist

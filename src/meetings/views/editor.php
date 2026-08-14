@@ -21,7 +21,41 @@ foreach ($attendanceRows as $row) {
 }
 ?>
 
-<div class="container-fluid">
+<style nonce="<?= SystemURLs::getCSPNonce() ?>">
+    .meeting-editor-premium { --me-primary:#166c5d; --me-primary-dark:#0c4d42; --me-ink:#17251f; --me-muted:#66756e; --me-line:#e5ece8; --me-canvas:#f5f8f6; --me-radius:16px; animation:me-enter .35s ease-out both; background:var(--me-canvas); border-radius:var(--me-radius); color:var(--me-ink); padding:1.25rem; }
+    @keyframes me-enter { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    .meeting-editor-hero { background:linear-gradient(118deg,var(--me-primary-dark),var(--me-primary) 64%,#258976); border-radius:20px; box-shadow:0 12px 30px rgba(11,77,66,.18); color:#fff; margin-bottom:1rem; overflow:hidden; padding:1.45rem 1.5rem; position:relative; }
+    .meeting-editor-hero::after { border:1px solid rgba(255,255,255,.15); border-radius:50%; content:''; height:280px; pointer-events:none; position:absolute; right:-75px; top:-145px; width:280px; }
+    .meeting-editor-hero > * { position:relative; z-index:1; }
+    .meeting-editor-kicker { color:rgba(255,255,255,.76); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .meeting-editor-title { font-size:clamp(1.45rem,2.7vw,2.05rem); font-weight:700; letter-spacing:-.04em; line-height:1.12; margin:.35rem 0 .65rem; }
+    .meeting-editor-copy { color:rgba(255,255,255,.86); font-size:.92rem; line-height:1.5; margin:0; }
+    .meeting-editor-steps { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:flex-lg-end; }
+    .meeting-editor-step { backdrop-filter:blur(8px); background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.18); border-radius:999px; font-size:.76rem; font-weight:600; padding:.48rem .7rem; }
+    .meeting-editor-premium .card { border:1px solid var(--me-line); border-radius:var(--me-radius); box-shadow:0 8px 24px rgba(17,47,38,.06); margin-bottom:1rem; overflow:visible; }
+    .meeting-editor-premium .card-header { background:linear-gradient(90deg,#f9fcfa,#fff); border-bottom-color:var(--me-line); min-height:64px; padding:1rem 1.25rem; }
+    .meeting-editor-premium .card-title { color:var(--me-ink); font-size:1rem; font-weight:700; letter-spacing:-.02em; }
+    .meeting-editor-premium .card-title .ti { color:var(--me-primary); font-size:1.1rem; }
+    .meeting-editor-premium .card-body { padding:1.25rem; }
+    .meeting-editor-premium label { color:#40554c; font-size:.81rem; font-weight:700; margin-bottom:.38rem; }
+    .meeting-editor-premium .form-control, .meeting-editor-premium .form-select { border-color:#dce7e1; border-radius:10px; min-height:43px; }
+    .meeting-editor-premium textarea.form-control { min-height:auto; }
+    .meeting-editor-premium .form-control:focus, .meeting-editor-premium .form-select:focus { border-color:#7fcab5; box-shadow:0 0 0 .2rem rgba(22,108,93,.12); }
+    #attendanceTable thead th { background:#f8fbf9; color:var(--me-muted); font-size:.68rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; }
+    #attendanceTable td { border-color:var(--me-line); padding:.8rem .75rem; vertical-align:middle; }
+    #attendanceTable tbody tr:hover { background:#f8fbf9; }
+    #attendanceTable .form-check-input:checked { background-color:var(--me-primary); border-color:var(--me-primary); }
+    .meeting-editor-actions { background:#fff; border:1px solid var(--me-line); border-radius:14px; box-shadow:0 8px 24px rgba(17,47,38,.06); margin-top:1.25rem; padding:.75rem; }
+    .meeting-editor-actions .btn { border-radius:10px; font-weight:700; min-height:43px; }
+    .meeting-editor-actions .btn-success { background:var(--me-primary); border-color:var(--me-primary); }
+    .meeting-editor-actions .btn-success:hover { background:var(--me-primary-dark); border-color:var(--me-primary-dark); }
+    @media (max-width:575.98px) { .meeting-editor-premium { border-radius:0; margin:0 -1rem; padding:1rem; } .meeting-editor-hero { padding:1.3rem; } .meeting-editor-steps { justify-content:flex-start; margin-top:1rem; } .meeting-editor-premium .card-header, .meeting-editor-premium .card-body { padding-left:1rem; padding-right:1rem; } .meeting-editor-actions { flex-wrap:wrap; } .meeting-editor-actions .btn { flex:1 1 100%; } }
+</style>
+
+<main class="meeting-editor-premium">
+    <section class="meeting-editor-hero" aria-label="<?= $meetingId > 0 ? gettext('Edit Meeting') : gettext('New Meeting') ?>">
+        <div class="row align-items-center g-3"><div class="col-lg-7"><div class="meeting-editor-kicker"><i class="ti ti-users-group me-1"></i><?= $meetingId > 0 ? gettext('Edit Meeting') : gettext('New Meeting') ?></div><h1 class="meeting-editor-title"><?= gettext('Schedule a meeting and record attendance') ?></h1><p class="meeting-editor-copy"><?= gettext('Create a clear meeting record, select the organizer, and follow the participation of each member.') ?></p></div><div class="col-lg-5"><div class="meeting-editor-steps"><span class="meeting-editor-step"><i class="ti ti-calendar-event me-1"></i><?= gettext('Meeting Information') ?></span><span class="meeting-editor-step"><i class="ti ti-users me-1"></i><?= gettext('Attendance') ?></span><span class="meeting-editor-step"><i class="ti ti-device-floppy me-1"></i><?= gettext('Save') ?></span></div></div></div>
+    </section>
     <?php if (!empty($errors)) : ?>
     <div class="alert alert-danger">
         <ul class="mb-0">
@@ -35,7 +69,7 @@ foreach ($attendanceRows as $row) {
     <form method="post" action="<?= InputUtils::escapeAttribute($formAction) ?>" id="meetingEditorForm">
         <div class="card mb-3">
             <div class="card-header">
-                <h3 class="card-title"><?= gettext('Meeting Information') ?></h3>
+                <h3 class="card-title"><i class="ti ti-calendar-event me-2"></i><?= gettext('Meeting Information') ?></h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -99,7 +133,7 @@ foreach ($attendanceRows as $row) {
 
         <div class="card mb-3">
             <div class="card-header">
-                <h3 class="card-title mb-0"><?= gettext('Attendance') ?></h3>
+                <h3 class="card-title mb-0"><i class="ti ti-users me-2"></i><?= gettext('Attendance') ?></h3>
             </div>
             <div class="card-body">
                 <p class="text-body-secondary small mb-3">
@@ -164,7 +198,7 @@ foreach ($attendanceRows as $row) {
             </div>
         </div>
 
-        <div class="d-flex gap-2">
+        <div class="meeting-editor-actions d-flex gap-2">
             <button type="submit" class="btn btn-success">
                 <i class="fa-solid fa-check me-1"></i><?= gettext('Save') ?>
             </button>
@@ -174,9 +208,9 @@ foreach ($attendanceRows as $row) {
             </a>
         </div>
     </form>
-</div>
+</main>
 
-<script>
+<script nonce="<?= SystemURLs::getCSPNonce() ?>">
 (function () {
     const root = window.CRM.root;
     const tbody = document.getElementById('attendanceTableBody');

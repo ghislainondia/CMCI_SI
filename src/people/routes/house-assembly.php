@@ -41,6 +41,11 @@ $app->get('/house-assembly', function (Request $request, Response $response): Re
             'title' => (string) $event->getTitle(),
             'when' => (string) $event->getStart('D d M · H:i'),
             'end' => (string) $event->getEnd('H:i'),
+            'dayShort' => (string) $event->getStart('D'),
+            'dayNum' => (string) $event->getStart('d'),
+            'monthShort' => (string) $event->getStart('M'),
+            'timeStart' => (string) $event->getStart('H:i'),
+            'timeEnd' => (string) $event->getEnd('H:i'),
         ];
     }
 
@@ -50,12 +55,17 @@ $app->get('/house-assembly', function (Request $request, Response $response): Re
         ->orderByDateLastEdited(Criteria::DESC)
         ->limit(5)
         ->find() as $person) {
-        $photo = new Photo('Person', (int) $person->getId());
+        $personId = (int) $person->getId();
+        $photo = new Photo('Person', $personId);
+        $photoVersion = $photo->getPhotoModifiedTime();
+        $photoUrl = SystemURLs::getRootPath() . '/api/person/' . $personId . '/photo'
+            . ($photoVersion > 0 ? ('?v=' . $photoVersion) : '');
         $recentProfiles[] = [
-            'id' => (int) $person->getId(),
+            'id' => $personId,
             'name' => (string) $person->getFullName(),
             'initials' => strtoupper(mb_substr((string) $person->getFirstName(), 0, 1) . mb_substr((string) $person->getLastName(), 0, 1)),
-            'photoUrl' => $photo->getPhotoURI(),
+            'hasPhoto' => $photo->hasUploadedPhoto(),
+            'photoUrl' => $photoUrl,
             'updatedAt' => $person->getDateLastEdited()?->format('d/m/Y') ?? '',
         ];
     }

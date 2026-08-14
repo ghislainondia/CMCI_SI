@@ -1,5 +1,5 @@
 /**
- * DiscipleMakerManager - Gestion des faiseurs de disciple dans ChurchCRM
+ * DiscipleMakerManager - Gestion des faiseurs de disciple dans CMCI Life
  *
  * Ce module gère l'affichage et la modification des relations de discipulat
  */

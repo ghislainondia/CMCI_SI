@@ -8,7 +8,7 @@ use Exception;
 /**
  * AuthService
  *
- * Centralized authentication and authorization service for ChurchCRM.
+ * Centralized authentication and authorization service for CMCI Life.
  * Provides static methods for common authorization checks.
  */
 class AuthService

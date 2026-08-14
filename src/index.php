@@ -19,7 +19,7 @@ try {
     http_response_code(500);
     header('Content-Type: text/plain; charset=utf-8');
     echo"Critical System Error:" . $e->getMessage() ."\n\n";
-    echo"Please contact your system administrator or check your ChurchCRM installation.";
+    echo"Please contact your system administrator or check your CMCI Life installation.";
     exit(1);
 }
 
