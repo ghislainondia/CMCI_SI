@@ -21,7 +21,7 @@ if ($isForced) {
                 <!-- Header with Logo -->
                 <div class="login-form-header">
                     <div class="login-header-logo">
-                        <img src="<?= SystemURLs::getRootPath() ?>/Images/logo-churchcrm-350.jpg" alt="ChurchCRM" />
+                        <img src="<?= SystemURLs::getRootPath() ?>/Images/logo-cmci.jpeg" alt="CMCI Life" />
                     </div>
                 </div>
 

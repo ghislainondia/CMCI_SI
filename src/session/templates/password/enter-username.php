@@ -13,7 +13,7 @@ require(SystemURLs::getDocumentRoot() ."/Include/HeaderNotLoggedIn.php");
   <div class="forgot-password-card">
     <!-- Header with Logo and Church Name -->
     <div class="forgot-password-card-logo">
-      <img src="<?= SystemURLs::getRootPath() ?>/Images/logo-churchcrm-350.jpg" alt="ChurchCRM" />
+      <img src="<?= SystemURLs::getRootPath() ?>/Images/logo-cmci.jpeg" alt="CMCI Life" />
     </div>
     <h2><?= ChurchMetaData::getChurchName() ?></h2>
     <p class="login-header-tagline"><?= gettext('Account Recovery') ?></p>

@@ -103,7 +103,7 @@ class ChurchMetaData
             return $configured;
         }
 
-        return SystemURLs::getURL() . '/Images/logo-churchcrm-350.jpg';
+        return SystemURLs::getURL() . '/Images/logo-cmci.jpeg';
     }
 
     /**
