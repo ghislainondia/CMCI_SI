@@ -255,12 +255,12 @@ $MenuFirst = 1;
       }
       ?>
       <a href="<?= $logoTarget ?>" class="navbar-brand py-2">
-        <img src="<?= SystemURLs::getRootPath() ?>/Images/CRM_50x50.png"
-             alt="<?= InputUtils::escapeAttribute(ChurchMetaData::getChurchName() ?: 'ChurchCRM') ?>"
+        <img src="<?= SystemURLs::getRootPath() ?>/Images/logo-cmci.jpeg"
+             alt="<?= InputUtils::escapeAttribute(ChurchMetaData::getChurchName() ?: 'CMCI Life') ?>"
              class="navbar-brand-image rounded"
              style="height: 42px; width: auto;">
         <span class="navbar-brand-text ps-2 fs-4 fw-bold">
-          <?= ChurchMetaData::getChurchName() ?: 'ChurchCRM' ?>
+          <?= ChurchMetaData::getChurchName() ?: 'CMCI Life' ?>
         </span>
       </a>
       <div class="collapse navbar-collapse" id="sidebar-menu">
