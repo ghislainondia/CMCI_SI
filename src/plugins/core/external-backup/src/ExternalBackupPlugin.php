@@ -13,7 +13,7 @@ use ChurchCRM\Utils\LoggerUtils;
 /**
  * External Backup Plugin.
  *
- * Provides WebDAV backup functionality for ChurchCRM databases.
+ * Provides WebDAV backup functionality for CMCI Life databases.
  * Supports automatic scheduled backups and manual remote backups.
  */
 class ExternalBackupPlugin extends AbstractPlugin

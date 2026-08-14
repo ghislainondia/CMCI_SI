@@ -181,7 +181,7 @@ msgid ""
 "2. Find your API Key and API Secret on the Vonage Dashboard homepage\n"
 "3. Go to Numbers > Buy Numbers and purchase a number with SMS capability\n"
 "4. Note the number in E.164 format (e.g., +14155551234)\n"
-"5. In ChurchCRM, enable the Vonage SMS plugin and enter your credentials"
+"5. In CMCI Life, enable the Vonage SMS plugin and enter your credentials"
 msgstr ""
 
 msgid "1. Download the template"
@@ -238,7 +238,7 @@ msgstr ""
 msgid "A Calendar access token has been generated and saved."
 msgstr ""
 
-msgid "A ChurchCRM account was created for you"
+msgid "A CMCI Life account was created for you"
 msgstr ""
 
 msgid "A class is a Group with type \"Sunday School\". It holds the students and teachers (members with roles)."
@@ -298,7 +298,7 @@ msgstr ""
 msgid "About WebDAV Backups"
 msgstr ""
 
-msgid "Absolute http(s) URL of the church logo shown in email templates (and re-used elsewhere in the future). For best rendering across email clients, use a wide banner image at roughly a 3.5:1 aspect ratio (for example 350×100 px), PNG or JPG, served over HTTPS. Leave blank or enter an invalid value to fall back to the default ChurchCRM logo."
+msgid "Absolute http(s) URL of the church logo shown in email templates (and re-used elsewhere in the future). For best rendering across email clients, use a wide banner image at roughly a 3.5:1 aspect ratio (for example 350×100 px), PNG or JPG, served over HTTPS. Leave blank or enter an invalid value to fall back to the default CMCI Life logo."
 msgstr ""
 
 msgid "Accepted format: .csv"
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Add everyone in your household — adults and children alike."
 msgstr ""
 
-msgid "Add families and individuals one by one directly in ChurchCRM. Great for smaller congregations or topping up imported data."
+msgid "Add families and individuals one by one directly in CMCI Life. Great for smaller congregations or topping up imported data."
 msgstr ""
 
 msgid "Add first family"
@@ -1106,7 +1106,7 @@ msgstr ""
 msgid "Attendance record deleted."
 msgstr ""
 
-msgid "Audience not in the ChurchCRM"
+msgid "Audience not in the CMCI Life"
 msgstr ""
 
 msgid "Audiences"
@@ -1159,7 +1159,7 @@ msgstr ""
 msgid "Auto-mapped"
 msgstr ""
 
-msgid "Automatically backup your ChurchCRM database to external cloud storage via WebDAV."
+msgid "Automatically backup your CMCI Life database to external cloud storage via WebDAV."
 msgstr ""
 
 msgid "Automatically detect coordinates using address"
@@ -1692,7 +1692,7 @@ msgstr ""
 msgid "Cannot send test email"
 msgstr ""
 
-msgid "Cannot write to ChurchCRM installation directory. Please check that the web server has write permissions."
+msgid "Cannot write to CMCI Life installation directory. Please check that the web server has write permissions."
 msgstr ""
 
 #. Context: countries
@@ -1821,7 +1821,7 @@ msgstr ""
 msgid "Check for Updates"
 msgstr ""
 
-msgid "Check for updates and upgrade your ChurchCRM installation"
+msgid "Check for updates and upgrade your CMCI Life installation"
 msgstr ""
 
 #, php-format
@@ -1999,19 +1999,19 @@ msgstr ""
 msgid "Church name is required. Please fill in the Church Identity section above."
 msgstr ""
 
-msgid "ChurchCRM Test Email"
+msgid "CMCI Life Test Email"
 msgstr ""
 
-msgid "ChurchCRM auto-matches each column by name. Anything it cannot match is marked as Unmapped — pick a field or leave it as Ignore."
+msgid "CMCI Life auto-matches each column by name. Anything it cannot match is marked as Unmapped — pick a field or leave it as Ignore."
 msgstr ""
 
-msgid "ChurchCRM can send emails directly."
+msgid "CMCI Life can send emails directly."
 msgstr ""
 
-msgid "ChurchCRM supports a plugin architecture for extending functionality."
+msgid "CMCI Life supports a plugin architecture for extending functionality."
 msgstr ""
 
-msgid "ChurchCRM translations are managed by the community on POEditor. You can help by:"
+msgid "CMCI Life translations are managed by the community on POEditor. You can help by:"
 msgstr ""
 
 #. Context: queryparameteroptions_qpo
@@ -2161,7 +2161,7 @@ msgstr ""
 msgid "Colombia"
 msgstr ""
 
-msgid "Column was automatically matched to a ChurchCRM field."
+msgid "Column was automatically matched to a CMCI Life field."
 msgstr ""
 
 msgid "Coming soon"
@@ -2217,7 +2217,7 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-msgid "Complete these in any order to get ChurchCRM ready for your congregation."
+msgid "Complete these in any order to get CMCI Life ready for your congregation."
 msgstr ""
 
 msgid "Complete these tasks to ensure accurate year-end tax reporting for your donors."
@@ -2260,7 +2260,7 @@ msgstr ""
 msgid "Configure these settings in the"
 msgstr ""
 
-msgid "Configure this plugin to automatically backup your ChurchCRM database to WebDAV-compatible cloud storage services like Nextcloud, ownCloud, or any WebDAV server. Backups are encrypted during transfer using HTTPS."
+msgid "Configure this plugin to automatically backup your CMCI Life database to WebDAV-compatible cloud storage services like Nextcloud, ownCloud, or any WebDAV server. Backups are encrypted during transfer using HTTPS."
 msgstr ""
 
 msgid "Configured"
@@ -2331,7 +2331,7 @@ msgstr ""
 msgid "Connect Mailchimp to sync email lists for newsletters and campaigns."
 msgstr ""
 
-msgid "Connect an SMTP server so ChurchCRM can send emails"
+msgid "Connect an SMTP server so CMCI Life can send emails"
 msgstr ""
 
 msgid "Connect to your server via SSH, FTP, or your hosting control panel"
@@ -3139,7 +3139,7 @@ msgstr ""
 msgid "Description cannot exceed 100 characters"
 msgstr ""
 
-msgid "Destination directory does not exist. Please verify ChurchCRM is installed correctly."
+msgid "Destination directory does not exist. Please verify CMCI Life is installed correctly."
 msgstr ""
 
 msgid "Destructive Operation"
@@ -3628,7 +3628,7 @@ msgstr ""
 msgid "Enable email in the settings panel below, then configure your SMTP server."
 msgstr ""
 
-msgid "Enable email sending from ChurchCRM. Required for password reset, notifications, and email links."
+msgid "Enable email sending from CMCI Life. Required for password reset, notifications, and email links."
 msgstr ""
 
 msgid "Enable if your SMTP server requires a username and password"
@@ -4053,7 +4053,7 @@ msgstr ""
 msgid "Exports database structure and data. Smaller file size."
 msgstr ""
 
-msgid "Extend ChurchCRM with MailChimp, backups, and more"
+msgid "Extend CMCI Life with MailChimp, backups, and more"
 msgstr ""
 
 msgid "External (WebDAV) backup via plugin"
@@ -5035,7 +5035,7 @@ msgstr ""
 msgid "Get Started"
 msgstr ""
 
-msgid "Get Your Data Into ChurchCRM"
+msgid "Get Your Data Into CMCI Life"
 msgstr ""
 
 msgid "Get this from the plugin author. The installer will refuse the download if it does not match byte-for-byte."
@@ -5091,7 +5091,7 @@ msgid "Go to homepage"
 msgstr ""
 
 #. plugin:google-analytics:summary
-msgid "Google Analytics 4 (GA4) tracks how users interact with ChurchCRM, providing insights into page views, user engagement, and feature usage."
+msgid "Google Analytics 4 (GA4) tracks how users interact with CMCI Life, providing insights into page views, user engagement, and feature usage."
 msgstr ""
 
 #. plugin:google-analytics:link:0:label
@@ -5099,7 +5099,7 @@ msgid "Google Analytics Help"
 msgstr ""
 
 #. plugin:google-analytics:section:2:content
-msgid "Google Analytics collects anonymized usage data. No personal information from ChurchCRM records is sent to Google. Consider adding a privacy notice to your church's data policy."
+msgid "Google Analytics collects anonymized usage data. No personal information from CMCI Life records is sent to Google. Consider adding a privacy notice to your church's data policy."
 msgstr ""
 
 msgid "Grants all privileges"
@@ -5109,7 +5109,7 @@ msgid "Graphic"
 msgstr ""
 
 #. plugin:gravatar:summary
-msgid "Gravatar (Globally Recognized Avatar) displays profile photos from gravatar.com for members who don't have uploaded photos in ChurchCRM."
+msgid "Gravatar (Globally Recognized Avatar) displays profile photos from gravatar.com for members who don't have uploaded photos in CMCI Life."
 msgstr ""
 
 #. plugin:gravatar:link:1:label
@@ -5508,7 +5508,7 @@ msgid ""
 "3. Note: Alphanumeric sender IDs may be restricted in some countries"
 msgstr ""
 
-msgid "If you upload a backup from ChurchInfo or a previous version of ChurchCRM, it will be automatically upgraded to the current database schema."
+msgid "If you upload a backup from ChurchInfo or a previous version of CMCI Life, it will be automatically upgraded to the current database schema."
 msgstr ""
 
 msgid "Ignore Incomplete<br>Addresses"
@@ -5907,7 +5907,7 @@ msgstr ""
 msgid "Join our community and stay connected with"
 msgstr ""
 
-msgid "Join the ChurchCRM community and help us improve by sharing your information. It takes less than a minute!"
+msgid "Join the CMCI Life community and help us improve by sharing your information. It takes less than a minute!"
 msgstr ""
 
 msgid "Join the Translation Project on POEditor"
@@ -6132,7 +6132,7 @@ msgstr ""
 msgid "Let's get your system set up and ready to use"
 msgstr ""
 
-msgid "Let's restore your previous ChurchCRM data."
+msgid "Let's restore your previous CMCI Life data."
 msgstr ""
 
 msgid "Letters"
@@ -6229,7 +6229,7 @@ msgstr ""
 msgid "Load demo data"
 msgstr ""
 
-msgid "Load sample families, people, groups, and giving records. The safest way to learn ChurchCRM before committing your real data."
+msgid "Load sample families, people, groups, and giving records. The safest way to learn CMCI Life before committing your real data."
 msgstr ""
 
 msgid "Loaded php.ini"
@@ -6342,7 +6342,7 @@ msgid "MailChimp Dashboard"
 msgstr ""
 
 #. plugin:mailchimp:summary
-msgid "MailChimp Integration enables synchronization between ChurchCRM contacts and your MailChimp email marketing lists."
+msgid "MailChimp Integration enables synchronization between CMCI Life contacts and your MailChimp email marketing lists."
 msgstr ""
 
 msgid "MailChimp connection failed."
@@ -6891,7 +6891,7 @@ msgstr ""
 msgid "Move up"
 msgstr ""
 
-msgid "Moving from an existing ChurchCRM or ChurchInfo installation? Upload your backup file and we'll restore your data automatically."
+msgid "Moving from an existing CMCI Life or ChurchInfo installation? Upload your backup file and we'll restore your data automatically."
 msgstr ""
 
 #. Context: countries
@@ -7626,7 +7626,7 @@ msgid "OpenLP Website"
 msgstr ""
 
 #. plugin:openlp:summary
-msgid "OpenLP is free, open-source presentation software designed for churches. This plugin allows ChurchCRM to send notifications and alerts directly to your OpenLP display."
+msgid "OpenLP is free, open-source presentation software designed for churches. This plugin allows CMCI Life to send notifications and alerts directly to your OpenLP display."
 msgstr ""
 
 msgid "Opens a 2-minute window for devices to register at:"
@@ -7680,7 +7680,7 @@ msgstr ""
 msgid "Orphaned Files:"
 msgstr ""
 
-msgid "Orphaned files are PHP or JavaScript files that exist on your server but are not part of the official ChurchCRM release. These files may be leftover from previous versions and could pose security risks if they contain outdated code with vulnerabilities."
+msgid "Orphaned files are PHP or JavaScript files that exist on your server but are not part of the official CMCI Life release. These files may be leftover from previous versions and could pose security risks if they contain outdated code with vulnerabilities."
 msgstr ""
 
 msgid "Orphaned files from previous versions cleaned up"
@@ -8092,7 +8092,7 @@ msgid ""
 "- UK: +447700900123\n"
 "- Australia: +61412345678\n"
 "\n"
-"Recipient phone numbers in ChurchCRM member profiles should include the country code for SMS to work correctly."
+"Recipient phone numbers in CMCI Life member profiles should include the country code for SMS to work correctly."
 msgstr ""
 
 msgid "Photo"
@@ -8305,7 +8305,7 @@ msgstr ""
 msgid "Please update our records with corrections"
 msgstr ""
 
-msgid "Please upgrade ChurchCRM to version"
+msgid "Please upgrade CMCI Life to version"
 msgstr ""
 
 msgid "Please verify your family's information"
@@ -9053,7 +9053,7 @@ msgstr ""
 msgid "SMS Integration"
 msgstr ""
 
-msgid "SMS messages can be sent directly from ChurchCRM via the Vonage API."
+msgid "SMS messages can be sent directly from CMCI Life via the Vonage API."
 msgstr ""
 
 msgid "SMTP Authentication"
@@ -9598,7 +9598,7 @@ msgstr ""
 msgid "Share this URL with family members to verify their information"
 msgstr ""
 
-msgid "Shipped with ChurchCRM."
+msgid "Shipped with CMCI Life."
 msgstr ""
 
 msgid "Show Family Head of House Names"
@@ -9974,7 +9974,7 @@ msgstr ""
 msgid "Supported formats:"
 msgstr ""
 
-msgid "Supports backups from ChurchCRM and ChurchInfo."
+msgid "Supports backups from CMCI Life and ChurchInfo."
 msgstr ""
 
 #. Context: countries
@@ -10198,7 +10198,7 @@ msgstr ""
 msgid "That name already exists."
 msgstr ""
 
-msgid "The ChurchCRM maintainers have not reviewed it. You are responsible for the security and behaviour of anything you install here. Prefer the Browse Approved flow whenever possible."
+msgid "The CMCI Life maintainers have not reviewed it. You are responsible for the security and behaviour of anything you install here. Prefer the Browse Approved flow whenever possible."
 msgstr ""
 
 #. plugin:custom-links:section:0:content
@@ -10209,7 +10209,7 @@ msgid "The Events module is disabled"
 msgstr ""
 
 #. plugin:external-backup:section:0:content
-msgid "The External Backup plugin allows you to automatically backup your ChurchCRM database to WebDAV-compatible cloud storage services. This includes popular services like Nextcloud, ownCloud, or any server supporting WebDAV protocol."
+msgid "The External Backup plugin allows you to automatically backup your CMCI Life database to WebDAV-compatible cloud storage services. This includes popular services like Nextcloud, ownCloud, or any server supporting WebDAV protocol."
 msgstr ""
 
 msgid "The approved plugin list is empty. There are no third-party plugins available through the verified installer yet."
@@ -10351,19 +10351,19 @@ msgstr ""
 msgid "These files are not part of the official release and may pose security risks."
 msgstr ""
 
-msgid "These files were likely part of an older ChurchCRM version and were not cleaned up during a previous upgrade. Deleting them will improve your system security."
+msgid "These files were likely part of an older CMCI Life version and were not cleaned up during a previous upgrade. Deleting them will improve your system security."
 msgstr ""
 
 msgid "These links appear in the \"Links\" menu in the navigation sidebar when this plugin is enabled."
 msgstr ""
 
-msgid "These people are subscribed to your MailChimp audience but do not exist in ChurchCRM. Consider adding them to your database or removing them from MailChimp."
+msgid "These people are subscribed to your MailChimp audience but do not exist in CMCI Life. Consider adding them to your database or removing them from MailChimp."
 msgstr ""
 
-msgid "These people exist in ChurchCRM with email addresses but are not subscribed to this MailChimp audience. Consider inviting them to subscribe."
+msgid "These people exist in CMCI Life with email addresses but are not subscribed to this MailChimp audience. Consider inviting them to subscribe."
 msgstr ""
 
-msgid "These plugins have been reviewed and approved by the ChurchCRM maintainers. Click Install to download and install one — the plugin will not be enabled automatically."
+msgid "These plugins have been reviewed and approved by the CMCI Life maintainers. Click Install to download and install one — the plugin will not be enabled automatically."
 msgstr ""
 
 msgid "These values are pre-filled when creating new families. Leave blank to require manual entry."
@@ -10399,7 +10399,7 @@ msgstr ""
 msgid "This group currently has no properties!  You can add them in the Group Editor."
 msgstr ""
 
-msgid "This is a ChurchCRM test email."
+msgid "This is a CMCI Life test email."
 msgstr ""
 
 msgid "This is how your church information will appear on reports and directories."
@@ -10417,10 +10417,10 @@ msgstr ""
 msgid "This may take several minutes."
 msgstr ""
 
-msgid "This option requires at least version 3.22 of MySQL!  Hit browser back button to return to ChurchCRM."
+msgid "This option requires at least version 3.22 of MySQL!  Hit browser back button to return to CMCI Life."
 msgstr ""
 
-msgid "This page allows you to permanently erase all data in the ChurchCRM database. This action cannot be undone."
+msgid "This page allows you to permanently erase all data in the CMCI Life database. This action cannot be undone."
 msgstr ""
 
 msgid "This plugin does not support connection testing."
@@ -10434,7 +10434,7 @@ msgstr ""
 msgid "This plugin is currently used for Kiosk Check-in Notifications. When a child is checked into a Sunday School class via the kiosk system, an alert can be sent to the OpenLP projector display to notify parents or volunteers."
 msgstr ""
 
-msgid "This plugin is not on the ChurchCRM approved plugin list."
+msgid "This plugin is not on the CMCI Life approved plugin list."
 msgstr ""
 
 #. plugin:mailchimp:section:4:content
@@ -11014,7 +11014,7 @@ msgstr ""
 msgid "Upload Photo"
 msgstr ""
 
-msgid "Upload a CSV from Excel, Google Sheets, or your previous church management system and map columns to ChurchCRM fields."
+msgid "Upload a CSV from Excel, Google Sheets, or your previous church management system and map columns to CMCI Life fields."
 msgstr ""
 
 msgid "Upload a CSV to create families and people in bulk."
@@ -11453,7 +11453,7 @@ msgid "Vonage SMS Not Configured"
 msgstr ""
 
 #. plugin:vonage:summary
-msgid "Vonage SMS enables text message notifications for ChurchCRM using the Vonage API (formerly Nexmo). Send SMS alerts to parents when their child checks in via the kiosk system."
+msgid "Vonage SMS enables text message notifications for CMCI Life using the Vonage API (formerly Nexmo). Send SMS alerts to parents when their child checks in via the kiosk system."
 msgstr ""
 
 #. plugin:vonage:section:6:content
@@ -11620,12 +11620,12 @@ msgid ""
 msgstr ""
 
 #. plugin:gravatar:section:0:content
-msgid "When a member doesn't have an uploaded photo, ChurchCRM checks if they have a Gravatar associated with their email address. If a Gravatar exists, it displays that image. If not, the configured default image style is used."
+msgid "When a member doesn't have an uploaded photo, CMCI Life checks if they have a Gravatar associated with their email address. If a Gravatar exists, it displays that image. If not, the configured default image style is used."
 msgstr ""
 
 #. plugin:external-backup:section:2:content
 msgid ""
-"When auto-backup is enabled (interval > 0 hours), ChurchCRM will automatically create and upload a full database backup at the specified interval. The backup runs as part of normal page loads, so the system must have regular user activity to trigger backups.\n"
+"When auto-backup is enabled (interval > 0 hours), CMCI Life will automatically create and upload a full database backup at the specified interval. The backup runs as part of normal page loads, so the system must have regular user activity to trigger backups.\n"
 "\n"
 "Recommended intervals:\n"
 "- Daily backup: 24 hours\n"
@@ -11634,7 +11634,7 @@ msgid ""
 msgstr ""
 
 #. plugin:openlp:section:1:content
-msgid "When enabled and configured, ChurchCRM sends alert messages to your OpenLP server using the API v2 endpoint (POST /api/v2/plugins/alerts). These alerts appear as overlay notifications on your projected display."
+msgid "When enabled and configured, CMCI Life sends alert messages to your OpenLP server using the API v2 endpoint (POST /api/v2/plugins/alerts). These alerts appear as overlay notifications on your projected display."
 msgstr ""
 
 msgid "When enabled, hides the address field for people not assigned to a family"
@@ -11766,7 +11766,7 @@ msgstr ""
 msgid "You can now use your authenticator app to sign in. Each code is valid for 30 seconds."
 msgstr ""
 
-msgid "You can reset your ChurchCRM password by clicking this link"
+msgid "You can reset your CMCI Life password by clicking this link"
 msgstr ""
 
 msgid "You can review and verify your family information using the link below. If you need additional access, please contact your church administrator."
@@ -11832,22 +11832,22 @@ msgstr ""
 msgid "Your Cart is Empty"
 msgstr ""
 
-msgid "Your ChurchCRM Account was Deleted."
+msgid "Your CMCI Life Account was Deleted."
 msgstr ""
 
-msgid "Your ChurchCRM account was locked."
+msgid "Your CMCI Life account was locked."
 msgstr ""
 
-msgid "Your ChurchCRM account was unlocked."
+msgid "Your CMCI Life account was unlocked."
 msgstr ""
 
-msgid "Your ChurchCRM installation has been successfully upgraded."
+msgid "Your CMCI Life installation has been successfully upgraded."
 msgstr ""
 
-msgid "Your ChurchCRM installation is clean. All files on the server match the official release."
+msgid "Your CMCI Life installation is clean. All files on the server match the official release."
 msgstr ""
 
-msgid "Your ChurchCRM password has been changed"
+msgid "Your CMCI Life password has been changed"
 msgstr ""
 
 msgid "Your GA4 Measurement ID (G-XXXXXXXXXX)"
@@ -11874,7 +11874,7 @@ msgstr ""
 msgid "Your backup will be automatically upgraded to the latest database schema if needed."
 msgstr ""
 
-msgid "Your browser language preference differs from your ChurchCRM locale"
+msgid "Your browser language preference differs from your CMCI Life locale"
 msgstr ""
 
 msgid "Your cart contains"
@@ -11898,7 +11898,7 @@ msgstr ""
 msgid "Your database already contains data"
 msgstr ""
 
-msgid "Your database version is newer than the installed software. This usually means the software was rolled back to an older version. Please upgrade ChurchCRM to match your database."
+msgid "Your database version is newer than the installed software. This usually means the software was rolled back to an older version. Please upgrade CMCI Life to match your database."
 msgstr ""
 
 msgid "Your fiscal year starts in month"
@@ -12340,4 +12340,175 @@ msgid ""
 "• Session duration and engagement\n"
 "• User demographics (if enabled in GA4)\n"
 "• Device and browser information"
+msgstr ""
+#: Include/Header.php
+msgid "Leader workspace"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Church information"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "This week"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Stay connected to church life"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "This banner is ready to display church announcements, images, and important messages."
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Welcome, leader of %s. Follow your members and the life of the church from one place."
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Upcoming Programs"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Upcoming programs"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "No upcoming programs this week"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Church programs scheduled for the next seven days will appear here."
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "The next seven days"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Program"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Quick access"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Your House Assembly"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "%s members are currently assigned to your assembly."
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Your most useful actions"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Recent Profiles"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "Members recently added or updated"
+msgstr ""
+
+#: people/views/house-assembly-dashboard.php
+msgid "View all"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Plan, organize, and follow up on every meeting from one place."
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Next meeting"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Create the next meeting when you are ready."
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Meeting overview"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "All meetings"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Scheduled"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Completed"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Latest attendance"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Present at the last meeting"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Your next scheduled meetings"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Your future meetings will appear here."
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Attendance overview"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "The last recorded meeting had the attendance shown below."
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Latest completed meetings"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Present"
+msgstr ""
+
+#: meetings/views/dashboard.php
+msgid "Absent"
+msgstr ""
+
+#: PersonEditor.php
+msgid "Complete the essential information first, then add contact and membership details."
+msgstr ""
+
+#: event/views/calendar.php
+msgid "Keep your church schedule visible and organize upcoming moments from one place."
+msgstr ""
+
+#: bertoua/views/notes.php
+msgid "A guided journey to learn to walk with God"
+msgstr ""
+
+#: bertoua/views/notes.php
+msgid "Choose a lesson, review its questions with the members, and record their progress thoughtfully."
+msgstr ""
+
+#: bertoua/views/notes.php
+msgid "Select the assembly, module, and lesson before entering the members’ answers."
+msgstr ""
+
+#: meetings/views/list.php
+msgid "Find a meeting quickly, review its attendance, or continue its follow-up."
+msgstr ""
+
+#: meetings/views/list.php
+msgid "Attendance is available directly from each meeting."
+msgstr ""
+
+#: meetings/views/editor.php
+msgid "Create a clear meeting record, select the organizer, and follow the participation of each member."
 msgstr ""

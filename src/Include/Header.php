@@ -38,6 +38,10 @@ $_themePrimary = $_themeUser->getSettingValue('ui.theme.primary');
 if ($_themePrimary !== '') {
     $_themeAttrs .= ' data-bs-theme-primary="' . InputUtils::escapeAttribute($_themePrimary) . '"';
 }
+$leaderNavigationService = new HouseAssemblyLeaderService();
+$isHouseAssemblyLeader = $leaderNavigationService->isHouseAssemblyLeader();
+$leaderAssembly = $isHouseAssemblyLeader ? $leaderNavigationService->getScopedAssemblyFamily() : null;
+$leaderAssemblyName = $leaderAssembly?->getName() ?? '';
 // Top level menu index counter
 $MenuFirst = 1;
 ?>
@@ -48,9 +52,68 @@ $MenuFirst = 1;
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <?php require_once __DIR__ . '/Header-HTML-Scripts.php'; ?>
   <?= PluginManager::getPluginHeadContent() ?>
+  <?php if ($isHouseAssemblyLeader): ?>
+  <style nonce="<?= SystemURLs::getCSPNonce() ?>">
+    /* Leader workspace navigation: scoped so the regular CMCI Life navigation is unchanged. */
+    .house-assembly-leader-shell #sidebar {
+      background: #fbfdfc;
+      border-right: 1px solid #e2ebe6;
+    }
+    .house-assembly-leader-shell #sidebar .navbar-brand {
+      margin-bottom: .35rem;
+    }
+    .house-assembly-leader-shell #sidebar .navbar-brand-text {
+      color: #19352c;
+      font-size: 1.05rem !important;
+      letter-spacing: -.025em;
+    }
+    .house-assembly-leader-shell .leader-nav-context {
+      background: #edf7f3;
+      border: 1px solid #d8ebe3;
+      border-radius: 12px;
+      color: #1d5548;
+      margin: .2rem .1rem 1rem;
+      padding: .75rem;
+    }
+    .house-assembly-leader-shell .leader-nav-context__eyebrow {
+      color: #5e7b70;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .075em;
+      text-transform: uppercase;
+    }
+    .house-assembly-leader-shell .leader-nav-context__name {
+      font-size: .82rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-top: .2rem;
+    }
+    .house-assembly-leader-shell #sidebar .navbar-nav { gap: .18rem; }
+    .house-assembly-leader-shell #sidebar .nav-link {
+      border-radius: 10px;
+      color: #50645c;
+      font-size: .9rem;
+      font-weight: 600;
+      min-height: 42px;
+      padding: .65rem .75rem;
+      transition: background .16s ease, color .16s ease;
+    }
+    .house-assembly-leader-shell #sidebar .nav-link:hover {
+      background: #eef6f2;
+      color: #115b4c;
+    }
+    .house-assembly-leader-shell #sidebar .nav-link.active {
+      background: #dff1e9;
+      color: #0f5e4e;
+    }
+    .house-assembly-leader-shell #sidebar .nav-link.active .nav-link-icon { color: #0f7b65; }
+    .house-assembly-leader-shell #sidebar .nav-link-icon { color: #6d8178; width: 1.5rem; }
+    .house-assembly-leader-shell #sidebar .nav-link-arrow { color: #8b9b94; }
+  </style>
+  <?php endif; ?>
 </head>
 
-<body class="antialiased">
+<body class="antialiased<?= $isHouseAssemblyLeader ? ' house-assembly-leader-shell' : '' ?>">
 <div class="page">
 
   <!-- Issue Report Modal -->
@@ -185,9 +248,9 @@ $MenuFirst = 1;
         <span class="navbar-toggler-icon"></span>
       </button>
       <?php
-      $leaderService = new HouseAssemblyLeaderService();
+      $leaderService = $leaderNavigationService;
       $logoTarget = SystemURLs::getRootPath() . '/v2/dashboard';
-      if ($leaderService->isHouseAssemblyLeader()) {
+      if ($isHouseAssemblyLeader) {
           $logoTarget = SystemURLs::getRootPath() . '/' . $leaderService->getHomePath();
       }
       ?>
@@ -201,6 +264,12 @@ $MenuFirst = 1;
         </span>
       </a>
       <div class="collapse navbar-collapse" id="sidebar-menu">
+        <?php if ($isHouseAssemblyLeader): ?>
+          <div class="leader-nav-context">
+            <div class="leader-nav-context__eyebrow"><?= gettext('Leader workspace') ?></div>
+            <div class="leader-nav-context__name text-truncate"><?= InputUtils::escapeHTML($leaderAssemblyName) ?></div>
+          </div>
+        <?php endif; ?>
         <ul class="navbar-nav pt-xl-3">
           <?php MenuRenderer::renderMenu(); ?>
         </ul>

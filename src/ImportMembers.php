@@ -12,11 +12,11 @@ header('Content-Type: text/html; charset=utf-8');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Import de membres - ChurchCRM</title>
+    <title>Installation - CMCI Life</title>
     <style>body { font-family: Arial, sans-serif; margin: 20px; } pre { background: #f4f4f4; padding: 10px; border-radius: 5px; font-size: 12px; }</style>
 </head>
 <body>
-    <h1>🔄 Import de membres ChurchCRM (version simple)</h1>
+    <h1>🔄 Import de membres CMCI Life (version simple)</h1>
     <pre>
 <?php
 

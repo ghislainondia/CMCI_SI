@@ -44,7 +44,7 @@ $isOnboarding = $isOnboarding ?? false;
         <ul class="mb-0">
             <li class="text-danger"><strong><?= gettext('CAUTION: Restoring a backup will completely erase the existing database and replace it with the backup data.') ?></strong></li>
             <li><?= gettext('This action cannot be undone. Make sure you have a backup of the current data if needed.') ?></li>
-            <li><?= gettext('If you upload a backup from ChurchInfo or a previous version of ChurchCRM, it will be automatically upgraded to the current database schema.') ?></li>
+            <li><?= gettext('If you upload a backup from ChurchInfo or a previous version of CMCI Life, it will be automatically upgraded to the current database schema.') ?></li>
         </ul>
     </div>
 </div>

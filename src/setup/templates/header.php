@@ -19,7 +19,7 @@
         <!-- Setup JS bundle (includes jQuery, Bootstrap, bs-stepper, and setup.js logic) -->
         <script src="<?= $rootPath ?>/skin/v2/setup.min.js" defer></script>
 
-        <title>ChurchCRM: <?= $sPageTitle ?? 'Setup' ?></title>
+        <title>CMCI Life: <?= $sPageTitle ?? 'Setup' ?></title>
 
     </head>
     <body class="hold-transition login-page">

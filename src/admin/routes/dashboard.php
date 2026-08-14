@@ -25,7 +25,7 @@ $app->get('/get-started', function (Request $request, Response $response) {
 
     $pageArgs = [
         'sRootPath'  => SystemURLs::getRootPath(),
-        'sPageTitle' => gettext('Get Your Data Into ChurchCRM'),
+        'sPageTitle' => gettext('Get Your Data Into CMCI Life'),
         'sPageSubtitle' => gettext('Choose how you\'d like to populate your database. You can always use a different method later.'),
         'aBreadcrumbs' => PageHeader::breadcrumbs([
             [gettext('Admin'), '/admin/'],

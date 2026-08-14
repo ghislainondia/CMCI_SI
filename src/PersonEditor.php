@@ -19,15 +19,14 @@ use ChurchCRM\Service\DiscipleMakerService;
 use ChurchCRM\Utils\RedirectUtils;
 use ChurchCRM\view\PageHeader;
 
-$sPageTitle = gettext('Person Editor');
-$sPageSubtitle = gettext('Add or edit individual person records');
-
 // Get the PersonID out of the querystring
 $iPersonID = 0;
 if (array_key_exists('PersonID', $_GET)) {
     $iPersonID = (int) InputUtils::legacyFilterInput($_GET['PersonID'], 'int');
 }
 $isNewPerson = $iPersonID === 0;
+$sPageTitle = $isNewPerson ? gettext('New Person') : gettext('Edit Person');
+$sPageSubtitle = gettext('Add or edit individual person records');
 
 $sPreviousPage = '';
 if (array_key_exists('previousPage', $_GET)) {
@@ -579,6 +578,82 @@ $aBreadcrumbs = PageHeader::breadcrumbs([
 require_once __DIR__ . '/Include/Header.php';
 
 ?>
+<style nonce="<?= SystemURLs::getCSPNonce() ?>">
+    /* Presentation layer only: the existing editor fields, validation and JavaScript identifiers are unchanged. */
+    .person-editor-premium {
+        --person-primary: #166c5d;
+        --person-primary-dark: #0c4d42;
+        --person-primary-soft: #e8f4f0;
+        --person-ink: #17251f;
+        --person-muted: #66756e;
+        --person-line: #e5ece8;
+        --person-canvas: #f5f8f6;
+        --person-radius: 16px;
+        --person-shadow: 0 8px 24px rgba(17, 47, 38, .06);
+        animation: person-enter .35s ease-out both;
+        background: var(--person-canvas);
+        border-radius: var(--person-radius);
+        color: var(--person-ink);
+        padding: 1.25rem;
+    }
+
+    @keyframes person-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .person-editor-premium a:focus-visible, .person-editor-premium button:focus-visible, .person-editor-premium input:focus-visible, .person-editor-premium select:focus-visible { outline: 3px solid rgba(226,166,66,.55); outline-offset: 2px; }
+    .person-editor-hero { background: linear-gradient(118deg, var(--person-primary-dark), var(--person-primary) 64%, #258976); border-radius: 20px; box-shadow: 0 12px 30px rgba(11,77,66,.18); color: #fff; margin-bottom: 1rem; overflow: hidden; padding: 1.45rem 1.5rem; position: relative; }
+    .person-editor-hero::after { border: 1px solid rgba(255,255,255,.15); border-radius: 50%; content: ''; height: 270px; pointer-events: none; position: absolute; right: -70px; top: -145px; width: 270px; }
+    .person-editor-hero > * { position: relative; z-index: 1; }
+    .person-editor-kicker { color: rgba(255,255,255,.76); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .person-editor-hero-title { font-size: clamp(1.35rem, 2.5vw, 1.9rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.15; margin: .35rem 0; }
+    .person-editor-copy { color: rgba(255,255,255,.84); font-size: .91rem; margin: 0; }
+    .person-editor-steps { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: flex-lg-end; }
+    .person-editor-step { backdrop-filter: blur(8px); background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; color: #fff; font-size: .76rem; font-weight: 600; padding: .48rem .7rem; }
+    .person-editor-step .ti { color: rgba(255,255,255,.8); }
+
+    .person-editor-premium .card { border: 1px solid var(--person-line); border-radius: var(--person-radius); box-shadow: var(--person-shadow); margin-bottom: 1rem; }
+    .person-editor-premium .card-header { background: linear-gradient(90deg, #f9fcfa, #fff); border-bottom-color: var(--person-line); min-height: 64px; padding: 1rem 1.25rem; }
+    .person-editor-premium .card-title { color: var(--person-ink); font-size: 1rem; font-weight: 700; letter-spacing: -.02em; margin: 0; }
+    .person-editor-premium .card-title .ti { color: var(--person-primary); font-size: 1.1rem; }
+    .person-editor-premium .card-body { padding: 1.25rem; }
+    .person-editor-premium label { color: #40554c; font-size: .81rem; font-weight: 700; margin-bottom: .38rem; }
+    .person-editor-premium .form-control, .person-editor-premium .form-select { border-color: #dce7e1; border-radius: 10px; min-height: 43px; }
+    .person-editor-premium .form-control:focus, .person-editor-premium .form-select:focus { border-color: #7fcab5; box-shadow: 0 0 0 .2rem rgba(22,108,93,.12); }
+    .person-editor-premium .input-group-text { background: #f1f7f4; border-color: #dce7e1; color: var(--person-primary); }
+    .person-editor-premium .form-check-input:checked { background-color: var(--person-primary); border-color: var(--person-primary); }
+    .person-editor-premium .tomselect-control .ts-control { border-color: #dce7e1; border-radius: 10px; min-height: 43px; }
+    .person-editor-premium .alert { border-radius: 12px; }
+    .person-editor-actions { background: #fff; border: 1px solid var(--person-line); border-radius: 14px; box-shadow: var(--person-shadow); margin-top: 1.25rem; padding: .75rem; }
+    .person-editor-actions .btn { border-radius: 10px; font-weight: 700; min-height: 43px; }
+    .person-editor-actions .btn-success { background: var(--person-primary); border-color: var(--person-primary); }
+    .person-editor-actions .btn-success:hover { background: var(--person-primary-dark); border-color: var(--person-primary-dark); }
+
+    @media (max-width: 575.98px) {
+        .person-editor-premium { border-radius: 0; margin: 0 -1rem; padding: 1rem; }
+        .person-editor-hero { padding: 1.3rem; }
+        .person-editor-steps { justify-content: flex-start; margin-top: 1rem; }
+        .person-editor-premium .card-header, .person-editor-premium .card-body { padding-left: 1rem; padding-right: 1rem; }
+        .person-editor-actions { gap: .5rem !important; padding: .6rem; }
+        .person-editor-actions .btn { flex: 1 1 100%; }
+    }
+</style>
+
+<main class="person-editor-premium">
+    <section class="person-editor-hero" aria-label="<?= $isNewPerson ? gettext('New Person') : gettext('Edit Person') ?>">
+        <div class="row align-items-center g-3">
+            <div class="col-lg-7">
+                <div class="person-editor-kicker"><i class="ti ti-user-plus me-1"></i><?= $isNewPerson ? gettext('New Person') : gettext('Edit Person') ?></div>
+                <h1 class="person-editor-hero-title"><?= gettext('Add or edit individual person records') ?></h1>
+                <p class="person-editor-copy"><?= gettext('Complete the essential information first, then add contact and membership details.') ?></p>
+            </div>
+            <div class="col-lg-5">
+                <div class="person-editor-steps">
+                    <span class="person-editor-step"><i class="ti ti-id me-1"></i><?= gettext('Name & Identity') ?></span>
+                    <span class="person-editor-step"><i class="ti ti-building-community me-1"></i><?= gettext('Family') ?></span>
+                    <span class="person-editor-step"><i class="ti ti-address-book me-1"></i><?= gettext('Contact Information') ?></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
 <form method="post" action="PersonEditor.php?PersonID=<?= $iPersonID ?>" name="PersonEditor" id="personEditor">
     <?php if ($bErrorFlag) {
         ?>
@@ -592,7 +667,7 @@ require_once __DIR__ . '/Include/Header.php';
     <!-- Card 1: Name & Identity -->
     <div class="card clearfix">
         <div class="card-header d-flex align-items-center">
-            <h3 class="card-title"><?= gettext('Name & Identity') ?></h3>
+            <h3 class="card-title"><i class="ti ti-id me-2"></i><?= gettext('Name & Identity') ?></h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -650,7 +725,7 @@ require_once __DIR__ . '/Include/Header.php';
     <!-- Card 2: Birth & Family -->
     <div class="card clearfix">
         <div class="card-header d-flex align-items-center">
-            <h3 class="card-title"><?= gettext('Birth & Family') ?></h3>
+            <h3 class="card-title"><i class="ti ti-heart me-2"></i><?= gettext('Birth & Family') ?></h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -739,7 +814,7 @@ require_once __DIR__ . '/Include/Header.php';
     <?php if (!SystemConfig::getBooleanValue('bHidePersonAddress') && $iFamily === 0) { /* Only show address for unaffiliated persons - General Settings */ ?>
     <div class="card clearfix">
         <div class="card-header d-flex align-items-center">
-            <h3 class="card-title"><?= gettext('Address') ?></h3>
+            <h3 class="card-title"><i class="ti ti-map-pin me-2"></i><?= gettext('Address') ?></h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -829,7 +904,7 @@ require_once __DIR__ . '/Include/Header.php';
     <!-- Card 3: Contact Information -->
     <div class="card clearfix">
         <div class="card-header d-flex align-items-center">
-            <h3 class="card-title"><?= gettext('Contact Information') ?></h3>
+            <h3 class="card-title"><i class="ti ti-address-book me-2"></i><?= gettext('Contact Information') ?></h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -945,7 +1020,7 @@ require_once __DIR__ . '/Include/Header.php';
     <!-- Card 4: Social Media -->
     <div class="card clearfix">
         <div class="card-header d-flex align-items-center">
-            <h3 class="card-title"><?= gettext('Social Media') ?></h3>
+            <h3 class="card-title"><i class="ti ti-share-3 me-2"></i><?= gettext('Social Media') ?></h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -992,7 +1067,7 @@ require_once __DIR__ . '/Include/Header.php';
     <!-- Card 5: Church Membership -->
     <div class="card clearfix">
         <div class="card-header d-flex align-items-center">
-            <h3 class="card-title"><?= gettext('Church Membership') ?></h3>
+            <h3 class="card-title"><i class="ti ti-church me-2"></i><?= gettext('Church Membership') ?></h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -1062,7 +1137,7 @@ require_once __DIR__ . '/Include/Header.php';
     <?php if ($numCustomFields > 0) { ?>
         <div class="card clearfix">
             <div class="card-header d-flex align-items-center">
-                <h3 class="card-title"><?= gettext('Custom Fields') ?></h3>
+                <h3 class="card-title"><i class="ti ti-adjustments me-2"></i><?= gettext('Custom Fields') ?></h3>
             </div>
             <div class="card-body">
                 <?php
@@ -1096,7 +1171,7 @@ require_once __DIR__ . '/Include/Header.php';
         </div>
     <?php } ?>
     <!-- Form submit buttons -->
-    <div class="d-flex gap-2 mt-4">
+    <div class="person-editor-actions d-flex gap-2 mt-4">
         <!-- Primary action: Save (green) -->
         <button type="submit" name="PersonSubmit" class="btn btn-success flex-grow-1">
             <i class="fa-solid fa-check me-2"></i><?= gettext('Save') ?>
@@ -1119,6 +1194,7 @@ require_once __DIR__ . '/Include/Header.php';
         <?php } ?>
     </div>
 </form>
+</main>
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
     $(function() {

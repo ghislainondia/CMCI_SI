@@ -22,7 +22,8 @@ class AnniversariesCalendar implements SystemCalendar
 
     public function getBackgroundColor(): string
     {
-        return '000000';
+        // A warm, accessible accent distinguishes wedding anniversaries from birthdays.
+        return 'A16207';
     }
 
     public function getForegroundColor(): string

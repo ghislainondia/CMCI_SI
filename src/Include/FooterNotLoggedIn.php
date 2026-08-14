@@ -9,24 +9,14 @@ use ChurchCRM\Service\SystemService;
 
 <div class="auth-footer">
   <div>
-    <strong><?= gettext('Copyright') ?> &copy; <?= SystemService::getCopyrightDate() ?> 
-    <a href="https://churchcrm.io" target="_blank" rel="noopener noreferrer"><b>Church</b>CRM</a></strong>. 
+    <strong><?= gettext('Copyright') ?> &copy; <?= SystemService::getCopyrightDate() ?> CMCI Sénégal.</strong>
     <?= gettext('All rights reserved') ?>.
   </div>
   <div class="auth-footer-social">
-    <a href="https://www.facebook.com/getChurchCRM" target="_blank" rel="noopener noreferrer" title="Facebook">
+    <a href="https://www.facebook.com/cmcisn" target="_blank" rel="noopener noreferrer" title="Facebook">
       <i class="fa-brands fa-facebook"></i>
     </a>
-    <a href="https://www.instagram.com/getchurchcrm/" target="_blank" rel="noopener noreferrer" title="Instagram">
-      <i class="fa-brands fa-instagram"></i>
-    </a>
-    <a href="https://x.com/getChurchCRM" target="_blank" rel="noopener noreferrer" title="X">
-      <i class="fa-brands fa-x-twitter"></i>
-    </a>
-    <a href="https://www.linkedin.com/company/getchurchcrm/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-      <i class="fa-brands fa-linkedin"></i>
-    </a>
-    <a href="https://www.youtube.com/@getChurchCRM" target="_blank" rel="noopener noreferrer" title="YouTube">
+    <a href="https://www.youtube.com/@ZTFMINISTRY" target="_blank" rel="noopener noreferrer" title="YouTube">
       <i class="fa-brands fa-youtube"></i>
     </a>
   </div>

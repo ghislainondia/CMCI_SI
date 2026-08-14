@@ -27,7 +27,7 @@ Error code: 1302 (UnifiedContainersErrorFatalCreatingContainer)
 {
   "dockerComposeFile": ["../docker/docker-compose.yaml", "docker-compose.override.yml"],
   "service": "webserver-dev",
-  "workspaceFolder": "/home/ChurchCRM"
+  "workspaceFolder": "/home/CMCI Life"
 }
 ```
 
@@ -163,7 +163,7 @@ After setup completes, these commands work immediately:
    ```
 
 5. **Access services**
-   - http://localhost → ChurchCRM
+   - http://localhost → CMCI Life
    - http://localhost:8025 → MailHog
    - http://localhost:8088 → Adminer
 

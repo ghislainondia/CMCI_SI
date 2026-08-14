@@ -419,7 +419,7 @@ function renderPluginCard(array $plugin, string $rootPath, string $nonce): void 
             <div class="card-body">
                 <p><?= gettext('ChurchCRM supports a plugin architecture for extending functionality.') ?></p>
                 <ul class="ps-3">
-                    <li><strong><?= gettext('Core plugins') ?>:</strong> <?= gettext('Shipped with ChurchCRM.') ?></li>
+                    <li><strong><?= gettext('Core plugins') ?>:</strong> <?= gettext('Shipped with CMCI Life.') ?></li>
                     <li><strong><?= gettext('Community plugins') ?>:</strong> <?= gettext('Third-party extensions.') ?></li>
                 </ul>
                 <p class="small text-body-secondary">

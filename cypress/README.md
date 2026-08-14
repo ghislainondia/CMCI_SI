@@ -1,4 +1,4 @@
-Cypress tests for ChurchCRM
+Cypress tests for CMCI Life
 
 Overview
 - `cypress/e2e/` — test specs; group by feature (e.g., `auth/`, `family/`, `donations/`).

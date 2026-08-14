@@ -16405,4 +16405,175 @@ msgstr "Ligne %d : le titre du module est obligatoire."
 msgid "This will delete all existing modules, lessons, and notes. Continue?"
 msgstr "Cela supprimera tous les modules, leçons et notes existants. Continuer ?"
 
+#: Include/Header.php
+msgid "Leader workspace"
+msgstr "Espace dirigeant"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Church information"
+msgstr "Informations de l'église"
+
+#: people/views/house-assembly-dashboard.php
+msgid "This week"
+msgstr "Cette semaine"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Stay connected to church life"
+msgstr "Restez connectés à la vie de l'église"
+
+#: people/views/house-assembly-dashboard.php
+msgid "This banner is ready to display church announcements, images, and important messages."
+msgstr "Cette bannière est prête à afficher les annonces, images et messages importants de l'église."
+
+#: people/views/house-assembly-dashboard.php
+msgid "Welcome, leader of %s. Follow your members and the life of the church from one place."
+msgstr "Bienvenue, dirigeant de %s. Suivez vos membres et la vie de l'église depuis un seul endroit."
+
+#: people/views/house-assembly-dashboard.php
+msgid "Upcoming Programs"
+msgstr "Programmes à venir"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Upcoming programs"
+msgstr "Programmes à venir"
+
+#: people/views/house-assembly-dashboard.php
+msgid "No upcoming programs this week"
+msgstr "Aucun programme prévu cette semaine"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Church programs scheduled for the next seven days will appear here."
+msgstr "Les programmes de l'église prévus pour les sept prochains jours apparaîtront ici."
+
+#: people/views/house-assembly-dashboard.php
+msgid "The next seven days"
+msgstr "Les sept prochains jours"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Program"
+msgstr "Programme"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Quick access"
+msgstr "Accès rapide"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Your House Assembly"
+msgstr "Votre assemblée de maison"
+
+#: people/views/house-assembly-dashboard.php
+msgid "%s members are currently assigned to your assembly."
+msgstr "%s membres sont actuellement rattachés à votre assemblée."
+
+#: people/views/house-assembly-dashboard.php
+msgid "Your most useful actions"
+msgstr "Vos actions les plus utiles"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Recent Profiles"
+msgstr "Profils récents"
+
+#: people/views/house-assembly-dashboard.php
+msgid "Members recently added or updated"
+msgstr "Membres ajoutés ou mis à jour récemment"
+
+#: people/views/house-assembly-dashboard.php
+msgid "View all"
+msgstr "Voir tout"
+
+#: meetings/views/dashboard.php
+msgid "Plan, organize, and follow up on every meeting from one place."
+msgstr "Planifiez, organisez et suivez chaque réunion depuis un seul endroit."
+
+#: meetings/views/dashboard.php
+msgid "Next meeting"
+msgstr "Prochaine réunion"
+
+#: meetings/views/dashboard.php
+msgid "Create the next meeting when you are ready."
+msgstr "Créez la prochaine réunion lorsque vous serez prêt."
+
+#: meetings/views/dashboard.php
+msgid "Meeting overview"
+msgstr "Aperçu des réunions"
+
+#: meetings/views/dashboard.php
+msgid "All meetings"
+msgstr "Toutes les réunions"
+
+#: meetings/views/dashboard.php
+msgid "Scheduled"
+msgstr "Planifiées"
+
+#: meetings/views/dashboard.php
+msgid "Completed"
+msgstr "Terminées"
+
+#: meetings/views/dashboard.php
+msgid "Latest attendance"
+msgstr "Dernière présence"
+
+#: meetings/views/dashboard.php
+msgid "Present at the last meeting"
+msgstr "Présents à la dernière réunion"
+
+#: meetings/views/dashboard.php
+msgid "Your next scheduled meetings"
+msgstr "Vos prochaines réunions planifiées"
+
+#: meetings/views/dashboard.php
+msgid "Your future meetings will appear here."
+msgstr "Vos prochaines réunions apparaîtront ici."
+
+#: meetings/views/dashboard.php
+msgid "Attendance overview"
+msgstr "Aperçu des présences"
+
+#: meetings/views/dashboard.php
+msgid "The last recorded meeting had the attendance shown below."
+msgstr "La dernière réunion enregistrée présente les présences ci-dessous."
+
+#: meetings/views/dashboard.php
+msgid "Latest completed meetings"
+msgstr "Dernières réunions terminées"
+
+#: meetings/views/dashboard.php
+msgid "Present"
+msgstr "Présents"
+
+#: meetings/views/dashboard.php
+msgid "Absent"
+msgstr "Absents"
+
+#: PersonEditor.php
+msgid "Complete the essential information first, then add contact and membership details."
+msgstr "Complétez d'abord les informations essentielles, puis ajoutez les coordonnées et les informations d'adhésion."
+
+#: event/views/calendar.php
+msgid "Keep your church schedule visible and organize upcoming moments from one place."
+msgstr "Gardez l'agenda de l'église visible et organisez les prochains rendez-vous depuis un seul endroit."
+
+#: bertoua/views/notes.php
+msgid "A guided journey to learn to walk with God"
+msgstr "Un parcours guidé pour apprendre à marcher avec Dieu"
+
+#: bertoua/views/notes.php
+msgid "Choose a lesson, review its questions with the members, and record their progress thoughtfully."
+msgstr "Choisissez une leçon, revoyez ses questions avec les membres et notez leur progression avec attention."
+
+#: bertoua/views/notes.php
+msgid "Select the assembly, module, and lesson before entering the members’ answers."
+msgstr "Sélectionnez l'assemblée, le module et la leçon avant de saisir les réponses des membres."
+
+#: meetings/views/list.php
+msgid "Find a meeting quickly, review its attendance, or continue its follow-up."
+msgstr "Retrouvez rapidement une réunion, consultez les présences ou poursuivez son suivi."
+
+#: meetings/views/list.php
+msgid "Attendance is available directly from each meeting."
+msgstr "Les présences sont disponibles directement depuis chaque réunion."
+
+#: meetings/views/editor.php
+msgid "Create a clear meeting record, select the organizer, and follow the participation of each member."
+msgstr "Créez une fiche de réunion claire, sélectionnez l'organisateur et suivez la participation de chaque membre."
 

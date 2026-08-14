@@ -2,7 +2,7 @@
 /**
  * PHP Version Error Page
  * 
- * Displays when the current PHP version is incompatible with ChurchCRM requirements.
+ * Displays when the current PHP version is incompatible with CMCI Life requirements.
  * This page is shown by index.php before autoloader is even loaded.
  */
 
@@ -24,7 +24,7 @@ if (file_exists($composerFile)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Version Error - ChurchCRM</title>
+    <title>Installation - CMCI Life</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <style>
         body {
@@ -128,7 +128,7 @@ if (file_exists($composerFile)) {
         </div>
 
         <div class="error-message">
-            <p>ChurchCRM requires PHP <?= $requiredPhpVersion ?> or later with active security support.</p>
+            <p>CMCI Life requires PHP <?= $requiredPhpVersion ?> or later with active security support.</p>
         </div>
 
         <div class="action-required">

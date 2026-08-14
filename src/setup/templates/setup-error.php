@@ -13,7 +13,7 @@ require_once __DIR__ . '/header.php';
         position: relative;
     }
 </style>
-<h1 class="text-center">Welcome to ChurchCRM Setup Error</h1>
+<h1 class="text-center">Welcome to CMCI Life Setup Error</h1>
 <p/><br/>
   <div class="error-page">
     <h2 class="headline text-yellow">500</h2>

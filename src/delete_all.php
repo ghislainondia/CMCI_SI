@@ -8,7 +8,7 @@ header('Content-Type: text/html; charset=utf-8');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Suppression totale - ChurchCRM</title>
+    <title>Installation - CMCI Life</title>
     <style>body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; } pre { background: #f4f4f4; padding: 15px; border-radius: 5px; }</style>
 </head>
 <body>

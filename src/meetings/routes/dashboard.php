@@ -4,6 +4,7 @@ use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\dto\ChurchVocabulary;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\MeetingService;
+use ChurchCRM\Utils\DateTimeUtils;
 use ChurchCRM\view\PageHeader;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -20,14 +21,35 @@ $app->get('/dashboard', function (Request $request, Response $response): Respons
     $meetings = $meetingService->getAllMeetings();
     $upcoming = [];
     $past = [];
-    $now = time();
+    $now = DateTimeUtils::getToday();
 
     foreach ($meetings as $meeting) {
-        $ts = strtotime($meeting['meetingDateTime']);
-        if ($ts >= $now) {
+        $meetingDateTime = DateTimeUtils::createDateTime((string) $meeting['meetingDateTime']);
+        $meeting['dayNumber'] = $meetingDateTime->format('d');
+        $meeting['monthNumber'] = $meetingDateTime->format('m');
+        $meeting['timeDisplay'] = $meetingDateTime->format('H:i');
+        $meeting['formattedDateTime'] = DateTimeUtils::formatDate($meetingDateTime, true);
+
+        if ($meetingDateTime >= $now) {
             $upcoming[] = $meeting;
         } else {
             $past[] = $meeting;
+        }
+    }
+
+    usort($upcoming, static fn (array $a, array $b): int => strcmp($a['meetingDateTime'], $b['meetingDateTime']));
+
+    $lastAttendance = ['present' => 0, 'absent' => 0];
+    if ($past !== []) {
+        $lastMeeting = $meetingService->getMeetingById((int) $past[0]['id']);
+        if ($lastMeeting !== null) {
+            foreach ($lastMeeting['attendance'] as $attendance) {
+                if ($attendance['isPresent']) {
+                    $lastAttendance['present']++;
+                } else {
+                    $lastAttendance['absent']++;
+                }
+            }
         }
     }
 
@@ -45,6 +67,10 @@ $app->get('/dashboard', function (Request $request, Response $response): Respons
         'upcomingMeetings' => $upcoming,
         'pastMeetings' => array_slice($past, 0, 10),
         'totalCount' => count($meetings),
+        'upcomingCount' => count($upcoming),
+        'pastCount' => count($past),
+        'nextMeeting' => $upcoming[0] ?? null,
+        'lastAttendance' => $lastAttendance,
         'canEdit' => $canEdit,
     ]);
 });

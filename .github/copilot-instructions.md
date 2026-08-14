@@ -1,14 +1,14 @@
-# ChurchCRM AI Agent Instructions
+# CMCI Life AI Agent Instructions
 
 This file is a pointer to the canonical development guidance for AI agents (Copilot, Claude, and other coding assistants).
 
 ## Where to Find Guidance
 
 - **Development Skills:** [.agents/skills/](../.agents/skills/) — modular, task-focused guidance for every workflow
-  - API development, database operations, testing, security, git workflow, and specialized ChurchCRM topics
+  - API development, database operations, testing, security, git workflow, and specialized CMCI Life topics
   - Load only the skills relevant to your current task
   
-- **AI Agent Workflow:** [Wiki: AI-Agent-Workflow](https://github.com/ChurchCRM/CRM/wiki/AI-Agent-Workflow) — how to use AI agents for features, bug fixes, and PRs
+- **AI Agent Workflow:** [Wiki: AI-Agent-Workflow](https://github.com/CMCI Life/CRM/wiki/AI-Agent-Workflow) — how to use AI agents for features, bug fixes, and PRs
   - Principles, workflows, templates, and best practices for safe AI-driven development
 
 - **Quick Reference by Task:**
@@ -20,9 +20,9 @@ This file is a pointer to the canonical development guidance for AI agents (Copi
 
 ## Key Principles
 
-1. **Follow ChurchCRM patterns:**
+1. **Follow CMCI Life patterns:**
    - Use Perpl ORM (never raw SQL)
-   - Implement business logic in `src/ChurchCRM/Service/`
+   - Implement business logic in `src/CMCI Life/Service/`
    - Use `SlimUtils::renderErrorJSON()` for API errors
    - Use `InputUtils` for XSS protection and `RedirectUtils` for redirects
 
@@ -47,8 +47,8 @@ This file is a pointer to the canonical development guidance for AI agents (Copi
 ## More Info
 
 - Full skill list and descriptions: [.agents/skills/README.md](../.agents/skills/README.md)
-- Workflow guide for contributors: [Wiki: AI-Agent-Workflow](https://github.com/ChurchCRM/CRM/wiki/AI-Agent-Workflow)
-- Repository: [github.com/ChurchCRM/CRM](https://github.com/ChurchCRM/CRM)
+- Workflow guide for contributors: [Wiki: AI-Agent-Workflow](https://github.com/CMCI Life/CRM/wiki/AI-Agent-Workflow)
+- Repository: [github.com/CMCI Life/CRM](https://github.com/CMCI Life/CRM)
 
 ---
 

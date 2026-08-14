@@ -29,7 +29,7 @@ class TestEmail extends BaseEmail
 
     public function getTokens(): array
     {
-        $body = gettext('This is a ChurchCRM test email.') . "\r\n\r\n"
+        $body = gettext('This is a CMCI Life test email.') . "\r\n\r\n"
             . gettext('If you can read this message in your inbox, your SMTP configuration is working correctly.');
 
         return array_merge($this->getCommonTokens(), [
@@ -40,7 +40,7 @@ class TestEmail extends BaseEmail
 
     protected function getSubSubject(): string
     {
-        return gettext('ChurchCRM Test Email');
+        return gettext('CMCI Life Test Email');
     }
 
     protected function getPreheader(): string

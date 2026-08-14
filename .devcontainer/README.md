@@ -1,10 +1,10 @@
-# ChurchCRM Development Container
+# CMCI Life Development Container
 
 Development container configuration for GitHub Codespaces and VS Code Dev Containers.
 
 ## What Happens Automatically
 
-When you open ChurchCRM in a Codespace or Dev Container, the setup automatically:
+When you open CMCI Life in a Codespace or Dev Container, the setup automatically:
 
 1. **✓ Checks Out Code** - Full repository cloned to workspace
 2. **✓ Installs Tools** - PHP 8.4+, Node.js 24 LTS, Composer, Git LFS, Docker
@@ -50,7 +50,7 @@ Services available after running `npm run docker:dev:start`:
 
 | Service | Port | Purpose | URL |
 |---------|------|---------|-----|
-| ChurchCRM Web | 80 | Main application | http://localhost |
+| CMCI Life Web | 80 | Main application | http://localhost |
 | MariaDB | 3306 | Database server | N/A (internal) |
 | MailHog UI | 8025 | Email testing | http://localhost:8025 |
 | Adminer | 8088 | Database admin | http://localhost:8088 |

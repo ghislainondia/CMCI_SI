@@ -1,5 +1,5 @@
 /**
- * ChurchCRM Cart Management Module
+ * CMCI Life Cart Management Module
  * Centralized cart operations with user feedback
  */
 

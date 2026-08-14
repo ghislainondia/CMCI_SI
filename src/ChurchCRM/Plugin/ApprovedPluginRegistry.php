@@ -41,7 +41,7 @@ class ApprovedPluginRegistry
         'network.outbound',   // plugin makes outbound HTTP(S) calls
         'network.inbound',    // plugin exposes new HTTP routes
         'db.read',            // plugin reads from ChurchCRM tables
-        'db.write',           // plugin writes to ChurchCRM tables
+        'db.write',           // plugin writes to CMCI Life tables
         'fs.read',            // plugin reads from the filesystem outside its own dir
         'fs.write',           // plugin writes to the filesystem outside its own dir
         'secrets.store',      // plugin stores credentials / API keys in its config

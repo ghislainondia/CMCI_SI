@@ -1,5 +1,5 @@
 /**
- * Form utility functions for ChurchCRM
+ * Form utility functions for CMCI Life
  */
 
 /**

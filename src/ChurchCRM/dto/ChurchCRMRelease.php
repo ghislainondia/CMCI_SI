@@ -77,7 +77,7 @@ class ChurchCRMRelease
             }
         }
 
-        throw new \Exception('Download URL not found for ChurchCRM release ' . $this->__toString());
+        throw new \Exception('Download URL not found for CMCI Life release ' . $this->__toString());
     }
 
     public function getReleaseNotes(): string

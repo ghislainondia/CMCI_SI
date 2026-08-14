@@ -100,6 +100,7 @@ class Menu
                 true,
                 'fa-house-chimney-user'
             ),
+            'Calendar' => self::getCalendarMenu($currentUser->canViewEvents()),
             'Meetings' => self::getMeetingsMenu($currentUser->isEditRecordsEnabled()),
             'Bertoua' => self::getBertouaMenu($currentUser->isAdmin()),
         ];
@@ -123,8 +124,8 @@ class Menu
         $calendarMenu = new MenuItem(gettext('Calendar'), 'event/calendars', $canViewEvents, 'fa-calendar');
         // Anniversaries calendar (ID 1) - black background
         $calendarMenu->addCounter(new MenuCounter('AnniversaryNumber', 'bg-dark', 0, gettext("Today's Wedding Anniversaries")));
-        // Birthdays calendar (ID 0) - blue background  
-        $calendarMenu->addCounter(new MenuCounter('BirthdateNumber', 'bg-primary', 0, gettext("Today's Birthdays")));
+        // Birthdays calendar (ID 0) - aligned with the calendar's teal birthday colour.
+        $calendarMenu->addCounter(new MenuCounter('BirthdateNumber', 'bg-teal', 0, gettext("Today's Birthdays")));
         // Events happening today - yellow/warning background
         $calendarMenu->addCounter(new MenuCounter('EventsNumber', 'bg-warning', 0, gettext('Events Today')));
 
